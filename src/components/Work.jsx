@@ -1,26 +1,4 @@
-const PROJECTS = [
-  {
-    name: "AutoFlow",
-    description:
-      "Dashboard for monitoring automated workflows — runs, failures, and time saved, at a glance.",
-    tags: ["Next.js", "Tailwind"],
-    href: "https://github.com/FindNoyan/autoflow",
-  },
-  {
-    name: "Tasklane",
-    description:
-      "A Kanban-style task manager for small teams, with boards, due dates, and activity history.",
-    tags: ["Laravel", "Blade", "SQLite"],
-    href: "https://github.com/FindNoyan/tasklane",
-  },
-  {
-    name: "Cadence",
-    description:
-      "Marketing landing page for a scheduling-automation product — built for a fast first impression.",
-    tags: ["HTML", "Tailwind", "JS"],
-    href: "https://github.com/FindNoyan/cadence",
-  },
-];
+import { projects } from "../data/content";
 
 export default function Work() {
   return (
@@ -29,7 +7,7 @@ export default function Work() {
         Selected work
       </h2>
       <div className="mt-8 divide-y divide-line border-y border-line">
-        {PROJECTS.map((project) => (
+        {projects.map((project) => (
           <a
             key={project.name}
             href={project.href}

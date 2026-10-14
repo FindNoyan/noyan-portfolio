@@ -1,11 +1,5 @@
 import { useEffect, useState } from "react";
-
-const LINES = [
-  { prompt: "noyan@dev:~$", cmd: "whoami" },
-  { out: "Full-stack developer & automation specialist" },
-  { prompt: "noyan@dev:~$", cmd: "status --current" },
-  { out: "Top Rated Plus on Upwork · open to new projects" },
-];
+import { hero, heroLines } from "../data/content";
 
 function useTypedLines(lines, speed = 28, lineDelay = 350) {
   const [rendered, setRendered] = useState([]);
@@ -41,33 +35,31 @@ function useTypedLines(lines, speed = 28, lineDelay = 350) {
 }
 
 export default function Hero() {
-  const typed = useTypedLines(LINES);
+  const typed = useTypedLines(heroLines);
 
   return (
     <section id="top" className="mx-auto max-w-4xl px-6 pb-20 pt-16 sm:pt-24">
       <div className="grid gap-12 sm:grid-cols-[1.1fr_1fr] sm:items-center">
         <div>
-          <p className="font-mono text-sm text-cyan">Full-stack developer</p>
+          <p className="font-mono text-sm text-cyan">{hero.eyebrow}</p>
           <h1 className="mt-3 font-display text-4xl font-semibold leading-tight text-ink sm:text-5xl">
-            Noyan builds web apps that run the busywork for you.
+            {hero.headline}
           </h1>
           <p className="mt-5 max-w-md text-base leading-relaxed text-muted">
-            I design and ship full-stack products — React, Next.js, Laravel —
-            then wire up the automation underneath so teams spend less time
-            on repetitive work.
+            {hero.sub}
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <a
-              href="#work"
+              href={hero.primaryCta.href}
               className="rounded-md bg-ink px-5 py-2.5 text-sm font-medium text-base transition-opacity hover:opacity-90 focus-ring"
             >
-              See my work
+              {hero.primaryCta.label}
             </a>
             <a
-              href="#contact"
+              href={hero.secondaryCta.href}
               className="rounded-md border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-cyan hover:text-cyan focus-ring"
             >
-              Get in touch
+              {hero.secondaryCta.label}
             </a>
           </div>
         </div>
@@ -79,7 +71,7 @@ export default function Hero() {
             <span className="h-2.5 w-2.5 rounded-full bg-line" />
           </div>
           <div className="min-h-[110px] space-y-1.5">
-            {LINES.map((line, i) => {
+            {heroLines.map((line, i) => {
               const value = typed[i];
               if (value === undefined) return null;
               return line.cmd ? (
