@@ -101,21 +101,21 @@ export const projects = [
     description:
       "Dashboard for monitoring automated workflows — runs, failures, and time saved, at a glance.",
     tags: ["Next.js", "Tailwind"],
-    href: "https://github.com/FindNoyan/autoflow",
+    href: "https://github.com/FindNoyan/autoflow-dashboard",
   },
   {
     name: "Tasklane",
     description:
       "A Kanban-style task manager for small teams, with boards, due dates, and activity history.",
     tags: ["Laravel", "Blade", "SQLite"],
-    href: "https://github.com/FindNoyan/tasklane",
+    href: "https://github.com/FindNoyan/tasklane-app",
   },
   {
     name: "Cadence",
     description:
       "Marketing landing page for a scheduling-automation product — built for a fast first impression.",
     tags: ["HTML", "Tailwind", "JS"],
-    href: "https://github.com/FindNoyan/cadence",
+    href: "https://github.com/FindNoyan/cadence-landing",
   },
 ];
 
