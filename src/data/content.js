@@ -15,6 +15,7 @@ export const site = {
 
 export const navLinks = [
   { label: "About", href: "#about" },
+  { label: "Services", href: "#services" },
   { label: "Work", href: "#work" },
   { label: "Contact", href: "#contact" },
 ];
@@ -52,6 +53,27 @@ export const facts = [
   { label: "Currently", value: "Studying Web Development at Virtual University" },
   { label: "Freelance", value: "Top Rated Plus on Upwork (top 3%)" },
   { label: "Agency", value: "Founder, Automation Consulting Services" },
+];
+
+export const services = [
+  {
+    title: "Full-Stack Web Apps",
+    description:
+      "React, Next.js, and Laravel products built end to end — from first screen to deployed app.",
+    tags: ["React", "Next.js", "Laravel"],
+  },
+  {
+    title: "Workflow Automation",
+    description:
+      "Automations that take over repetitive work — n8n, Zapier, and custom integrations that keep the business moving.",
+    tags: ["n8n", "Zapier"],
+  },
+  {
+    title: "E-commerce & Shopify",
+    description:
+      "Stores and storefronts built to sell — Shopify builds, custom sections, and conversion-focused pages.",
+    tags: ["Shopify"],
+  },
 ];
 
 export const skillGroups = [
