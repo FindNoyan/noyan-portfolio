@@ -38,7 +38,7 @@ export const hero = {
   eyebrow: "AI automation & business development",
   headline: "I help businesses get clients + automate work with AI.",
   sub: "I find the right chatbot, automation, and web solution for your business — and work with a development team to ship it — so your team spends less time on repetitive work and more time closing clients.",
-  // Gradient primary CTA first ("Book a Call"), secondary ("View My Work").
+  // Emerald primary CTA first ("Book a Call"), secondary ("View My Work").
   primaryCta: { label: "Book a Call", href: calendly.href, external: true },
   secondaryCta: { label: "View My Work", href: "#work" },
 };

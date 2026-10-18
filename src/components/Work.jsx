@@ -16,7 +16,7 @@ function CaseStudy({ project, heroCard = false }) {
         <span
           className={`rounded-full px-3 py-1 text-xs font-medium ${
             isLiveDemo
-              ? "bg-gradient-sunset text-white"
+              ? "bg-emerald text-white"
               : "border border-white/20 bg-white/5 text-zinc-300"
           }`}
         >
@@ -29,7 +29,7 @@ function CaseStudy({ project, heroCard = false }) {
 
       <dl className="mt-6 grid gap-6 sm:grid-cols-2">
         <div>
-          <dt className="text-xs font-medium uppercase tracking-[0.14em] text-gradient-sunset">
+          <dt className="text-xs font-medium uppercase tracking-[0.14em] text-goldLight">
             Problem
           </dt>
           <dd className="mt-1 text-sm leading-relaxed text-zinc-400">
@@ -37,7 +37,7 @@ function CaseStudy({ project, heroCard = false }) {
           </dd>
         </div>
         <div>
-          <dt className="text-xs font-medium uppercase tracking-[0.14em] text-gradient-sunset">
+          <dt className="text-xs font-medium uppercase tracking-[0.14em] text-goldLight">
             Solution
           </dt>
           <dd className="mt-1 text-sm leading-relaxed text-zinc-400">
@@ -47,7 +47,7 @@ function CaseStudy({ project, heroCard = false }) {
       </dl>
 
       <div className="mt-6">
-        <h4 className="text-xs font-medium uppercase tracking-[0.14em] text-gradient-sunset">
+        <h4 className="text-xs font-medium uppercase tracking-[0.14em] text-goldLight">
           What was built
         </h4>
         <ul className="mt-2 list-disc space-y-1 pl-5 text-sm leading-relaxed text-zinc-400">
@@ -76,7 +76,7 @@ function CaseStudy({ project, heroCard = false }) {
                 href={link.href}
                 target="_blank"
                 rel="noreferrer"
-                className="bg-gradient-sunset rounded-full px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 focus-ring"
+                className="bg-emerald rounded-full px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 focus-ring"
               >
                 {link.label} →
               </a>
@@ -106,7 +106,7 @@ export default function Work() {
         {/* Black rounded showcase container holding the case studies. */}
         <div className="rounded-[28px] bg-showcase px-5 py-10 shadow-card sm:rounded-[32px] sm:px-8 sm:py-12">
           <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-zinc-400">
-            <span className="bg-gradient-sunset inline-block h-2 w-2 rounded-full" />
+            <span className="inline-block h-2 w-2 rounded-full bg-gold" />
             Selected work
           </p>
           <h2 className="mt-4 font-display text-3xl font-semibold text-white sm:text-4xl">

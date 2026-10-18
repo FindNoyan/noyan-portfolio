@@ -2,14 +2,14 @@ import { services } from "../data/content";
 import Reveal from "./Reveal";
 
 // Solid accent blocks, one per service card.
-const accents = ["bg-royal", "bg-gold", "bg-grape"];
+const accents = ["bg-forest", "bg-emerald", "bg-goldDeep"];
 
 export default function Services() {
   return (
     <section id="services" className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
       <Reveal>
         <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-muted">
-          <span className="bg-gradient-sunset inline-block h-2 w-2 rounded-full" />
+          <span className="inline-block h-2 w-2 rounded-full bg-gold" />
           Services
         </p>
         <h2 className="mt-4 font-display text-3xl font-semibold text-ink sm:text-4xl">
@@ -19,7 +19,7 @@ export default function Services() {
           {services.map((service, i) => (
             <div
               key={service.title}
-              className="rounded-2xl border border-line bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-sunOrange/50 hover:shadow-card"
+              className="rounded-2xl border border-line bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-emerald/50 hover:shadow-card"
             >
               <span
                 aria-hidden="true"

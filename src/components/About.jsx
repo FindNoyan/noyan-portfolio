@@ -9,13 +9,13 @@ export default function About() {
     <section id="about" className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
       <Reveal>
         <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-muted">
-          <span className="bg-gradient-sunset inline-block h-2 w-2 rounded-full" />
+          <span className="inline-block h-2 w-2 rounded-full bg-gold" />
           About
         </p>
         <div className="mt-6 grid items-start gap-10 md:grid-cols-[280px_1fr]">
           {photoOk && (
             <figure className="mx-auto w-full max-w-[280px] md:mx-0">
-              <div className="bg-gradient-sunset rounded-2xl p-1.5 shadow-card">
+              <div className="rounded-2xl bg-forest p-1.5 shadow-card">
                 <img
                   src={photos.portrait.src}
                   alt={photos.portrait.alt}
@@ -23,7 +23,7 @@ export default function About() {
                   width={480}
                   height={720}
                   onError={() => setPhotoOk(false)}
-                  className="aspect-[2/3] w-full rounded-xl object-cover"
+                  className="photo-warm aspect-[2/3] w-full rounded-xl object-cover"
                 />
               </div>
               <figcaption className="mt-2 text-center text-xs text-muted">
@@ -46,7 +46,7 @@ export default function About() {
                   key={fact.label}
                   className="rounded-2xl border border-line bg-surface p-4"
                 >
-                  <dt className="text-xs font-medium uppercase tracking-[0.14em] text-[#C2410C]">
+                  <dt className="text-xs font-medium uppercase tracking-[0.14em] text-emerald">
                     {fact.label}
                   </dt>
                   <dd className="mt-1.5 text-sm leading-relaxed text-ink">

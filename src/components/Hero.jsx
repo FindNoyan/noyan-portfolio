@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { hero, photos } from "../data/content";
 
-// Accent words in the headline get the sunset gradient treatment.
-const ACCENT_WORDS = ["get clients", "automate work"];
+// Accent words in the headline: emerald + deep gold, drawn from the
+// portrait's own palette (green backdrop, warm gold tones).
+const ACCENT_WORDS = {
+  "get clients": "text-emerald",
+  "automate work": "text-goldDeep",
+};
 
 function renderHeadline(headline) {
-  const pattern = new RegExp(`(${ACCENT_WORDS.join("|")})`, "g");
+  const pattern = new RegExp(`(${Object.keys(ACCENT_WORDS).join("|")})`, "g");
   return headline.split(pattern).map((part, i) =>
-    ACCENT_WORDS.includes(part) ? (
-      <span key={i} className="text-gradient-sunset">
+    part in ACCENT_WORDS ? (
+      <span key={i} className={ACCENT_WORDS[part]}>
         {part}
       </span>
     ) : (
@@ -27,7 +31,7 @@ export default function Hero() {
       className="animate-fade-up mx-auto max-w-6xl px-6 pb-24 pt-32 text-center sm:pt-40"
     >
       <p className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-muted">
-        <span className="bg-gradient-sunset inline-block h-2 w-2 rounded-full" />
+        <span className="inline-block h-2 w-2 rounded-full bg-gold" />
         {hero.eyebrow}
       </p>
       <h1 className="mx-auto mt-6 max-w-4xl font-display text-[2.75rem] font-semibold leading-[1.05] text-ink sm:text-6xl lg:text-[4.25rem]">
@@ -42,13 +46,13 @@ export default function Hero() {
           {...(hero.primaryCta.external
             ? { target: "_blank", rel: "noreferrer" }
             : {})}
-          className="bg-gradient-sunset rounded-full px-7 py-3.5 text-sm font-medium text-white transition-all hover:-translate-y-0.5 hover:opacity-90 hover:shadow-glow focus-ring"
+          className="bg-emerald rounded-full px-7 py-3.5 text-sm font-medium text-white transition-all hover:-translate-y-0.5 hover:opacity-90 hover:shadow-glow focus-ring"
         >
           {hero.primaryCta.label}
         </a>
         <a
           href={hero.secondaryCta.href}
-          className="rounded-full border border-line bg-white px-7 py-3.5 text-sm font-medium text-ink transition-all hover:-translate-y-0.5 hover:border-sunOrange hover:text-sunOrange focus-ring"
+          className="rounded-full border border-line bg-white px-7 py-3.5 text-sm font-medium text-ink transition-all hover:-translate-y-0.5 hover:border-emerald hover:text-emerald focus-ring"
         >
           {hero.secondaryCta.label}
         </a>
@@ -60,7 +64,7 @@ export default function Hero() {
         <div className="relative mx-auto mt-16 max-w-lg">
           <div
             aria-hidden="true"
-            className="bg-gradient-sunset absolute -inset-6 rounded-[40px] opacity-25 blur-3xl"
+            className="hero-glow absolute -inset-6 rounded-[40px]"
           />
           <div className="relative rounded-[32px] bg-deepGreen p-3 shadow-card sm:p-4">
             <div className="overflow-hidden rounded-[24px]">
@@ -70,7 +74,7 @@ export default function Hero() {
                 width={480}
                 height={720}
                 onError={() => setPortraitOk(false)}
-                className="aspect-[2/3] w-full object-cover"
+                className="photo-warm aspect-[2/3] w-full object-cover"
               />
             </div>
             {/* Floating availability chip with the casual photo. */}

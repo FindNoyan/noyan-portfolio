@@ -3,10 +3,10 @@ import Reveal from "./Reveal";
 
 // Label colours with enough contrast on white.
 const labelColors = [
-  "text-royal",
-  "text-[#C2410C]",
-  "text-grape",
-  "text-[#166534]",
+  "text-forest",
+  "text-goldDeep",
+  "text-emerald",
+  "text-ink",
 ];
 
 export default function Skills() {
@@ -14,7 +14,7 @@ export default function Skills() {
     <section className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
       <Reveal>
         <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-muted">
-          <span className="bg-gradient-sunset inline-block h-2 w-2 rounded-full" />
+          <span className="inline-block h-2 w-2 rounded-full bg-gold" />
           Toolbox
         </p>
         <h2 className="mt-4 font-display text-3xl font-semibold text-ink sm:text-4xl">
@@ -24,7 +24,7 @@ export default function Skills() {
           {skillGroups.map((group, i) => (
             <div
               key={group.label}
-              className="rounded-2xl border border-line bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-sunOrange/50 hover:shadow-card"
+              className="rounded-2xl border border-line bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-emerald/50 hover:shadow-card"
             >
               <p
                 className={`text-xs font-medium uppercase tracking-[0.14em] ${labelColors[i % labelColors.length]}`}

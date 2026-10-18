@@ -51,7 +51,7 @@ export default function Contact() {
       <Reveal>
         <div className="rounded-[28px] border border-line bg-surface px-5 py-10 text-center shadow-card sm:rounded-[32px] sm:px-8 sm:py-14">
           <p className="flex items-center justify-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-muted">
-            <span className="bg-gradient-sunset inline-block h-2 w-2 rounded-full" />
+            <span className="inline-block h-2 w-2 rounded-full bg-gold" />
             Contact
           </p>
           <h2 className="mt-4 font-display text-3xl font-semibold text-ink sm:text-4xl">
@@ -64,7 +64,7 @@ export default function Contact() {
             href={contact.calendly.href}
             target="_blank"
             rel="noreferrer"
-            className="bg-gradient-sunset mt-6 inline-block rounded-full px-7 py-3.5 text-sm font-medium text-white transition-all hover:-translate-y-0.5 hover:opacity-90 hover:shadow-glow focus-ring"
+            className="bg-emerald mt-6 inline-block rounded-full px-7 py-3.5 text-sm font-medium text-white transition-all hover:-translate-y-0.5 hover:opacity-90 hover:shadow-glow focus-ring"
           >
             {contact.calendly.label}
           </a>
@@ -160,7 +160,7 @@ export default function Contact() {
             </div>
             <button
               type="submit"
-              className="bg-gradient-sunset w-full rounded-full px-6 py-3.5 text-sm font-medium text-white transition-all hover:-translate-y-0.5 hover:opacity-90 focus-ring"
+              className="bg-emerald w-full rounded-full px-6 py-3.5 text-sm font-medium text-white transition-all hover:-translate-y-0.5 hover:opacity-90 focus-ring"
             >
               {contact.form.submitLabel}
             </button>
@@ -175,7 +175,7 @@ export default function Contact() {
             Prefer email directly?{" "}
             <a
               href={`mailto:${site.email}`}
-              className="rounded font-medium text-[#C2410C] focus-ring"
+              className="rounded font-medium text-emerald focus-ring"
             >
               {site.email}
             </a>
@@ -187,7 +187,7 @@ export default function Contact() {
                 href={social.href}
                 target="_blank"
                 rel="noreferrer"
-                className="rounded text-sm text-muted transition-colors hover:text-sunOrange focus-ring"
+                className="rounded text-sm text-muted transition-colors hover:text-emerald focus-ring"
               >
                 {social.label}
               </a>
