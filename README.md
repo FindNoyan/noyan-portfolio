@@ -91,11 +91,11 @@ To enable AI answers:
 The About section shows Noyan's formal portrait and the Hero shows a
 small avatar photo. The site references:
 
-- `public/images/noyan-portrait.jpg` — formal portrait (About)
-- `public/images/noyan-casual.jpg` — casual photo (Hero avatar)
+- `public/noyan-portrait.jpg` — formal portrait (About)
+- `public/noyan-casual.jpg` — casual photo (Hero avatar)
 
 These are binary image files, so they are added to the repo via the
-GitHub web UI (Add file → Upload files → `public/images/`), not via
+GitHub web UI (Add file → Upload files → `public/`), not via
 automated text commits. Until they are uploaded, the `<img>` tags hide
 themselves gracefully instead of showing a broken image. Use
 reasonably optimised JPEGs (portrait ~1200px wide, avatar ~1000px wide)

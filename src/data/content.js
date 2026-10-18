@@ -202,16 +202,16 @@ export const contact = {
 };
 
 export const photos = {
-  // Real photos of Noyan. The image files live in public/images/ and are
+  // Real photos of Noyan. The image files live in public/ and are
   // added to the repo via the GitHub web UI (binary upload) — see README
   // \"Photos\" section. Until they are added, the <img> tags hide
   // themselves gracefully (onError) instead of showing a broken image.
   portrait: {
-    src: "/images/noyan-portrait.jpg",
+    src: "/noyan-portrait.jpg",
     alt: "Portrait of Noyan in a black shirt and tie, smiling, seated against a dark green background.",
   },
   casual: {
-    src: "/images/noyan-casual.jpg",
+    src: "/noyan-casual.jpg",
     alt: "Noyan in a grey sweater with a black collar, smiling.",
   },
 };
