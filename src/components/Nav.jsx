@@ -16,7 +16,7 @@ export default function Nav() {
             className="rounded-full font-display text-lg font-bold text-ink focus-ring"
           >
             {brandName}
-            <span className="text-gradient-sunset">.{brandTld}</span>
+            <span className="text-emerald">.{brandTld}</span>
           </a>
           {/* Desktop links */}
           <div className="hidden items-center gap-1 md:flex">
@@ -33,7 +33,7 @@ export default function Nav() {
               href={calendly.href}
               target="_blank"
               rel="noreferrer"
-              className="bg-gradient-sunset ml-1 rounded-full px-4 py-2 text-sm font-medium text-white transition-all hover:-translate-y-0.5 hover:opacity-90 hover:shadow-glow focus-ring"
+              className="bg-emerald ml-1 rounded-full px-4 py-2 text-sm font-medium text-white transition-all hover:-translate-y-0.5 hover:opacity-90 hover:shadow-glow focus-ring"
             >
               Book a Call
             </a>
@@ -70,7 +70,7 @@ export default function Nav() {
                 href={calendly.href}
                 target="_blank"
                 rel="noreferrer"
-                className="bg-gradient-sunset mt-1 rounded-2xl px-4 py-2.5 text-center text-sm font-medium text-white transition-opacity hover:opacity-90 focus-ring"
+                className="bg-emerald mt-1 rounded-2xl px-4 py-2.5 text-center text-sm font-medium text-white transition-opacity hover:opacity-90 focus-ring"
               >
                 Book a Call
               </a>

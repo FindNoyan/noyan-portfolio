@@ -3,7 +3,7 @@ import { chatbot } from "../data/content";
 import { answerLocalFaq } from "../lib/chatFaq";
 
 const botAvatarClass =
-  "flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-sunset font-display text-sm font-semibold text-white";
+  "flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald font-display text-sm font-semibold text-white";
 const userAvatarClass =
   "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line bg-white font-display text-sm font-semibold text-ink";
 
@@ -16,7 +16,7 @@ function Message({ role, text, source }) {
       </span>
       <div
         className={`max-w-[85%] whitespace-pre-line rounded-lg px-3 py-2 text-sm leading-relaxed ${
-          isBot ? "bg-surface text-ink" : "bg-gradient-sunset text-white"
+          isBot ? "bg-surface text-ink" : "bg-emerald text-white"
         }`}
       >
         {text}
@@ -184,7 +184,7 @@ export default function Chatbot() {
                 type="button"
                 onClick={() => sendMessage(question)}
                 disabled={loading}
-                className="rounded-full border border-line px-3 py-1 text-xs text-muted transition-colors hover:border-sunOrange hover:text-sunOrange disabled:opacity-50 focus-ring"
+                className="rounded-full border border-line px-3 py-1 text-xs text-muted transition-colors hover:border-emerald hover:text-emerald disabled:opacity-50 focus-ring"
               >
                 {question}
               </button>
@@ -218,7 +218,7 @@ export default function Chatbot() {
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className="bg-gradient-sunset rounded-xl px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50 focus-ring"
+              className="bg-emerald rounded-xl px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50 focus-ring"
             >
               Send
             </button>
@@ -231,7 +231,7 @@ export default function Chatbot() {
         onClick={() => setOpen((prev) => !prev)}
         aria-expanded={open}
         aria-label={open ? "Close Ask Noyan chat" : "Open Ask Noyan chat"}
-        className="bg-gradient-sunset ml-auto flex h-14 w-14 items-center justify-center rounded-full font-display text-lg font-semibold text-white shadow-lg transition-all hover:scale-105 hover:shadow-glow focus-ring"
+        className="bg-emerald ml-auto flex h-14 w-14 items-center justify-center rounded-full font-display text-lg font-semibold text-white shadow-lg transition-all hover:scale-105 hover:shadow-glow focus-ring"
       >
         {open ? "✕" : "💬"}
       </button>
