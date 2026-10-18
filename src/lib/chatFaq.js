@@ -6,7 +6,7 @@
 // Returns { reply, matched } — matched=false means "don't know", and
 // the caller should point the visitor to the Contact section.
 
-import { services, projects, site, socials } from "../data/content";
+import { services, projects, site, socials } from "../data/content.js";
 
 const CONTACT_HINT =
   "You can book a call via the Contact section on this page, or email Noyan at " +
