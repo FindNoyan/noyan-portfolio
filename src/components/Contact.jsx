@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { contact, site, socials } from "../data/content";
 import { validateContactForm } from "../lib/validateContact";
+import Reveal from "./Reveal";
 
 const labelClass = "block text-left text-sm font-medium text-ink";
 const inputClass =
-  "mt-1 w-full rounded-md border border-line bg-base px-3 py-2.5 text-sm text-ink placeholder:text-muted focus-ring";
+  "mt-1 w-full rounded-md border border-line bg-base px-3 py-3 text-base text-ink placeholder:text-muted focus-ring sm:text-sm";
 const errorInputClass = " border-red-400";
 const errorTextClass = "mt-1 text-left text-sm text-red-400";
 
@@ -46,14 +47,26 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="mx-auto max-w-4xl px-6 py-24">
-      <div className="rounded-lg border border-line bg-surface px-8 py-14 text-center">
-        <h2 className="font-display text-3xl font-semibold text-ink">
-          {contact.heading}
-        </h2>
-        <p className="mx-auto mt-3 max-w-sm text-sm text-muted">
-          {contact.sub}
-        </p>
+    <section id="contact" className="mx-auto max-w-4xl px-6 py-20 sm:py-24">
+      <Reveal>
+        <div className="rounded-xl border border-line bg-surface px-5 py-10 text-center shadow-card sm:px-8 sm:py-14">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">
+            Contact
+          </p>
+          <h2 className="mt-3 font-display text-3xl font-semibold text-ink">
+            {contact.heading}
+          </h2>
+          <p className="mx-auto mt-3 max-w-sm text-sm text-muted">
+            {contact.sub}
+          </p>
+          <a
+            href={contact.calendly.href}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-6 inline-block rounded-md bg-cyan px-6 py-3 text-sm font-medium text-base transition-all hover:-translate-y-0.5 hover:opacity-90 focus-ring"
+          >
+            {contact.calendly.label}
+          </a>
         <form
           onSubmit={handleSubmit}
           noValidate
@@ -144,7 +157,7 @@ export default function Contact() {
           </div>
           <button
             type="submit"
-            className="w-full rounded-md bg-cyan px-6 py-3 text-sm font-medium text-base transition-opacity hover:opacity-90 focus-ring"
+            className="w-full rounded-md bg-cyan px-6 py-3.5 text-sm font-medium text-base transition-all hover:-translate-y-0.5 hover:opacity-90 focus-ring"
           >
             {contact.form.submitLabel}
           </button>
@@ -164,20 +177,21 @@ export default function Contact() {
             {site.email}
           </a>
         </p>
-        <div className="mt-6 flex justify-center gap-6">
+        <div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2">
           {socials.map((social) => (
             <a
               key={social.label}
               href={social.href}
               target="_blank"
               rel="noreferrer"
-              className="text-sm text-muted transition-colors hover:text-cyan focus-ring rounded"
+              className="rounded text-sm text-muted transition-colors hover:text-cyan focus-ring"
             >
               {social.label}
             </a>
           ))}
         </div>
-      </div>
+        </div>
+      </Reveal>
     </section>
   );
 }
