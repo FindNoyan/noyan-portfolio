@@ -1,10 +1,11 @@
+
 import { skillGroups } from "../data/content";
 
 export default function Skills() {
   return (
     <section className="mx-auto max-w-4xl px-6 py-20">
       <h2 className="font-display text-2xl font-semibold text-ink">
-        Skills
+        What I work with
       </h2>
       <div className="mt-8 grid gap-8 sm:grid-cols-2">
         {skillGroups.map((group) => (
@@ -26,3 +27,4 @@ export default function Skills() {
     </section>
   );
 }
+
