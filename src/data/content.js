@@ -206,7 +206,7 @@ export const photos = {
   // to the hero text column background, so the seam is seamless with
   // no CSS blending applied to the photo.
   heroWide: {
-    src: "/noyan-hero-wide.webp.jpg",
+    src: "/noyan-hero-wide.webp.jpeg",
     alt: "Portrait of Noyan in a black shirt and tie, smiling, on the right side of a wide image whose background blends warm cream on the left to deep forest green on the right.",
   },
   // About photo: navy-blue polo shirt + glasses, beige background.
