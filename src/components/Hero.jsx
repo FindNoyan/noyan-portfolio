@@ -22,7 +22,7 @@ function renderHeadline(headline) {
 }
 
 export default function Hero() {
-  const [portraitOk, setPortraitOk] = useState(true);
+  const [heroOk, setHeroOk] = useState(true);
 
   return (
     <section
@@ -31,12 +31,16 @@ export default function Hero() {
     >
       {/* Layout: text on top, photo band below (mobile/tablet); on
           desktop the photo is absolutely positioned over the right side
-          and overlaps the text column, so the mask fade dissolves the
-          photo into the cream — no hard seam, no tint over the photo.
+          and overlaps the text column. No CSS blending is applied to
+          the photo at all: the cream-to-green blend is BAKED INTO the
+          wide hero image itself, and the image's own left edge is
+          cream (#FAF7F0), identical to the text column background, so
+          the seam is seamless with zero blend effect. (The old CSS
+          approach failed live: alpha-blending the deep-green photo
+          over cream produced a grey-beige band.)
           The whole hero is exactly one viewport tall (100svh). */}
       <div className="flex min-h-[100svh] flex-col lg:block">
-        {/* LEFT — text on cream. z-10 keeps it above the photo; the
-            text itself ends before the photo’s fade zone begins. */}
+        {/* LEFT — text on cream. z-10 keeps it above the photo. */}
         <div className="relative z-10 flex flex-col justify-center px-6 pb-8 pt-24 sm:px-10 lg:min-h-[100svh] lg:w-[55%] lg:px-16 lg:pb-10 lg:pt-24 xl:px-24">
           <p className="inline-flex w-fit items-center gap-2 rounded-full border border-line bg-surface px-4 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-muted">
             <span className="inline-block h-2 w-2 rounded-full bg-gold" />
@@ -67,31 +71,30 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* RIGHT — portrait, full-bleed. The wrapper is transparent:
-            the mask on the <img> dissolves the photo’s edges into the
-            cream behind it. No overlay divs — nothing tints the photo,
-            so it keeps its true colours right up to the fade.
-            On mobile the photo is a compact band below the text;
-            on desktop it fills the right 55%, flush to the top, right
-            and bottom edges. Crop is Elora-style: head / shoulders /
-            upper torso, face never cropped, hands out of frame. */}
+        {/* RIGHT — wide hero image, full-bleed. The wrapper is
+            transparent and carries no blend effect — the photo is
+            shown exactly as generated. On mobile the photo is a
+            compact band below the text; on desktop it fills the
+            right 55%, flush to the top, right and bottom edges.
+            Crop is Elora-style: head / shoulders / upper torso,
+            face never cropped, hands out of frame. The image is
+            wide with the man on the right, so the crop anchors
+            toward the right. */}
         <div className="relative h-[30svh] max-h-[320px] min-h-[180px] overflow-hidden lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:max-h-none lg:min-h-0 lg:w-[55%]">
-          {portraitOk && (
+          {heroOk && (
             <img
-              src={photos.portrait.src}
-              alt={photos.portrait.alt}
-              width={1200}
-              height={1800}
-              onError={() => setPortraitOk(false)}
-              // Face sits in the upper third of the photo: bias the crop
-              // toward the top so the head is never cut off, at any width.
-              className="hero-photo-mask absolute inset-0 h-full w-full object-cover object-[50%_12%]"
+              src={photos.heroWide.src}
+              alt={photos.heroWide.alt}
+              width={1600}
+              height={900}
+              onError={() => setHeroOk(false)}
+              // The wide image has the man on the right: bias the crop
+              // toward the right so the head is never cut off, at any width.
+              className="absolute inset-0 h-full w-full object-cover object-[75%_50%]"
             />
           )}
-          {/* Book a Call, sitting on the photo’s lower area. Past the
-              left fade zone on desktop (left-[32%]) so it rests on solid
-              photo, not on the dissolve. Same Calendly link as the
-              other Book a Call CTAs. */}
+          {/* Book a Call, sitting on the photo's lower area. Same
+              Calendly link as the other Book a Call CTAs. */}
           <a
             href={hero.primaryCta.href}
             target="_blank"
