@@ -189,3 +189,13 @@ export const contact = {
     },
   },
 };
+
+export const chatbot = {
+  greeting:
+    "Hi! I'm Ask Noyan — ask me about services, projects like AutoFlow, TaskLane, and Cadence, or how to book a call.",
+  suggestedQuestions: [
+    "What services do you offer?",
+    "Tell me about AutoFlow",
+    "How do I book a call?",
+  ],
+};

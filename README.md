@@ -17,6 +17,7 @@ development team.
   - **Cadence** — HTML/CSS/JS landing page with working signup validation. Code on GitHub.
 - Contact form with client-side validation (opens the visitor's mail app —
   the page itself sends nothing)
+- "Ask Noyan" chatbot (floating button): answers from portfolio content only — Gemini AI when configured, local FAQ fallback otherwise (see Chatbot below)
 
 All copy lives in `src/data/content.js` — components import from there
 instead of hardcoding text, so updates happen in one place.
@@ -43,6 +44,38 @@ npm run preview  # preview the production build
 3. Connect the custom domain `findnoyan.me` in the Vercel project settings
    (Domains), and point the domain's DNS to Vercel as Vercel instructs.
 4. Every push to `main` redeploys automatically.
+
+## Chatbot — "Ask Noyan"
+
+A floating chat button (bottom-right) lets visitors ask about services,
+case studies, process, and booking a call.
+
+How it works:
+
+- The browser calls same-origin `POST /api/chat` with `{ message }`.
+  The frontend never calls Google directly and never sees any API key.
+- `api/chat.js` is a Vercel Serverless Function. It reads
+  `GEMINI_API_KEY` from the **server** environment only and calls the
+  Gemini free-tier API (`gemini-2.0-flash`) with a system prompt that
+  restricts answers strictly to this portfolio's real content. If a
+  question goes beyond that content, the bot says it doesn't know and
+  points to Book a Call / Contact — it never invents prices, years,
+  clients, testimonials, or results.
+- If `GEMINI_API_KEY` is **not** configured, the API answers
+  `{ configured: false }` and the frontend falls back to a local
+  rule-based FAQ matcher (`src/lib/chatFaq.js`) built from the same
+  portfolio content. Fallback answers are labelled
+  "Answered from portfolio info (AI not connected yet)."
+- Stateless: no chat history is stored, no database is used. Messages
+  are capped at 500 characters; the API rate-limits to 10 messages per
+  minute per IP (best-effort, per serverless instance).
+
+To enable AI answers:
+
+1. Get a free-tier Gemini API key yourself from Google AI Studio.
+2. In Vercel → this project → Settings → Environment Variables, add
+   `GEMINI_API_KEY` (Production) with your key, then redeploy.
+3. Never paste the key into code, chat, or docs — only into Vercel.
 
 ## Honesty note
 
