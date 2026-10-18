@@ -136,7 +136,7 @@ export default function Chatbot() {
           role="dialog"
           aria-label="Ask Noyan chat"
           aria-modal="false"
-          className="mb-3 flex h-[480px] w-[calc(100vw-2rem)] max-w-sm flex-col overflow-hidden rounded-lg border border-line bg-base shadow-2xl"
+          className="animate-chat-in mb-3 flex h-[min(480px,calc(100dvh-7rem))] w-[calc(100vw-2rem)] max-w-sm flex-col overflow-hidden rounded-xl border border-line bg-base shadow-2xl"
         >
           <header className="flex items-center justify-between border-b border-line bg-surface px-4 py-3">
             <div>
@@ -144,7 +144,8 @@ export default function Chatbot() {
                 Ask Noyan
               </p>
               <p className="text-xs text-muted">
-                Answers from this portfolio — no invented facts.
+                Noyan&apos;s AI assistant — answers from this portfolio, no
+                invented facts.
               </p>
             </div>
             <button
@@ -212,7 +213,7 @@ export default function Chatbot() {
               placeholder="Ask about services, projects, or booking a call…"
               maxLength={500}
               autoComplete="off"
-              className="min-w-0 flex-1 rounded-md border border-line bg-surface px-3 py-2 text-sm text-ink placeholder:text-muted focus-ring"
+              className="min-w-0 flex-1 rounded-md border border-line bg-surface px-3 py-3 text-sm text-ink placeholder:text-muted focus-ring"
             />
             <button
               type="submit"
@@ -230,7 +231,7 @@ export default function Chatbot() {
         onClick={() => setOpen((prev) => !prev)}
         aria-expanded={open}
         aria-label={open ? "Close Ask Noyan chat" : "Open Ask Noyan chat"}
-        className="ml-auto flex h-14 w-14 items-center justify-center rounded-full bg-cyan font-display text-lg font-semibold text-base shadow-lg transition-transform hover:scale-105 focus-ring"
+        className="ml-auto flex h-14 w-14 items-center justify-center rounded-full bg-cyan font-display text-lg font-semibold text-base shadow-lg transition-all hover:scale-105 hover:shadow-glow focus-ring"
       >
         {open ? "✕" : "💬"}
       </button>

@@ -9,8 +9,9 @@ development team.
 
 ## What's on the page
 
-- Hero with clear positioning + calls to action (View my work, Book a call)
-- About, Services, and "What I work with" sections
+- Hero with clear positioning + calls to action (View my work, Book a call
+  → Calendly)
+- About (with photo), Services, and "What I work with" sections
 - Case studies (Problem → Solution → What was built → Tech → links):
   - **AutoFlow** — automation dashboard, Next.js + Supabase. Live demo linked.
   - **TaskLane** — Laravel + Blade Kanban task manager. Code on GitHub.
@@ -48,7 +49,8 @@ npm run preview  # preview the production build
 ## Chatbot — "Ask Noyan"
 
 A floating chat button (bottom-right) lets visitors ask about services,
-case studies, process, and booking a call.
+case studies, process, and booking a call. The bot is **Noyan's AI
+assistant** — it never claims to be Noyan himself.
 
 How it works:
 
@@ -59,7 +61,7 @@ How it works:
   Gemini free-tier API (`gemini-2.0-flash`) with a system prompt that
   restricts answers strictly to this portfolio's real content. If a
   question goes beyond that content, the bot says it doesn't know and
-  points to Book a Call / Contact — it never invents prices, years,
+  points to booking a call on Calendly — it never invents prices, years,
   clients, testimonials, or results.
 - If `GEMINI_API_KEY` is **not** configured, the API answers
   `{ configured: false }` and the frontend falls back to a local
@@ -83,6 +85,21 @@ To enable AI answers:
 2. In Vercel → this project → Settings → Environment Variables, add
    `GEMINI_API_KEY` (Production) with your key, then redeploy.
 3. Never paste the key into code, chat, or docs — only into Vercel.
+
+## Photos
+
+The About section shows Noyan's formal portrait and the Hero shows a
+small avatar photo. The site references:
+
+- `public/images/noyan-portrait.jpg` — formal portrait (About)
+- `public/images/noyan-casual.jpg` — casual photo (Hero avatar)
+
+These are binary image files, so they are added to the repo via the
+GitHub web UI (Add file → Upload files → `public/images/`), not via
+automated text commits. Until they are uploaded, the `<img>` tags hide
+themselves gracefully instead of showing a broken image. Use
+reasonably optimised JPEGs (portrait ~1200px wide, avatar ~1000px wide)
+and keep the exact filenames above so the references resolve.
 
 ## Honesty note
 

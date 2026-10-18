@@ -23,16 +23,23 @@ export const navLinks = [
 
 export const socials = [
   { label: "GitHub", href: "https://github.com/FindNoyan" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/noyan-tanveer-0595152b6/" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/noyantanveer/" },
   { label: "Upwork", href: "https://www.upwork.com/freelancers/~0142802c1da34c8e5f" },
 ];
+
+// Book-a-call destination (Calendly), provided by Noyan. All "Book a call"
+// CTAs point here and open in a new tab.
+export const calendly = {
+  label: "Book a call",
+  href: "https://calendly.com/noyantanveer35/30min",
+};
 
 export const hero = {
   eyebrow: "AI automation & business development",
   headline: "I help businesses get clients + automate work with AI.",
   sub: "I find the right chatbot, automation, and web solution for your business — and work with a development team to ship it — so your team spends less time on repetitive work and more time closing clients.",
   primaryCta: { label: "View my work", href: "#work" },
-  secondaryCta: { label: "Book a call", href: "#contact" },
+  secondaryCta: { label: "Book a call", href: calendly.href, external: true },
 };
 
 export const heroLines = [
@@ -163,6 +170,10 @@ export const projects = [
 export const contact = {
   heading: "Let's build something.",
   sub: "Tell me about your business and what you want automated — I'll get back to you within a day.",
+  calendly: {
+    label: "Book a call on Calendly",
+    href: "https://calendly.com/noyantanveer35/30min",
+  },
   projectTypes: [
     "AI Chatbot / Automation",
     "Web App / Website",
@@ -190,9 +201,24 @@ export const contact = {
   },
 };
 
+export const photos = {
+  // Real photos of Noyan. The image files live in public/images/ and are
+  // added to the repo via the GitHub web UI (binary upload) — see README
+  // \"Photos\" section. Until they are added, the <img> tags hide
+  // themselves gracefully (onError) instead of showing a broken image.
+  portrait: {
+    src: "/images/noyan-portrait.jpg",
+    alt: "Portrait of Noyan in a black shirt and tie, smiling, seated against a dark green background.",
+  },
+  casual: {
+    src: "/images/noyan-casual.jpg",
+    alt: "Noyan in a grey sweater with a black collar, smiling.",
+  },
+};
+
 export const chatbot = {
   greeting:
-    "Hi! I'm Ask Noyan — ask me about services, projects like AutoFlow, TaskLane, and Cadence, or how to book a call.",
+    "Hi! I'm Noyan's AI assistant — ask me about his work, services, projects, or how to contact him.",
   suggestedQuestions: [
     "What services do you offer?",
     "Tell me about AutoFlow",
