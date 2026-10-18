@@ -102,7 +102,7 @@ navy-polo photo. The site references:
 These are binary image files, so they are added to the repo via the
 GitHub web UI (Add file → Upload files → `public/`), not via
 automated text commits. **Exact filename matters:** the hero file is
-`public/noyan-hero-wide.webp.jpeg` (double extension — `.webp.jpg`).
+`public/noyan-hero-wide.webp.jpeg` (double extension — `.webp.jpeg`).
 Do NOT rename it to `noyan-hero-wide.webp` or `noyan-hero-wide.webp.jpg`;
 neither file exists and the hero image would break. **To finish the hero:** upload the wide
 hero image as `public/noyan-hero-wide.webp.jpeg` (exact filename) via
