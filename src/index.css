@@ -6,26 +6,42 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Keep anchored sections clear of the sticky nav. */
+/* Keep anchored sections clear of the floating pill nav. */
 section[id] {
-  scroll-margin-top: 84px;
+  scroll-margin-top: 120px;
 }
 
 body {
-  background-color: #0b0e14;
-  color: #e7ecf2;
-  /* Slightly warm, premium page backdrop with a faint radial glow. */
-  background-image: radial-gradient(
-    60rem 30rem at 50% -10rem,
-    rgba(79, 216, 232, 0.07),
-    transparent 60%
-  );
-  background-repeat: no-repeat;
+  background-color: #ffffff;
+  color: #111111;
 }
 
 ::selection {
-  background-color: #4fd8e8;
-  color: #0b0e14;
+  background-color: #ffc93c;
+  color: #111111;
+}
+
+/* Sunset gradient: yellow → orange → coral-pink → magenta. */
+.bg-gradient-sunset {
+  background-image: linear-gradient(
+    90deg,
+    #ffc93c 0%,
+    #ff7a00 38%,
+    #ff5e8a 72%,
+    #e93dff 100%
+  );
+}
+
+.text-gradient-sunset {
+  background-image: linear-gradient(
+    90deg,
+    #ff7a00 0%,
+    #ff5e8a 55%,
+    #e93dff 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* Scroll-reveal (see components/Reveal.jsx). Hidden only until the
@@ -94,6 +110,6 @@ body {
 }
 
 .focus-ring:focus-visible {
-  outline: 2px solid #4fd8e8;
+  outline: 2px solid #ff7a00;
   outline-offset: 3px;
 }

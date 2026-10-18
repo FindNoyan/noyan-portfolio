@@ -38,16 +38,10 @@ export const hero = {
   eyebrow: "AI automation & business development",
   headline: "I help businesses get clients + automate work with AI.",
   sub: "I find the right chatbot, automation, and web solution for your business — and work with a development team to ship it — so your team spends less time on repetitive work and more time closing clients.",
-  primaryCta: { label: "View my work", href: "#work" },
-  secondaryCta: { label: "Book a call", href: calendly.href, external: true },
+  // Gradient primary CTA first ("Book a Call"), secondary ("View My Work").
+  primaryCta: { label: "Book a Call", href: calendly.href, external: true },
+  secondaryCta: { label: "View My Work", href: "#work" },
 };
-
-export const heroLines = [
-  { prompt: "noyan@me:~$", cmd: "whoami" },
-  { out: "Business development + AI automation" },
-  { prompt: "noyan@me:~$", cmd: "status --current" },
-  { out: "Open to new projects — book a call below" },
-];
 
 export const about = {
   heading: "About",
@@ -214,6 +208,11 @@ export const photos = {
     src: "/noyan-casual.jpg",
     alt: "Noyan in a grey sweater with a black collar, smiling.",
   },
+};
+
+export const footer = {
+  // Original line for this portfolio — not copied from anywhere.
+  line: "Turning repetitive work into systems that run on their own.",
 };
 
 export const chatbot = {

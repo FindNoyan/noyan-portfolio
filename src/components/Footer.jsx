@@ -1,32 +1,37 @@
-import { calendly, site, socials } from "../data/content";
+import { calendly, footer, site, socials } from "../data/content";
 
 export default function Footer() {
   return (
-    <footer className="mx-auto max-w-4xl border-t border-line/60 px-6 py-8">
-      <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
-        <p className="text-center text-xs text-muted">
-          Built by {site.name} · {new Date().getFullYear()}
+    <footer className="border-t border-line/60 bg-cream">
+      <div className="mx-auto max-w-6xl px-6 py-10 text-center">
+        <p className="font-display text-xl font-semibold text-ink sm:text-2xl">
+          {footer.line}
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
-          {socials.map((social) => (
+        <div className="mt-6 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+          <p className="text-xs text-muted">
+            Built by {site.name} · {new Date().getFullYear()}
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+            {socials.map((social) => (
+              <a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded text-xs text-muted transition-colors hover:text-sunOrange focus-ring"
+              >
+                {social.label}
+              </a>
+            ))}
             <a
-              key={social.label}
-              href={social.href}
+              href={calendly.href}
               target="_blank"
               rel="noreferrer"
-              className="rounded text-xs text-muted transition-colors hover:text-cyan focus-ring"
+              className="text-gradient-sunset rounded text-xs font-medium focus-ring"
             >
-              {social.label}
+              {calendly.label}
             </a>
-          ))}
-          <a
-            href={calendly.href}
-            target="_blank"
-            rel="noreferrer"
-            className="rounded text-xs font-medium text-cyan transition-opacity hover:opacity-80 focus-ring"
-          >
-            {calendly.label}
-          </a>
+          </div>
         </div>
       </div>
     </footer>

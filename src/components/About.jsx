@@ -6,30 +6,33 @@ export default function About() {
   const [photoOk, setPhotoOk] = useState(true);
 
   return (
-    <section id="about" className="mx-auto max-w-4xl px-6 py-20 sm:py-24">
+    <section id="about" className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
       <Reveal>
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">
+        <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-muted">
+          <span className="bg-gradient-sunset inline-block h-2 w-2 rounded-full" />
           About
         </p>
-        <div className="mt-4 grid items-start gap-10 md:grid-cols-[240px_1fr_1fr]">
+        <div className="mt-6 grid items-start gap-10 md:grid-cols-[280px_1fr]">
           {photoOk && (
-            <figure className="mx-auto w-full max-w-[240px] md:mx-0">
-              <img
-                src={photos.portrait.src}
-                alt={photos.portrait.alt}
-                loading="lazy"
-                width={480}
-                height={720}
-                onError={() => setPhotoOk(false)}
-                className="aspect-[2/3] w-full rounded-xl border border-line object-cover shadow-card"
-              />
+            <figure className="mx-auto w-full max-w-[280px] md:mx-0">
+              <div className="bg-gradient-sunset rounded-2xl p-1.5 shadow-card">
+                <img
+                  src={photos.portrait.src}
+                  alt={photos.portrait.alt}
+                  loading="lazy"
+                  width={480}
+                  height={720}
+                  onError={() => setPhotoOk(false)}
+                  className="aspect-[2/3] w-full rounded-xl object-cover"
+                />
+              </div>
               <figcaption className="mt-2 text-center text-xs text-muted">
                 Noyan
               </figcaption>
             </figure>
           )}
           <div>
-            <h2 className="font-display text-2xl font-semibold text-ink sm:text-3xl">
+            <h2 className="font-display text-3xl font-semibold text-ink sm:text-4xl">
               {about.heading}
             </h2>
             {about.paragraphs.map((paragraph, i) => (
@@ -37,15 +40,22 @@ export default function About() {
                 {paragraph}
               </p>
             ))}
+            <dl className="mt-8 grid gap-4 sm:grid-cols-2">
+              {facts.map((fact) => (
+                <div
+                  key={fact.label}
+                  className="rounded-2xl border border-line bg-surface p-4"
+                >
+                  <dt className="text-xs font-medium uppercase tracking-[0.14em] text-sunOrange">
+                    {fact.label}
+                  </dt>
+                  <dd className="mt-1.5 text-sm leading-relaxed text-ink">
+                    {fact.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
-          <dl className="space-y-4 border-l border-line pl-6">
-            {facts.map((fact) => (
-              <div key={fact.label}>
-                <dt className="font-mono text-xs text-cyan">{fact.label}</dt>
-                <dd className="mt-1 text-sm text-ink">{fact.value}</dd>
-              </div>
-            ))}
-          </dl>
         </div>
       </Reveal>
     </section>
