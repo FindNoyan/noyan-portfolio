@@ -1,31 +1,42 @@
 import { services } from "../data/content";
+import Reveal from "./Reveal";
 
 export default function Services() {
   return (
-    <section id="services" className="mx-auto max-w-4xl px-6 py-20">
-      <h2 className="font-display text-2xl font-semibold text-ink">
-        What I do
-      </h2>
-      <div className="mt-8 grid gap-8 sm:grid-cols-3">
-        {services.map((service) => (
-          <div key={service.title} className="border-l border-line pl-6">
-            <h3 className="font-display text-lg text-ink">{service.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted">
-              {service.description}
-            </p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {service.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded border border-line px-2.5 py-1 text-sm text-muted"
-                >
-                  {tag}
-                </span>
-              ))}
+    <section id="services" className="mx-auto max-w-4xl px-6 py-20 sm:py-24">
+      <Reveal>
+        <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">
+          Services
+        </p>
+        <h2 className="mt-3 font-display text-2xl font-semibold text-ink sm:text-3xl">
+          What I do
+        </h2>
+        <div className="mt-8 grid gap-6 sm:grid-cols-3">
+          {services.map((service) => (
+            <div
+              key={service.title}
+              className="rounded-xl border border-line bg-elevated p-6 transition-all duration-300 hover:-translate-y-1 hover:border-cyan/50 hover:shadow-card"
+            >
+              <h3 className="font-display text-lg text-ink">
+                {service.title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted">
+                {service.description}
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {service.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full border border-line bg-surface px-2.5 py-1 text-xs text-muted"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      </Reveal>
     </section>
   );
 }
