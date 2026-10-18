@@ -7,10 +7,12 @@
 // Returns { reply, matched } — matched=false means "don't know", and
 // the caller should point the visitor to the Contact section.
 
-import { services, projects, site, socials } from "../data/content.js";
+import { calendly, services, projects, site, socials } from "../data/content.js";
 
 const CONTACT_HINT =
-  "You can book a call via the Contact section on this page, or email Noyan at " +
+  "You can book a call on Calendly: " +
+  calendly.href +
+  ", or email Noyan at " +
   site.email +
   ".";
 
@@ -110,10 +112,12 @@ export function answerLocalFaq(rawMessage) {
     return {
       matched: true,
       reply:
-        `To start a project, tell Noyan about your business and what you ` +
-        `want automated via the Contact section — he gets back within a ` +
-        `day. The form opens your mail app with your message prefilled. ` +
-        `Direct email: ${site.email}.`,
+        `To start a project, book a call on Calendly: ${calendly.href} ` +
+        `— or tell Noyan about your business and what you want automated ` +
+        `via the Contact section. He gets back within a day. The form ` +
+        `opens your mail app with your message prefilled. ` +
+        `Direct email: ${site.email}. ` +
+        `LinkedIn: ${socials.find((s) => s.label === "LinkedIn").href}`,
     };
   }
 
