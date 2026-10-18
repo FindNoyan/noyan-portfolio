@@ -23,9 +23,47 @@ body {
 
 /* Subtle warm colour grade for the portrait so it blends with the
    warm-cream palette. Light sepia/saturation lift only — the face and
-   skin tones stay natural. */
+   skin tones stay natural. (Used by the About photo; the hero photo
+   intentionally uses no filter so it keeps its true colours.) */
 .photo-warm {
   filter: sepia(0.14) saturate(1.07) contrast(1.02);
+}
+
+/* Hero photo merge — CSS mask on the <img> itself, NOT an overlay.
+   Overlays sit on top of the photo and tint it (the old code left a
+   milky beige wash over the shirt / hands). A mask instead makes the
+   photo itself dissolve at its edges, revealing the cream behind it,
+   with zero tint over the photo. Two mask layers intersected
+   (mask-composite: intersect): one for the seam edge, one for the
+   bottom edge. Browsers without mask support simply show the photo
+   with a hard edge — still fine, just no dissolve. */
+.hero-photo-mask {
+  /* Mobile/tablet: photo band below the text — dissolve the top edge
+     into the cream above and the bottom edge into the cream below. */
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0%, black 26%),
+    linear-gradient(to bottom, black 82%, transparent 100%);
+  mask-image:
+    linear-gradient(to bottom, transparent 0%, black 26%),
+    linear-gradient(to bottom, black 82%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+@media (min-width: 1024px) {
+  .hero-photo-mask {
+    /* Desktop: photo overlaps the text column — dissolve the left edge
+       into the cream (wide, soft fade) and the bottom edge into the
+       cream of the next section. */
+    -webkit-mask-image:
+      linear-gradient(to right, transparent 0%, black 28%),
+      linear-gradient(to bottom, black 82%, transparent 100%);
+    mask-image:
+      linear-gradient(to right, transparent 0%, black 28%),
+      linear-gradient(to bottom, black 82%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+  }
 }
 
 /* Soft forest-green → gold glow behind the hero portrait. */
