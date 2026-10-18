@@ -3,13 +3,14 @@
 // hardcoding copy, so updates happen in one place.
 
 export const brandName = "noyan";
-export const brandTld = "dev";
+export const brandTld = "me";
 
 export const site = {
   name: "Noyan",
-  title: "Noyan — Full-Stack Developer & Automation Specialist",
+  title: "Noyan — AI Automation, Chatbots & Web Solutions",
   description:
-    "Noyan is a full-stack developer and automation specialist building scalable web apps and AI-powered workflows.",
+    "Noyan helps businesses get clients and automate work with AI — chatbots, workflow automation, and web solutions, delivered with a development team.",
+  url: "https://findnoyan.me",
   email: "noyantanveer35@gmail.com",
 };
 
@@ -27,105 +28,145 @@ export const socials = [
 ];
 
 export const hero = {
-  eyebrow: "Full-stack developer",
-  headline: "Noyan builds web apps that run the busywork for you.",
-  sub: "I design and ship full-stack products — React, Next.js, Laravel — then wire up the automation underneath so teams spend less time on repetitive work.",
-  primaryCta: { label: "See my work", href: "#work" },
-  secondaryCta: { label: "Get in touch", href: "#contact" },
+  eyebrow: "AI automation & business development",
+  headline: "I help businesses get clients + automate work with AI.",
+  sub: "I find the right chatbot, automation, and web solution for your business — and work with a development team to ship it — so your team spends less time on repetitive work and more time closing clients.",
+  primaryCta: { label: "View my work", href: "#work" },
+  secondaryCta: { label: "Book a call", href: "#contact" },
 };
 
 export const heroLines = [
-  { prompt: "noyan@dev:~$", cmd: "whoami" },
-  { out: "Full-stack developer & automation specialist" },
-  { prompt: "noyan@dev:~$", cmd: "status --current" },
-  { out: "Top Rated Plus on Upwork · open to new projects" },
+  { prompt: "noyan@me:~$", cmd: "whoami" },
+  { out: "Business development + AI automation" },
+  { prompt: "noyan@me:~$", cmd: "status --current" },
+  { out: "Open to new projects — book a call below" },
 ];
 
 export const about = {
   heading: "About",
   paragraphs: [
-    "I'm a full-stack developer who ended up specializing in the part most people skip: the workflow behind the product. I build the app, then automate the parts of the business that used to run on spreadsheets and manual follow-ups. Most of my work lives across React, Next.js, Laravel, and Shopify — whatever the project actually calls for.",
+    "I work in business development for AI and web projects: I talk to clients, scope the work, and keep delivery on track with the developers who build it. My focus is the part most projects skip — the workflow behind the product: lead generation, follow-ups, and the repetitive work that used to run on spreadsheets.",
+    "I also build my own demos and MVPs — like AutoFlow below — so you can see exactly how the automation works before committing to a project.",
   ],
 };
 
 export const facts = [
-  { label: "Focus", value: "Full-stack web apps + AI-powered automation" },
+  { label: "Focus", value: "AI automation, chatbots & web solutions" },
   { label: "Currently", value: "Studying Web Development at Virtual University" },
-  { label: "Freelance", value: "Top Rated Plus on Upwork (top 3%)" },
-  { label: "Agency", value: "Founder, Automation Consulting Services" },
+  { label: "How I work", value: "Business development + delivery with a development team" },
+  { label: "Open to", value: "New client projects — book a call" },
 ];
 
 export const services = [
   {
-    title: "Full-Stack Web Apps",
+    title: "AI Chatbots & Automation",
     description:
-      "React, Next.js, and Laravel products built end to end — from first screen to deployed app.",
-    tags: ["React", "Next.js", "Laravel"],
+      "Chatbots and automations that answer customers, follow up on leads, and take over repetitive work — n8n, Zapier, and custom integrations.",
+    tags: ["AI chatbots", "n8n", "Zapier"],
   },
   {
-    title: "Workflow Automation",
+    title: "Web Solutions",
     description:
-      "Automations that take over repetitive work — n8n, Zapier, and custom integrations that keep the business moving.",
-    tags: ["n8n", "Zapier"],
+      "Web apps and sites scoped, specced, and shipped with a development team — React, Next.js, Laravel, and Shopify, matched to what the project actually needs.",
+    tags: ["React", "Next.js", "Laravel", "Shopify"],
   },
   {
-    title: "E-commerce & Shopify",
+    title: "Lead Generation",
     description:
-      "Stores and storefronts built to sell — Shopify builds, custom sections, and conversion-focused pages.",
-    tags: ["Shopify"],
+      "Finding the right prospects and starting the right conversations — research, outreach, and follow-up systems that keep the pipeline full.",
+    tags: ["Research", "Outreach", "CRM"],
   },
 ];
 
 export const skillGroups = [
   {
-    label: "Frontend",
-    items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "jQuery"],
+    label: "Automation & AI",
+    items: ["AI chatbots", "n8n", "Zapier", "Workflow design"],
   },
   {
-    label: "Backend",
-    items: ["PHP", "Laravel", "Node.js", "MySQL", "MongoDB", "Firebase"],
+    label: "Web",
+    items: ["React", "Next.js", "Laravel", "Shopify"],
   },
   {
-    label: "Automation & Commerce",
-    items: ["Shopify", "n8n", "Zapier", "GraphQL"],
+    label: "Growth",
+    items: ["Lead research", "Outreach", "CRM / HubSpot", "Follow-up systems"],
   },
   {
-    label: "Design",
-    items: ["Figma", "Photoshop"],
+    label: "Tools",
+    items: ["GitHub", "Vercel", "Supabase", "Figma"],
   },
 ];
 
+// Case studies: real projects only. Each one states the problem it solves,
+// what was built, and where to see it. No invented metrics, clients, or URLs.
 export const projects = [
   {
     name: "AutoFlow",
+    status: "Live demo",
     description:
-      "Dashboard for monitoring automated workflows — runs, failures, and time saved, at a glance.",
-    tags: ["Next.js", "Tailwind"],
-    href: "https://github.com/FindNoyan/autoflow-dashboard",
+      "Automation dashboard that shows every workflow, its status, and its recent runs in one place.",
+    problem:
+      "Teams run automations but can't see which ones failed or why — failures surface late, in screenshots and spreadsheets.",
+    solution:
+      "A dashboard where each signed-in user sees only their own workflows and runs, with a clear status for every workflow.",
+    built: [
+      "Sign-up / log-in / log-out with Supabase Auth",
+      "Per-user workflows, runs, and chat history tables with row-level security",
+      "Dashboard reads real data from the database; demo data loads only on an explicit click",
+      "AI chatbot in progress — not yet shipped",
+    ],
+    tags: ["Next.js", "Supabase", "Tailwind"],
+    links: [
+      { label: "Live demo", href: "https://autoflow-dashboard-eight.vercel.app/" },
+      { label: "Code", href: "https://github.com/FindNoyan/autoflow-dashboard" },
+    ],
   },
   {
-    name: "Tasklane",
+    name: "TaskLane",
+    status: "Code on GitHub",
     description:
-      "A Kanban-style task manager for small teams, with boards, due dates, and activity history.",
+      "A Kanban-style task manager for small teams, with boards, due dates, and task editing.",
+    problem:
+      "Small teams lose track of tasks across chats and spreadsheets — no single board for what is due and what is done.",
+    solution:
+      "A Kanban board where a team can create boards, add tasks with due dates, and edit them in one place.",
+    built: [
+      "Board and Task models with full create, read, and update flow",
+      "Task descriptions and validation errors shown on the board",
+      "Due-date handling on tasks",
+    ],
     tags: ["Laravel", "Blade", "SQLite"],
-    href: "https://github.com/FindNoyan/tasklane-app",
+    links: [
+      { label: "Code", href: "https://github.com/FindNoyan/tasklane-app" },
+    ],
   },
   {
     name: "Cadence",
+    status: "Code on GitHub",
     description:
       "Marketing landing page for a scheduling-automation product — built for a fast first impression.",
+    problem:
+      "A scheduling-automation product needs a landing page that earns a signup in seconds — most visitors bounce before reading anything.",
+    solution:
+      "A fast, single-page landing with a clear headline and a signup form that tells visitors immediately what to do.",
+    built: [
+      "Signup form with inline validation, error states, and success state",
+      "Accessible form styles with visible focus states",
+    ],
     tags: ["HTML", "Tailwind", "JS"],
-    href: "https://github.com/FindNoyan/cadence-landing",
+    links: [
+      { label: "Code", href: "https://github.com/FindNoyan/cadence-landing" },
+    ],
   },
 ];
 
 export const contact = {
   heading: "Let's build something.",
-  sub: "Open to freelance projects and long-term collaborations — reach out directly and I'll get back to you within a day.",
+  sub: "Tell me about your business and what you want automated — I'll get back to you within a day.",
   projectTypes: [
-    "Full-Stack Web App",
-    "Workflow Automation",
-    "E-commerce / Shopify",
+    "AI Chatbot / Automation",
+    "Web App / Website",
+    "Lead Generation",
     "Something else",
   ],
   form: {
