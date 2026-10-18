@@ -202,9 +202,9 @@ export const photos = {
   // themselves gracefully (onError) instead of showing a broken image.
   // Wide hero image: the man on the right, background blending warm
   // cream #FAF7F0 (left) to deep forest green #14382A (right) INSIDE
-  // the image itself. The image's own left edge is cream, identical
-  // to the hero text column background, so the seam is seamless with
-  // no CSS blending applied to the photo.
+  // the image itself. The hero is TRUE full-bleed: this ONE image
+  // fills the whole hero and the text sits ON TOP of it, reading off
+  // its cream left area. No split panels, no CSS blending.
   heroWide: {
     src: "/noyan-hero-wide.webp.jpeg",
     alt: "Portrait of Noyan in a black shirt and tie, smiling, on the right side of a wide image whose background blends warm cream on the left to deep forest green on the right.",
