@@ -91,7 +91,7 @@ To enable AI answers:
 The Hero shows Noyan's wide hero image and the About section shows his
 navy-polo photo. The site references:
 
-- `public/noyan-hero-wide.webp.jpg` — wide hero image (Hero): same man,
+- `public/noyan-hero-wide.webp.jpeg` — wide hero image (Hero): same man,
   black shirt + tie, right side, background blending warm cream #FAF7F0
   (left) to deep forest green #14382A (right) INSIDE the image. The seam
   is seamless because the image's own left edge is cream, identical to
@@ -102,10 +102,10 @@ navy-polo photo. The site references:
 These are binary image files, so they are added to the repo via the
 GitHub web UI (Add file → Upload files → `public/`), not via
 automated text commits. **Exact filename matters:** the hero file is
-`public/noyan-hero-wide.webp.jpg` (double extension — `.webp.jpg`).
-Do NOT rename it to `noyan-hero-wide.webp`; that file does not exist
-and the hero image would break. **To finish the hero:** upload the wide
-hero image as `public/noyan-hero-wide.webp.jpg` (exact filename) via
+`public/noyan-hero-wide.webp.jpeg` (double extension — `.webp.jpg`).
+Do NOT rename it to `noyan-hero-wide.webp` or `noyan-hero-wide.webp.jpg`;
+neither file exists and the hero image would break. **To finish the hero:** upload the wide
+hero image as `public/noyan-hero-wide.webp.jpeg` (exact filename) via
 the GitHub web UI, then Vercel redeploys automatically. Until it is
 uploaded, the `<img>` tag hides itself gracefully instead of showing
 a broken image. Use a reasonably optimised file (wide, ~1600px) and
