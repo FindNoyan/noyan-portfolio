@@ -122,4 +122,29 @@ export const projects = [
 export const contact = {
   heading: "Let's build something.",
   sub: "Open to freelance projects and long-term collaborations — reach out directly and I'll get back to you within a day.",
+  projectTypes: [
+    "Full-Stack Web App",
+    "Workflow Automation",
+    "E-commerce / Shopify",
+    "Something else",
+  ],
+  form: {
+    nameLabel: "Your name",
+    emailLabel: "Email",
+    projectTypeLabel: "Project type",
+    messageLabel: "Message",
+    messagePlaceholder:
+      "Tell me about your project — what you need, and when you need it.",
+    submitLabel: "Send message",
+    note: "This page sends nothing itself — Send message opens your mail app with your message prefilled.",
+    success:
+      "Your mail app should have opened with your message ready to send.",
+    errors: {
+      name: "Please enter your name.",
+      emailRequired: "Please enter your email.",
+      emailInvalid: "Please enter a valid email address.",
+      messageRequired: "Please write a short message.",
+      messageTooShort: "Please write a little more — at least 10 characters.",
+    },
+  },
 };
