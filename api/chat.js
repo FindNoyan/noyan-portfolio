@@ -7,10 +7,22 @@
 // - If GEMINI_API_KEY is not configured, this endpoint answers with
 //   { configured: false } and the frontend falls back to a local,
 //   rule-based FAQ matcher built from the same portfolio content.
+// - If the Gemini call fails for ANY reason (non-200, timeout,
+//   malformed response, quota, invalid key), this endpoint falls back
+//   to the same local FAQ matcher and returns a useful portfolio
+//   answer labelled as portfolio-info fallback — the chatbot never
+//   dead-ends on an AI failure.
+// - 400 (validation) and 429 (rate limit) stay real errors; they do
+//   NOT fall back.
+// - Failures are logged with console.error (Gemini status only —
+//   never the key, never request headers/body, never raw provider
+//   internals), so Vercel Function logs show what went wrong.
 // - Stateless: no chat history is stored, no database is used.
 //
 // Knowledge below mirrors src/data/content.js (services, case studies,
 // process, contact). Keep the two in sync when portfolio copy changes.
+
+import { answerLocalFaq } from "../src/lib/chatFaq.js";
 
 const MODEL = "gemini-2.0-flash";
 const MAX_MESSAGE_CHARS = 500;
@@ -128,6 +140,35 @@ function checkRateLimit(ip) {
   return entry.count <= RATE_LIMIT_MAX;
 }
 
+// Log a Gemini failure for Vercel Function logs. Status / error-name
+// only — never the API key, never request headers/body, never raw
+// provider response internals.
+function logGeminiFailure(detail) {
+  console.error("Ask Noyan: Gemini call failed", detail);
+}
+
+// Portfolio-info fallback: answers only from src/data/content.js via
+// the local FAQ matcher. Used whenever the Gemini call fails for any
+// reason, so the chatbot never dead-ends.
+function respondWithFallback(res, message) {
+  try {
+    const fallback = answerLocalFaq(message);
+    return res.status(200).json({
+      configured: true,
+      reply: fallback.reply,
+      source: "portfolio",
+      aiUnavailable: true,
+    });
+  } catch (error) {
+    // Last resort: even the local matcher failed. Surface a generic
+    // error (no provider internals, no key).
+    logGeminiFailure({ fallback: "failed", error: error?.name || "error" });
+    return res.status(502).json({
+      error: "The AI service is unavailable right now — please try again later.",
+    });
+  }
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
@@ -190,27 +231,34 @@ export default async function handler(req, res) {
     );
 
     if (!response.ok) {
-      return res.status(502).json({
-        error: "The AI service is unavailable right now — please try again later.",
-      });
+      logGeminiFailure({ status: response.status });
+      return respondWithFallback(res, message);
     }
 
-    const data = await response.json();
+    let data;
+    try {
+      data = await response.json();
+    } catch {
+      logGeminiFailure({ status: response.status, parse: "invalid-json" });
+      return respondWithFallback(res, message);
+    }
+
     const reply = data?.candidates?.[0]?.content?.parts
       ?.map((part) => part.text || "")
       .join("")
       .trim();
 
     if (!reply) {
-      return res.status(502).json({
-        error: "I couldn't generate an answer — please try again.",
-      });
+      logGeminiFailure({ status: response.status, reply: "empty" });
+      return respondWithFallback(res, message);
     }
     return res.status(200).json({ configured: true, reply, source: "ai" });
-  } catch {
-    return res.status(502).json({
-      error: "The AI service timed out — please try again.",
+  } catch (error) {
+    logGeminiFailure({
+      error: error?.name || "fetch-error",
+      aborted: controller.signal.aborted,
     });
+    return respondWithFallback(res, message);
   } finally {
     clearTimeout(timeout);
   }

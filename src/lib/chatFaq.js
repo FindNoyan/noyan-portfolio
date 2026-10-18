@@ -1,7 +1,8 @@
 // Local rule-based FAQ matcher — fallback when the Gemini API key is
-// not configured. Answers ONLY from the portfolio content in
-// src/data/content.js. Pure function (no network, no secrets) so the
-// chatbot still works on the live site without an API key.
+// not configured OR when the Gemini call fails. Answers ONLY from the
+// portfolio content in src/data/content.js. Pure function (no network,
+// no secrets) so the chatbot still works on the live site without an
+// API key and never dead-ends on an AI failure.
 //
 // Returns { reply, matched } — matched=false means "don't know", and
 // the caller should point the visitor to the Contact section.
