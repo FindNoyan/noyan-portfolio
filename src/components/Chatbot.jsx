@@ -25,6 +25,11 @@ function Message({ role, text, source }) {
             Answered from portfolio info (AI not connected yet).
           </p>
         )}
+        {source === "fallback" && (
+          <p className="mt-1 text-xs opacity-70">
+            Answered from portfolio info — AI is temporarily unavailable.
+          </p>
+        )}
       </div>
     </div>
   );
@@ -68,10 +73,16 @@ export default function Chatbot() {
         body: JSON.stringify({ message: text }),
       });
       const data = await response.json().catch(() => null);
-      if (response.ok && data?.configured && data.reply) {
+      if (response.ok && data?.reply) {
+        // Covers both AI answers (source "ai") and server-side
+        // portfolio fallbacks (source "portfolio" -> "fallback" label).
         setMessages((prev) => [
           ...prev,
-          { role: "bot", text: data.reply, source: "ai" },
+          {
+            role: "bot",
+            text: data.reply,
+            source: data.source === "portfolio" ? "fallback" : "ai",
+          },
         ]);
         return;
       }
@@ -83,17 +94,29 @@ export default function Chatbot() {
         ]);
         return;
       }
-      setError(
-        data?.error ||
-          "Something went wrong — please try again or use the Contact section."
-      );
+      // 400 (validation) and 429 (rate limit) stay real errors —
+      // falling back on those would bypass the guards.
+      if (response.status === 400 || response.status === 429) {
+        setError(
+          data?.error ||
+            "Something went wrong — please try again or use the Contact section."
+        );
+        return;
+      }
+      // Any other failure (Gemini down, 5xx, malformed response):
+      // answer from the local FAQ so the chatbot never dead-ends.
+      const fallback = answerLocalFaq(text);
+      setMessages((prev) => [
+        ...prev,
+        { role: "bot", text: fallback.reply, source: "fallback" },
+      ]);
     } catch {
       // Network failure (e.g. local dev without the API): still answer
       // from the local FAQ so the chatbot never goes fully dead.
       const fallback = answerLocalFaq(text);
       setMessages((prev) => [
         ...prev,
-        { role: "bot", text: fallback.reply, source: "portfolio" },
+        { role: "bot", text: fallback.reply, source: "fallback" },
       ]);
     } finally {
       setLoading(false);
