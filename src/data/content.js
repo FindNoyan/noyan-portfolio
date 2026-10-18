@@ -204,6 +204,12 @@ export const photos = {
     src: "/noyan-portrait.jpg",
     alt: "Portrait of Noyan in a black shirt and tie, smiling, seated against a dark green background.",
   },
+  // About photo: navy-blue polo shirt + glasses, beige background.
+  // Uploaded separately by Noyan via the GitHub web UI (see README).
+  about: {
+    src: "/noyan-about.jpg",
+    alt: "Noyan in a navy blue polo shirt and glasses, standing outdoors.",
+  },
   casual: {
     src: "/noyan-casual.jpg",
     alt: "Noyan in a grey sweater with a black collar, smiling.",

@@ -17,8 +17,8 @@ export default function About() {
             <figure className="mx-auto w-full max-w-[280px] md:mx-0">
               <div className="rounded-2xl bg-forest p-1.5 shadow-card">
                 <img
-                  src={photos.portrait.src}
-                  alt={photos.portrait.alt}
+                  src={photos.about.src}
+                  alt={photos.about.alt}
                   loading="lazy"
                   width={480}
                   height={720}
