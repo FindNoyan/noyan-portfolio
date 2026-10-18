@@ -1,23 +1,33 @@
 import { services } from "../data/content";
 import Reveal from "./Reveal";
 
+// Solid accent blocks, one per service card.
+const accents = ["bg-royal", "bg-gold", "bg-grape"];
+
 export default function Services() {
   return (
-    <section id="services" className="mx-auto max-w-4xl px-6 py-20 sm:py-24">
+    <section id="services" className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
       <Reveal>
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">
+        <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-muted">
+          <span className="bg-gradient-sunset inline-block h-2 w-2 rounded-full" />
           Services
         </p>
-        <h2 className="mt-3 font-display text-2xl font-semibold text-ink sm:text-3xl">
+        <h2 className="mt-4 font-display text-3xl font-semibold text-ink sm:text-4xl">
           What I do
         </h2>
         <div className="mt-8 grid gap-6 sm:grid-cols-3">
-          {services.map((service) => (
+          {services.map((service, i) => (
             <div
               key={service.title}
-              className="rounded-xl border border-line bg-elevated p-6 transition-all duration-300 hover:-translate-y-1 hover:border-cyan/50 hover:shadow-card"
+              className="rounded-2xl border border-line bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-sunOrange/50 hover:shadow-card"
             >
-              <h3 className="font-display text-lg text-ink">
+              <span
+                aria-hidden="true"
+                className={`flex h-11 w-11 items-center justify-center rounded-xl font-display text-lg font-bold text-white ${accents[i % accents.length]}`}
+              >
+                {service.title.charAt(0)}
+              </span>
+              <h3 className="mt-4 font-display text-xl font-semibold text-ink">
                 {service.title}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">
@@ -27,7 +37,7 @@ export default function Services() {
                 {service.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full border border-line bg-surface px-2.5 py-1 text-xs text-muted"
+                    className="rounded-full border border-line bg-white px-2.5 py-1 text-xs text-muted"
                   >
                     {tag}
                   </span>

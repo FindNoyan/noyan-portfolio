@@ -3,9 +3,9 @@ import { chatbot } from "../data/content";
 import { answerLocalFaq } from "../lib/chatFaq";
 
 const botAvatarClass =
-  "flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-cyan font-display text-sm font-semibold text-base";
+  "flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-sunset font-display text-sm font-semibold text-white";
 const userAvatarClass =
-  "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line bg-surface font-display text-sm font-semibold text-ink";
+  "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line bg-white font-display text-sm font-semibold text-ink";
 
 function Message({ role, text, source }) {
   const isBot = role === "bot";
@@ -16,7 +16,7 @@ function Message({ role, text, source }) {
       </span>
       <div
         className={`max-w-[85%] whitespace-pre-line rounded-lg px-3 py-2 text-sm leading-relaxed ${
-          isBot ? "bg-surface text-ink" : "bg-cyan text-base"
+          isBot ? "bg-surface text-ink" : "bg-gradient-sunset text-white"
         }`}
       >
         {text}
@@ -136,9 +136,9 @@ export default function Chatbot() {
           role="dialog"
           aria-label="Ask Noyan chat"
           aria-modal="false"
-          className="animate-chat-in mb-3 flex h-[min(480px,calc(100dvh-7rem))] w-[calc(100vw-2rem)] max-w-sm flex-col overflow-hidden rounded-xl border border-line bg-base shadow-2xl"
+          className="animate-chat-in mb-3 flex h-[min(480px,calc(100dvh-7rem))] w-[calc(100vw-2rem)] max-w-sm flex-col overflow-hidden rounded-2xl border border-line bg-white shadow-2xl"
         >
-          <header className="flex items-center justify-between border-b border-line bg-surface px-4 py-3">
+          <header className="flex items-center justify-between border-b border-line bg-white px-4 py-3">
             <div>
               <p className="font-display text-sm font-semibold text-ink">
                 Ask Noyan
@@ -184,7 +184,7 @@ export default function Chatbot() {
                 type="button"
                 onClick={() => sendMessage(question)}
                 disabled={loading}
-                className="rounded-full border border-line px-3 py-1 text-xs text-muted transition-colors hover:border-cyan hover:text-cyan disabled:opacity-50 focus-ring"
+                className="rounded-full border border-line px-3 py-1 text-xs text-muted transition-colors hover:border-sunOrange hover:text-sunOrange disabled:opacity-50 focus-ring"
               >
                 {question}
               </button>
@@ -192,7 +192,7 @@ export default function Chatbot() {
           </div>
 
           {error && (
-            <p role="alert" className="px-3 pt-1 text-xs text-red-400">
+            <p role="alert" className="px-3 pt-1 text-xs text-red-600">
               {error}
             </p>
           )}
@@ -213,12 +213,12 @@ export default function Chatbot() {
               placeholder="Ask about services, projects, or booking a call…"
               maxLength={500}
               autoComplete="off"
-              className="min-w-0 flex-1 rounded-md border border-line bg-surface px-3 py-3 text-sm text-ink placeholder:text-muted focus-ring"
+              className="min-w-0 flex-1 rounded-xl border border-line bg-white px-3 py-3 text-sm text-ink placeholder:text-muted focus-ring"
             />
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className="rounded-md bg-cyan px-4 py-2 text-sm font-medium text-base transition-opacity hover:opacity-90 disabled:opacity-50 focus-ring"
+              className="bg-gradient-sunset rounded-xl px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50 focus-ring"
             >
               Send
             </button>
@@ -231,7 +231,7 @@ export default function Chatbot() {
         onClick={() => setOpen((prev) => !prev)}
         aria-expanded={open}
         aria-label={open ? "Close Ask Noyan chat" : "Open Ask Noyan chat"}
-        className="ml-auto flex h-14 w-14 items-center justify-center rounded-full bg-cyan font-display text-lg font-semibold text-base shadow-lg transition-all hover:scale-105 hover:shadow-glow focus-ring"
+        className="bg-gradient-sunset ml-auto flex h-14 w-14 items-center justify-center rounded-full font-display text-lg font-semibold text-white shadow-lg transition-all hover:scale-105 hover:shadow-glow focus-ring"
       >
         {open ? "✕" : "💬"}
       </button>
