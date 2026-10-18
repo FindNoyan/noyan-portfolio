@@ -66,6 +66,13 @@ How it works:
   rule-based FAQ matcher (`src/lib/chatFaq.js`) built from the same
   portfolio content. Fallback answers are labelled
   "Answered from portfolio info (AI not connected yet)."
+- If the Gemini call **fails** for any reason (bad status, timeout,
+  malformed response, quota, invalid key), the API falls back to the
+  same local FAQ matcher and returns a portfolio answer labelled
+  "Answered from portfolio info — AI is temporarily unavailable",
+  and logs the Gemini status (only) to the Vercel Function logs.
+  The chatbot never dead-ends on an AI failure. Validation (400)
+  and rate-limit (429) errors still surface as real errors.
 - Stateless: no chat history is stored, no database is used. Messages
   are capped at 500 characters; the API rate-limits to 10 messages per
   minute per IP (best-effort, per serverless instance).
