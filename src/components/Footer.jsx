@@ -27,7 +27,7 @@ export default function Footer() {
               href={calendly.href}
               target="_blank"
               rel="noreferrer"
-              className="text-gradient-sunset rounded text-xs font-medium focus-ring"
+              className="rounded text-xs font-medium text-[#C2410C] focus-ring"
             >
               {calendly.label}
             </a>

@@ -46,7 +46,7 @@ export default function About() {
                   key={fact.label}
                   className="rounded-2xl border border-line bg-surface p-4"
                 >
-                  <dt className="text-xs font-medium uppercase tracking-[0.14em] text-sunOrange">
+                  <dt className="text-xs font-medium uppercase tracking-[0.14em] text-[#C2410C]">
                     {fact.label}
                   </dt>
                   <dd className="mt-1.5 text-sm leading-relaxed text-ink">

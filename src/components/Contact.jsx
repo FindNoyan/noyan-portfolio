@@ -175,7 +175,7 @@ export default function Contact() {
             Prefer email directly?{" "}
             <a
               href={`mailto:${site.email}`}
-              className="text-gradient-sunset rounded font-medium focus-ring"
+              className="rounded font-medium text-[#C2410C] focus-ring"
             >
               {site.email}
             </a>
