@@ -200,9 +200,14 @@ export const photos = {
   // added to the repo via the GitHub web UI (binary upload) — see README
   // \"Photos\" section. Until they are added, the <img> tags hide
   // themselves gracefully (onError) instead of showing a broken image.
-  portrait: {
-    src: "/noyan-portrait.jpg",
-    alt: "Portrait of Noyan in a black shirt and tie, smiling, seated against a dark green background.",
+  // Wide hero image: the man on the right, background blending warm
+  // cream #FAF7F0 (left) to deep forest green #14382A (right) INSIDE
+  // the image itself. The image's own left edge is cream, identical
+  // to the hero text column background, so the seam is seamless with
+  // no CSS blending applied to the photo.
+  heroWide: {
+    src: "/noyan-hero-wide.webp.jpeg",
+    alt: "Portrait of Noyan in a black shirt and tie, smiling, on the right side of a wide image whose background blends warm cream on the left to deep forest green on the right.",
   },
   // About photo: navy-blue polo shirt + glasses, beige background.
   // Uploaded separately by Noyan via the GitHub web UI (see README).

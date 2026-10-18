@@ -88,22 +88,28 @@ To enable AI answers:
 
 ## Photos
 
-The Hero shows Noyan's formal portrait and a small avatar photo; the
-About section shows his navy-polo photo. The site references:
+The Hero shows Noyan's wide hero image and the About section shows his
+navy-polo photo. The site references:
 
-- `public/noyan-portrait.jpg` — formal portrait (Hero)
-- `public/noyan-casual.jpg` — casual photo (Hero avatar badge)
+- `public/noyan-hero-wide.webp.jpeg` — wide hero image (Hero): same man,
+  black shirt + tie, right side, background blending warm cream #FAF7F0
+  (left) to deep forest green #14382A (right) INSIDE the image. The seam
+  is seamless because the image's own left edge is cream, identical to
+  the text column background — no CSS blending is applied to the photo.
+- `public/noyan-casual.jpg` — casual photo
 - `public/noyan-about.jpg` — navy-blue polo shirt + glasses photo (About)
 
 These are binary image files, so they are added to the repo via the
 GitHub web UI (Add file → Upload files → `public/`), not via
-automated text commits. **To finish the About photo:** upload the
-navy-polo photo as `public/noyan-about.jpg` (exact filename) via the
-GitHub web UI, then Vercel redeploys automatically. Until it is
+automated text commits. **Exact filename matters:** the hero file is
+`public/noyan-hero-wide.webp.jpeg` (double extension — `.webp.jpeg`).
+Do NOT rename it to `noyan-hero-wide.webp` or `noyan-hero-wide.webp.jpg`;
+neither file exists and the hero image would break. **To finish the hero:** upload the wide
+hero image as `public/noyan-hero-wide.webp.jpeg` (exact filename) via
+the GitHub web UI, then Vercel redeploys automatically. Until it is
 uploaded, the `<img>` tag hides itself gracefully instead of showing
-a broken image. Use reasonably optimised JPEGs (portrait ~1200px wide,
-avatar ~1000px wide) and keep the exact filenames above so the
-references resolve.
+a broken image. Use a reasonably optimised file (wide, ~1600px) and
+keep the exact filename above so the reference resolves.
 
 ## Honesty note
 
