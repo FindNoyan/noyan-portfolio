@@ -1,5 +1,5 @@
 // Central content for the portfolio.
-// Single source of truth: components import from here instead of
+// Single source of truth: components import from there instead of
 // hardcoding copy, so updates happen in one place.
 
 export const brandName = "noyan";
@@ -162,8 +162,8 @@ export const projects = [
 ];
 
 export const contact = {
-  heading: "Let's build something.",
-  sub: "Tell me about your business and what you want automated — I'll get back to you within a day.",
+  heading: "Let’s build something.",
+  sub: "Tell me about your business and what you want automated — I’ll get back to you within a day.",
   calendly: {
     label: "Book a call on Calendly",
     href: "https://calendly.com/noyantanveer35/30min",
@@ -198,13 +198,22 @@ export const contact = {
 export const photos = {
   // Real photos of Noyan. The image files live in public/ and are
   // added to the repo via the GitHub web UI (binary upload) — see README
-  // \"Photos\" section. Until they are added, the <img> tags hide
+  // "Photos" section. Until they are added, the <img> tags hide
   // themselves gracefully (onError) instead of showing a broken image.
-  // Hero photo: Noyan's REAL original formal portrait (black shirt +
-  // tie, green background). The AI-generated wide hero image
-  // (public/noyan-hero-wide.webp.jpeg) is still in public/ but no
-  // longer referenced — Noyan will supply his own self-made hero
-  // image later.
+  // Hero photo: Noyan’s OWN self-made hero image (tight Elora-style
+  // zoom: face large, hair touching the top edge, cream left blending
+  // to green right). Uploaded by Noyan via the GitHub web UI. The
+  // cream-to-green blend is baked into the image itself, so the hero
+  // applies NO gradient overlay / fade / mask to the photo.
+  hero: {
+    src: "/noyan-hero.jpeg",
+    alt: "Portrait of Noyan in a black shirt and tie, smiling, on the right side of a wide hero image blending cream to deep green.",
+  },
+  // Noyan’s earlier formal portrait (black shirt + tie, green
+  // background). No longer used by the Hero — kept in public/ for
+  // reference. The AI-generated wide hero image
+  // (public/noyan-hero-wide.webp.jpeg) is also still in public/ but
+  // unreferenced.
   portrait: {
     src: "/noyan-portrait.jpg",
     alt: "Portrait of Noyan in a black shirt and tie, smiling, seated against a dark green background.",
@@ -228,7 +237,7 @@ export const footer = {
 
 export const chatbot = {
   greeting:
-    "Hi! I'm Noyan's AI assistant — ask me about his work, services, projects, or how to contact him.",
+    "Hi! I’m Noyan’s AI assistant — ask me about his work, services, projects, or how to contact him.",
   suggestedQuestions: [
     "What services do you offer?",
     "Tell me about AutoFlow",
