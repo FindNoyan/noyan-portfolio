@@ -31,13 +31,13 @@ export default function Hero() {
     >
       {/* SPLIT HERO: text LEFT on a SOLID cream column, Noyan’s OWN
           self-made hero image RIGHT. No full-bleed overlay, no text
-          on top of the image, no text-shadow halo — the full-bleed
-          version caused text-shadow complaints on iPhone, an on-photo
+          on top of the image, no halo around the text — the full-bleed
+          version caused halo complaints on iPhone, an on-photo
           button overlapping "View My Work" on mobile, and the on-photo
           button colliding with the fixed chatbot button on desktop.
-          NO seam gradient / fade / mask-image on the photo: the
+          NO seam blend effects of any kind on the photo: the
           cream-to-green blend is baked into Noyan’s own image, and
-          the earlier seam gradient + mask caused a grey-beige wash
+          the earlier seam effects caused a grey-beige wash
           band over the photo. */}
       <div className="flex min-h-[100svh] flex-col lg:flex-row">
         {/* Text column: SOLID cream. Buttons live here only — no
