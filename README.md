@@ -88,22 +88,21 @@ To enable AI answers:
 
 ## Photos
 
-The Hero shows Noyan's REAL original formal portrait and the About
+The Hero shows Noyan's OWN self-made hero image and the About
 section shows his navy-polo photo. The site references:
 
-- `public/noyan-portrait.jpg` — formal portrait (Hero): black shirt +
-  tie, seated against a dark green background. This is his real
-  photograph, not an AI-generated image.
+- `public/noyan-hero.jpeg` — hero photo (Noyan's own image): tight
+  zoom, face large, cream left blending to deep green right. The
+  blend is baked into the image, so the hero applies no gradient
+  overlay / fade / mask to it.
 - `public/noyan-casual.jpg` — casual photo
 - `public/noyan-about.jpg` — navy-blue polo shirt + glasses photo (About)
 
 These are binary image files, so they are added to the repo via the
 GitHub web UI (Add file → Upload files → `public/`), not via
-automated text commits. **Note:** `public/noyan-hero-wide.webp.jpeg`
-(an AI-generated wide hero image) is still in the repo but is NO
-longer referenced anywhere — do not delete it yet. Noyan will supply
-his own self-made hero image later; when he does, it will replace
-`public/noyan-portrait.jpg` as the hero photo. Until a photo is
+automated text commits. **Note:** `public/noyan-portrait.jpg` (his
+earlier formal portrait) and the AI-generated wide hero image are
+still in the repo but are NO longer referenced anywhere. Until a photo is
 uploaded, the `<img>` tags hide themselves gracefully instead of
 showing a broken image.
 
