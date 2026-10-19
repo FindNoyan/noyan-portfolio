@@ -29,19 +29,6 @@ body {
   filter: sepia(0.14) saturate(1.07) contrast(1.02);
 }
 
-/* Hero text legibility on the full-bleed image. The hero text sits
-   directly on the image (no panel, no overlay, no gradient), so the
-   dark text gets a soft cream halo — a glow around the glyphs only,
-   never a band or panel. On the image’s cream left area this is
-   invisible; over the blend zone on narrow screens it keeps the
-   text readable. */
-.hero-text-shadow {
-  text-shadow:
-    0 0 18px rgba(250, 247, 240, 0.9),
-    0 0 42px rgba(250, 247, 240, 0.75),
-    0 1px 2px rgba(250, 247, 240, 0.9);
-}
-
 /* Scroll-reveal (see components/Reveal.jsx). Hidden only until the
    observer marks the element visible; reduced-motion users (and any
    no-observer environment) get fully visible content instead. */
