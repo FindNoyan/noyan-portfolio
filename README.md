@@ -101,8 +101,8 @@ section shows his navy-polo photo. The site references:
 These are binary image files, so they are added to the repo via the
 GitHub web UI (Add file → Upload files → `public/`), not via
 automated text commits. **Note:** `public/noyan-portrait.jpg` (his
-earlier formal portrait) and `public/noyan-hero-wide.webp.jpeg`the AI-generated wide hero image are still in the repo but are NO
-longer referenced anywhere. Until a photo is
+earlier formal portrait) and the AI-generated wide hero image are
+still in the repo but are NO longer referenced anywhere. Until a photo is
 uploaded, the `<img>` tags hide themselves gracefully instead of
 showing a broken image.
 
