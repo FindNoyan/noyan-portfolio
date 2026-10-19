@@ -16,8 +16,9 @@ development team.
   - **AutoFlow** — automation dashboard, Next.js + Supabase. Live demo linked.
   - **TaskLane** — Laravel + Blade Kanban task manager. Code on GitHub.
   - **Cadence** — HTML/CSS/JS landing page with working signup validation. Code on GitHub.
-- Contact form with client-side validation (opens the visitor's mail app —
-  the page itself sends nothing)
+- Contact form with client-side validation (sends via Web3Forms when
+  configured, otherwise falls back to opening the visitor's mail app —
+  see Contact form below)
 - "Ask Noyan" chatbot (floating button): answers from portfolio content only — Gemini AI when configured, local FAQ fallback otherwise (see Chatbot below)
 
 All copy lives in `src/data/content.js` — components import from there
@@ -36,6 +37,33 @@ npm run dev      # local dev server
 npm run build    # production build (outputs to dist/)
 npm run preview  # preview the production build
 ```
+
+## Contact form
+
+The contact form (`src/components/Contact.jsx`) sends the visitor's
+message to Noyan directly via **Web3Forms** (free, no backend). On
+submit, after the existing validation passes, the browser POSTs JSON
+to `https://api.web3forms.com/submit` with the visitor's name, email,
+subject (`Project enquiry — <project type>`), message, and a `botcheck`
+honeypot field (kept empty). On success the form shows the thanks state
+and clears.
+
+The Web3Forms access key is **never in the repo**. It comes from the
+`VITE_WEB3FORMS_KEY` environment variable, which Vite inlines at build
+time. On ANY failure — network error, non-success response, or a
+missing/empty key — the form falls back to the previous mailto
+behaviour (opens the visitor's mail app with the same subject/body
+prefilled) and shows a note that the mail app opened, so the form never
+dead-ends.
+
+To enable direct sending:
+
+1. Get a free access key yourself at web3forms.com — enter your email
+   and the key is emailed to you.
+2. In Vercel → this project → Settings → Environment Variables, add
+   `VITE_WEB3FORMS_KEY` (Production) with your key, then redeploy.
+3. Never paste the key into code, chat, or docs — only into Vercel
+   (or a local `.env.local` file, which is gitignored, for local dev).
 
 ## Deploy (Vercel)
 
