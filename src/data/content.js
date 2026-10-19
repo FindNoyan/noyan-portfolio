@@ -200,14 +200,14 @@ export const photos = {
   // added to the repo via the GitHub web UI (binary upload) — see README
   // \"Photos\" section. Until they are added, the <img> tags hide
   // themselves gracefully (onError) instead of showing a broken image.
-  // Wide hero image: the man on the right, background blending warm
-  // cream #FAF7F0 (left) to deep forest green #14382A (right) INSIDE
-  // the image itself. The hero is TRUE full-bleed: this ONE image
-  // fills the whole hero and the text sits ON TOP of it, reading off
-  // its cream left area. No split panels, no CSS blending.
-  heroWide: {
-    src: "/noyan-hero-wide.webp.jpeg",
-    alt: "Portrait of Noyan in a black shirt and tie, smiling, on the right side of a wide image whose background blends warm cream on the left to deep forest green on the right.",
+  // Hero photo: Noyan's REAL original formal portrait (black shirt +
+  // tie, green background). The AI-generated wide hero image
+  // (public/noyan-hero-wide.webp.jpeg) is still in public/ but no
+  // longer referenced — Noyan will supply his own self-made hero
+  // image later.
+  portrait: {
+    src: "/noyan-portrait.jpg",
+    alt: "Portrait of Noyan in a black shirt and tie, smiling, seated against a dark green background.",
   },
   // About photo: navy-blue polo shirt + glasses, beige background.
   // Uploaded separately by Noyan via the GitHub web UI (see README).
