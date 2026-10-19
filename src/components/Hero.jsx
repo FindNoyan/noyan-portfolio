@@ -29,15 +29,16 @@ export default function Hero() {
       id="top"
       className="animate-fade-up relative min-h-[100svh] overflow-hidden bg-base"
     >
-      {/* SPLIT HERO (revert): text LEFT on a SOLID cream column, the
-          REAL original portrait RIGHT. No full-bleed overlay, no text
+      {/* SPLIT HERO: text LEFT on a SOLID cream column, Noyan’s OWN
+          self-made hero image RIGHT. No full-bleed overlay, no text
           on top of the image, no text-shadow halo — the full-bleed
           version caused text-shadow complaints on iPhone, an on-photo
           button overlapping "View My Work" on mobile, and the on-photo
           button colliding with the fixed chatbot button on desktop.
-          The seam uses a soft cream gradient confined to the seam zone
-          only (vertical on desktop, horizontal on mobile). No
-          mask-image — it caused the grey-beige wash band. */}
+          NO seam gradient / fade / mask-image on the photo: the
+          cream-to-green blend is baked into Noyan’s own image, and
+          the earlier seam gradient + mask caused a grey-beige wash
+          band over the photo. */}
       <div className="flex min-h-[100svh] flex-col lg:flex-row">
         {/* Text column: SOLID cream. Buttons live here only — no
             on-photo button anywhere in the hero. */}
@@ -75,33 +76,22 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Photo column: the REAL original portrait (black shirt +
-            tie, green background). No on-photo button, no pill. */}
+        {/* Photo column: Noyan’s OWN hero image (tight zoom, face
+            large, cream left blending to green right). No on-photo
+            button, no pill, no overlay of any kind. */}
         {portraitOk && (
           <div className="relative min-h-[30svh] flex-1 overflow-hidden lg:min-h-[100svh]">
             <img
-              src={photos.portrait.src}
-              alt={photos.portrait.alt}
+              src={photos.hero.src}
+              alt={photos.hero.alt}
               width={1200}
               height={1800}
               onError={() => setPortraitOk(false)}
-              // object-cover; bias toward the upper third (28%) where
-              // the head sits, so the face stays fully visible.
-              className="absolute inset-0 h-full w-full object-cover object-[50%_28%]"
-            />
-            {/* Seam blend, confined to the seam zone only: a soft
-                cream gradient at the photo’s left edge on desktop
-                (where it meets the text column) and at its top edge
-                on mobile (where it meets the text above). No bottom
-                fade — the earlier bottom fade washed over the
-                pants/hands. */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-y-0 left-0 hidden w-28 bg-gradient-to-r from-base to-transparent lg:block lg:w-40"
-            />
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-x-0 top-0 block h-16 bg-gradient-to-b from-base to-transparent lg:hidden"
+              // object-cover; the face sits on the RIGHT side of the
+              // source image with hair touching the top edge, so
+              // anchor right (75%) and slightly above center (25%)
+              // so the head stays fully visible, never cropped.
+              className="absolute inset-0 h-full w-full object-cover object-[75%_25%]"
             />
           </div>
         )}
