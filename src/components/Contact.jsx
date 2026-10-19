@@ -20,6 +20,7 @@ export default function Contact() {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
   const [sent, setSent] = useState(false);
+  const [usedFallback, setUsedFallback] = useState(false);
 
   function update(field, value) {
     setValues((prev) => ({ ...prev, [field]: value }));
@@ -30,9 +31,10 @@ export default function Contact() {
       return next;
     });
     setSent(false);
+    setUsedFallback(false);
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     const problems = validateContactForm(values, contact.form.errors);
     setErrors(problems);
@@ -40,10 +42,53 @@ export default function Contact() {
     const subject = `Project enquiry — ${values.projectType}`;
     const body =
       `Hi Noyan,\n\n${values.message.trim()}\n\n— ${values.name.trim()} (${values.email.trim()})`;
-    window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+    // Fallback: the pre-existing mailto behaviour. Opens the visitor's
+    // mail app with the same subject/body, so the form never dead-ends.
+    // The form values are kept, so nothing is lost if the mail app fails.
+    function openMailApp() {
+      window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(
+        subject
+      )}&body=${encodeURIComponent(body)}`;
+      setUsedFallback(true);
+      setSent(true);
+    }
+    // The Web3Forms access key comes from the VITE_WEB3FORMS_KEY env var
+    // (set in Vercel, never in code). Without it, fall back to mailto.
+    const accessKey = import.meta.env.VITE_WEB3FORMS_KEY;
+    if (!accessKey) {
+      openMailApp();
+      return;
+    }
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: values.name.trim(),
+          email: values.email.trim(),
+          subject,
+          message: values.message.trim(),
+          from_name: values.name.trim(),
+          reply_to: values.email.trim(),
+          botcheck: "",
+          redirect: false,
+        }),
+      });
+      const result = await response.json();
+      if (result && result.success) {
+        setUsedFallback(false);
+        setSent(true);
+        setValues(initialValues);
+        return;
+      }
+      openMailApp();
+    } catch {
+      openMailApp();
+    }
   }
 
   return (
@@ -167,7 +212,15 @@ export default function Contact() {
             <p className="text-center text-xs text-muted">{contact.form.note}</p>
             {sent && (
               <p role="status" className="text-center text-sm text-green-700">
-                {contact.form.success}
+                {usedFallback
+                  ? contact.form.success
+                  : "Thanks — your message has been sent. I'll get back to you within a day."}
+              </p>
+            )}
+            {sent && usedFallback && (
+              <p className="text-center text-xs text-muted">
+                Direct sending was not available, so your mail app opened
+                instead. Press send there to deliver your message.
               </p>
             )}
           </form>
