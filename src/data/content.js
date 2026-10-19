@@ -182,7 +182,7 @@ export const contact = {
     messagePlaceholder:
       "Tell me about your project — what you need, and when you need it.",
     submitLabel: "Send message",
-    note: "This page sends nothing itself — Send message opens your mail app with your message prefilled.",
+    note: "Your message is sent directly — no mail app needed.",
     success:
       "Your mail app should have opened with your message ready to send.",
     errors: {
