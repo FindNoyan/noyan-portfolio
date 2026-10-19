@@ -212,7 +212,7 @@ export const photos = {
   // Noyan’s earlier formal portrait (black shirt + tie, green
   // background). No longer used by the Hero — kept in public/ for
   // reference. The AI-generated wide hero image
-  // (public/noyan-hero-wide.webp.jpeg) is also still in public/ but
+  // (the AI-generated wide hero image) is also still in public/ but
   // unreferenced.
   portrait: {
     src: "/noyan-portrait.jpg",
