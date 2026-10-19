@@ -22,85 +22,90 @@ function renderHeadline(headline) {
 }
 
 export default function Hero() {
-  const [heroOk, setHeroOk] = useState(true);
+  const [portraitOk, setPortraitOk] = useState(true);
 
   return (
     <section
       id="top"
       className="animate-fade-up relative min-h-[100svh] overflow-hidden bg-base"
     >
-      {/* TRUE FULL-BLEED: ONE image fills the whole hero, and the text
-          sits ON TOP of it. No split panels, no text-column background,
-          no gradient overlays, no mask-image, no fade divs anywhere.
-          The old split layout (flat-cream panel + photo) always showed
-          a vertical join where cream met the photo; the CSS-fade
-          attempts always left a grey-beige band (alpha-blending). The
-          text reads directly off the image’s own cream left area, with
-          only a soft cream text-shadow for legibility (see
-          .hero-text-shadow in index.css). The whole hero is exactly one
-          viewport tall (100svh). */}
-      {heroOk && (
-        <img
-          src={photos.heroWide.src}
-          alt={photos.heroWide.alt}
-          width={1600}
-          height={900}
-          onError={() => setHeroOk(false)}
-          // object-cover, full-bleed. Desktop: bias the crop toward
-          // the LEFT (25%) so the image’s cream portion stays under
-          // the text while the man’s face (right side) stays fully
-          // visible. Mobile: bias toward the RIGHT (72%) so the face
-          // stays in frame on narrow screens; the cream text-shadow
-          // keeps the dark text legible over the blend zone.
-          className="absolute inset-0 h-full w-full object-cover object-[72%_50%] lg:object-[25%_50%]"
-        />
-      )}
-
-      {/* Text ON TOP of the image — NO background panel, NO card, NO
-          cream div behind it. Constrained to the left ~50% on desktop
-          so it sits over the image’s cream left area. */}
-      <div className="hero-text-shadow relative z-10 flex min-h-[100svh] flex-col justify-center px-6 pb-8 pt-24 sm:px-10 lg:max-w-[55%] lg:px-16 lg:pb-10 lg:pt-24 xl:px-24">
-        <p className="inline-flex w-fit items-center gap-2 rounded-full border border-line bg-surface px-4 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-muted">
-          <span className="inline-block h-2 w-2 rounded-full bg-gold" />
-          {hero.eyebrow}
-        </p>
-        <h1 className="mt-6 max-w-xl font-display text-[clamp(2.25rem,4.2vw,3.9rem)] font-semibold leading-[1.05] text-ink">
-          {renderHeadline(hero.headline)}
-        </h1>
-        <p className="mt-5 max-w-lg text-base leading-relaxed text-muted sm:text-lg">
-          {hero.sub}
-        </p>
-        <div className="mt-8 flex flex-wrap items-center gap-4">
-          <a
-            href={hero.primaryCta.href}
-            {...(hero.primaryCta.external
-              ? { target: "_blank", rel: "noreferrer" }
-              : {})}
-            className="bg-emerald rounded-full px-7 py-3.5 text-sm font-medium text-white transition-all hover:-translate-y-0.5 hover:opacity-90 hover:shadow-glow focus-ring"
-          >
-            {hero.primaryCta.label}
-          </a>
-          <a
-            href={hero.secondaryCta.href}
-            className="rounded-full border border-line bg-white px-7 py-3.5 text-sm font-medium text-ink transition-all hover:-translate-y-0.5 hover:border-emerald hover:text-emerald focus-ring"
-          >
-            {hero.secondaryCta.label}
-          </a>
+      {/* SPLIT HERO (revert): text LEFT on a SOLID cream column, the
+          REAL original portrait RIGHT. No full-bleed overlay, no text
+          on top of the image, no text-shadow halo — the full-bleed
+          version caused text-shadow complaints on iPhone, an on-photo
+          button overlapping "View My Work" on mobile, and the on-photo
+          button colliding with the fixed chatbot button on desktop.
+          The seam uses a soft cream gradient confined to the seam zone
+          only (vertical on desktop, horizontal on mobile). No
+          mask-image — it caused the grey-beige wash band. */}
+      <div className="flex min-h-[100svh] flex-col lg:flex-row">
+        {/* Text column: SOLID cream. Buttons live here only — no
+            on-photo button anywhere in the hero. */}
+        <div
+          className={`flex flex-col justify-center bg-base px-6 pb-8 pt-24 sm:px-10 lg:max-w-[55%] lg:px-16 lg:pb-10 lg:pt-24 xl:px-24 ${
+            portraitOk ? "" : "lg:max-w-none"
+          }`}
+        >
+          <p className="inline-flex w-fit items-center gap-2 rounded-full border border-line bg-surface px-4 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-muted">
+            <span className="inline-block h-2 w-2 rounded-full bg-gold" />
+            {hero.eyebrow}
+          </p>
+          <h1 className="mt-6 max-w-xl font-display text-[clamp(2.25rem,4.2vw,3.9rem)] font-semibold leading-[1.05] text-ink">
+            {renderHeadline(hero.headline)}
+          </h1>
+          <p className="mt-5 max-w-lg text-base leading-relaxed text-muted sm:text-lg">
+            {hero.sub}
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <a
+              href={hero.primaryCta.href}
+              {...(hero.primaryCta.external
+                ? { target: "_blank", rel: "noreferrer" }
+                : {})}
+              className="bg-emerald rounded-full px-7 py-3.5 text-sm font-medium text-white transition-all hover:-translate-y-0.5 hover:opacity-90 hover:shadow-glow focus-ring"
+            >
+              {hero.primaryCta.label}
+            </a>
+            <a
+              href={hero.secondaryCta.href}
+              className="rounded-full border border-line bg-white px-7 py-3.5 text-sm font-medium text-ink transition-all hover:-translate-y-0.5 hover:border-emerald hover:text-emerald focus-ring"
+            >
+              {hero.secondaryCta.label}
+            </a>
+          </div>
         </div>
-      </div>
 
-      {/* Book a Call, resting on the photo’s green area (bottom-right).
-          Same Calendly link as the other Book a Call CTAs. bottom-24
-          keeps it clear of the fixed chatbot button. No
-          “Open to new projects” pill — intentionally removed. */}
-      <a
-        href={hero.primaryCta.href}
-        target="_blank"
-        rel="noreferrer"
-        className="bg-emerald absolute bottom-24 right-6 z-10 rounded-full px-5 py-2.5 text-sm font-medium text-white shadow-card transition-all hover:-translate-y-0.5 hover:opacity-90 focus-ring"
-      >
-        {hero.primaryCta.label}
-      </a>
+        {/* Photo column: the REAL original portrait (black shirt +
+            tie, green background). No on-photo button, no pill. */}
+        {portraitOk && (
+          <div className="relative min-h-[30svh] flex-1 overflow-hidden lg:min-h-[100svh]">
+            <img
+              src={photos.portrait.src}
+              alt={photos.portrait.alt}
+              width={1200}
+              height={1800}
+              onError={() => setPortraitOk(false)}
+              // object-cover; bias toward the upper third (28%) where
+              // the head sits, so the face stays fully visible.
+              className="absolute inset-0 h-full w-full object-cover object-[50%_28%]"
+            />
+            {/* Seam blend, confined to the seam zone only: a soft
+                cream gradient at the photo’s left edge on desktop
+                (where it meets the text column) and at its top edge
+                on mobile (where it meets the text above). No bottom
+                fade — the earlier bottom fade washed over the
+                pants/hands. */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-y-0 left-0 hidden w-28 bg-gradient-to-r from-base to-transparent lg:block lg:w-40"
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 top-0 block h-16 bg-gradient-to-b from-base to-transparent lg:hidden"
+            />
+          </div>
+        )}
+      </div>
     </section>
   );
 }
