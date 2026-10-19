@@ -107,7 +107,7 @@ export const projects = [
     description:
       "Automation dashboard that shows every workflow, its status, and its recent runs in one place.",
     problem:
-      "Teams run automations but can't see which ones failed or why — failures surface late, in screenshots and spreadsheets.",
+      "Teams run automations but can’t see which ones failed or why — failures surface late, in screenshots and spreadsheets.",
     solution:
       "A dashboard where each signed-in user sees only their own workflows and runs, with a clear status for every workflow.",
     built: [
@@ -208,6 +208,15 @@ export const photos = {
   hero: {
     src: "/noyan-hero.jpeg",
     alt: "Portrait of Noyan in a black shirt and tie, smiling, on the right side of a wide hero image blending cream to deep green.",
+  },
+  // Mobile hero photo: tall VERTICAL version of the same self-made
+  // hero image (face large, hair near the top edge, cream-to-green
+  // blend). Served via <picture> on viewports <=767px so phones get
+  // a tall Elora-style card instead of the wide image squeezed into
+  // a short horizontal strip. Uploaded by Noyan via the GitHub web UI.
+  heroMobile: {
+    src: "/noyan-hero-mobile.webp",
+    alt: "Portrait of Noyan in a black shirt and tie, smiling, in a tall vertical hero image blending cream to deep green.",
   },
   // Noyan’s earlier formal portrait (black shirt + tie, green
   // background). No longer used by the Hero — kept in public/ for

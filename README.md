@@ -95,6 +95,10 @@ section shows his navy-polo photo. The site references:
   zoom, face large, cream left blending to deep green right. The
   blend is baked into the image, so the hero applies no gradient
   overlay / fade / mask to it.
+- `public/noyan-hero-mobile.webp` — tall VERTICAL version of the same
+  hero image, served via `<picture>` on viewports ≤767px so phones
+  get a tall card (face large) instead of the wide image squeezed
+  into a short horizontal strip.
 - `public/noyan-casual.jpg` — casual photo
 - `public/noyan-about.jpg` — navy-blue polo shirt + glasses photo (About)
 

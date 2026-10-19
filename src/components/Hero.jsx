@@ -76,23 +76,35 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Photo column: Noyan’s OWN hero image (tight zoom, face
-            large, cream left blending to green right). No on-photo
+        {/* Photo column: Noyan’s OWN hero image. Responsive via
+            <picture>: on mobile (<=767px) the TALL vertical image
+            (face large, Elora-style card) — the wide image rendered
+            as a short horizontal strip with a small face on phones.
+            On desktop the wide image is unchanged. No on-photo
             button, no pill, no overlay of any kind. */}
         {portraitOk && (
-          <div className="relative min-h-[30svh] flex-1 overflow-hidden lg:min-h-[100svh]">
-            <img
-              src={photos.hero.src}
-              alt={photos.hero.alt}
-              width={1200}
-              height={1800}
-              onError={() => setPortraitOk(false)}
-              // object-cover; the face sits on the RIGHT side of the
-              // source image with hair touching the top edge, so
-              // anchor right (75%) and slightly above center (25%)
-              // so the head stays fully visible, never cropped.
-              className="absolute inset-0 h-full w-full object-cover object-[75%_25%]"
-            />
+          <div className="relative min-h-[62svh] flex-1 overflow-hidden lg:min-h-[100svh]">
+            <picture className="absolute inset-0 block h-full w-full">
+              <source
+                media="(max-width: 767px)"
+                srcSet={photos.heroMobile.src}
+                type="image/webp"
+              />
+              <img
+                src={photos.hero.src}
+                alt={photos.hero.alt}
+                width={1200}
+                height={1800}
+                onError={() => setPortraitOk(false)}
+                // object-cover; desktop anchors right (75%) and
+                // slightly above center (25%) so the head stays fully
+                // visible in the wide image; mobile anchors center
+                // (50%) and near the top (12%) so the face in the
+                // vertical image stays large and uncropped, hair
+                // near the top edge.
+                className="absolute inset-0 h-full w-full object-cover object-[50%_12%] md:object-[75%_25%]"
+              />
+            </picture>
           </div>
         )}
       </div>
