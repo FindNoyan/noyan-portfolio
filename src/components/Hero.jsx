@@ -42,8 +42,9 @@ function MarqueeHalf() {
   );
 }
 
-// Small diagonal arrow above the side role text (mockup detail).
-// Inline SVG, not a text character.
+// Small diagonal arrow above the side role text (mockup detail):
+// in the agreed mockup it points DOWN-RIGHT (toward the lower right),
+// arrowhead corner at the bottom-right. Inline SVG, not a text character.
 function DiagonalArrow() {
   return (
     <svg
@@ -55,7 +56,7 @@ function DiagonalArrow() {
       className="text-forest"
     >
       <path
-        d="M3 15L15 3M15 3H6M15 3v9"
+        d="M3 3L15 15M15 15H6M15 15V6"
         stroke="currentColor"
         strokeWidth="1.8"
         strokeLinecap="round"
@@ -112,14 +113,17 @@ export default function Hero() {
             the lower body is cropped there by the section's
             overflow-hidden. Head starts near the top, like the mockup.
             (The cutout file carries ~8% transparent headroom, so the
-            wrapper is 93% / 76% to land the person at 85% / 70%.) */}
+            wrapper is 93% / 76% to land the person at 85% / 70%.)
+            Cutout is full native resolution (1024x1536 rembg alpha-only);
+            explicit width/height + aspect so the browser renders it at
+            full quality (iteration 3, fix 4). */}
         <div className="absolute inset-x-0 bottom-0 flex h-[76%] justify-center lg:h-[93%]">
           {cutoutOk && (
             <img
               src={photos.heroCutout.src}
               alt={photos.heroCutout.alt}
-              width={704}
-              height={1056}
+              width={1024}
+              height={1536}
               loading="eager"
               fetchPriority="high"
               onError={() => setCutoutOk(false)}
@@ -128,14 +132,15 @@ export default function Hero() {
           )}
         </div>
 
-        {/* Name marquee (fix 2): lives in the BOTTOM band of the hero only.
-            Translated down so ~25% of the letter height falls below the
-            hero's bottom edge and is cropped there. Slides horizontally
-            only — the band never rises into the side-text zone. In front
-            of the portrait's lower body (z-20), like the mockup. */}
+        {/* Name marquee (iteration 3, fix 1): lives in the BOTTOM band of
+            the hero, sitting just above the hero's bottom edge with a ~3%
+            margin so the FULL letter height is visible — Noyan's word
+            overrides the earlier "letters crop at bottom" spec. Slides
+            horizontally only, right-to-left. In front of the portrait's
+            lower body (z-20), like the mockup. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-20 translate-y-[25%] select-none overflow-hidden"
+          className="pointer-events-none absolute inset-x-0 bottom-[3%] z-20 select-none overflow-hidden"
         >
           <div className="hero-marquee-track flex w-max">
             <MarqueeHalf />
@@ -143,18 +148,19 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Desktop side elements (mockup layout). Fix 5: the "Located in
-            Pakistan" pill sits LEFT at waist level (~57% of hero height).
-            Fix 3: the role text sits RIGHT in the mid band (~46%), at
-            30px, fully clear of the marquee band at every animation
-            frame — the band's top edge stays well below both. */}
-        <p className="absolute left-6 top-[57%] z-10 hidden items-center gap-2.5 rounded-full bg-forest py-1.5 pl-1.5 pr-5 text-sm font-medium text-[#FAF7F0] lg:inline-flex xl:left-10">
+        {/* Desktop side elements (mockup layout). Iteration 3, fix 2: the
+            name band rose to show the full letters, so the "Located in
+            Pakistan" pill (LEFT, waist level) and the role text (RIGHT,
+            mid band) both shift up ~3% to keep the layout balance.
+            The band's top edge stays well below both at every animation
+            frame. */}
+        <p className="absolute left-6 top-[54%] z-10 hidden items-center gap-2.5 rounded-full bg-forest py-1.5 pl-1.5 pr-5 text-sm font-medium text-[#FAF7F0] lg:inline-flex xl:left-10">
           <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#9DBEA9] text-forest">
             <GlobeIcon />
           </span>
           {hero.locationPill}
         </p>
-        <div className="absolute right-6 top-[46%] z-10 hidden text-right lg:block xl:right-10">
+        <div className="absolute right-6 top-[43%] z-10 hidden text-right lg:block xl:right-10">
           <span className="mb-3 inline-block">
             <DiagonalArrow />
           </span>
@@ -185,9 +191,12 @@ export default function Hero() {
 
       {/* Headline + CTAs (fix 6): the section directly below the visual
           hero. The H1 stays the page's single H1 (SEO unchanged) — same
-          copy, same sub, same Calendly link on "Book a Call". */}
+          copy, same sub, same Calendly link on "Book a Call".
+          Iteration 3, fix 5: mobile-only extra right padding so the
+          centered headline never sits under the floating chat button
+          (fixed bottom-right, 56px circle). Desktop unchanged. */}
       <section className="bg-base">
-        <div className="mx-auto w-full max-w-3xl px-6 py-16 text-center sm:px-10 sm:py-24">
+        <div className="mx-auto w-full max-w-3xl px-6 py-16 pr-20 text-center sm:px-10 sm:py-24">
           <h1 className="font-display text-[clamp(1.7rem,3.6vw,2.6rem)] font-semibold leading-[1.1] text-ink">
             {renderHeadline(hero.headline)}
           </h1>
