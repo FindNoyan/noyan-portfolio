@@ -116,27 +116,25 @@ To enable AI answers:
 
 ## Photos
 
-The Hero shows Noyan's OWN self-made hero image and the About
-section shows his navy-polo photo. The site references:
+The Hero shows a background-removed cutout of Noyan's navy-polo photo —
+large, directly on the cream background, no box or seam (Dennis-style
+hero, Issue #43). The About section shows the same photo for now; it goes
+text-only in Step 3. The site references:
 
-- `public/noyan-hero.jpeg` — hero photo (Noyan's own image): tight
-  zoom, face large, cream left blending to deep green right. The
-  blend is baked into the image, so the hero applies no gradient
-  overlay / fade / mask to it.
-- `public/noyan-hero-mobile.webp` — tall VERTICAL version of the same
-  hero image, served via `<picture>` on viewports ≤767px so phones
-  get a tall card (face large) instead of the wide image squeezed
-  into a short horizontal strip.
+- `public/noyan-about-cutout.svg` — hero cutout: transparent
+  background-removed version of `noyan-about.jpg` (rembg; face/body pixels
+  untouched, background removal only). Stored as `.svg` (text) wrapping the
+  transparent WebP as a data URI, because only text files can be pushed
+  through the API — it renders identically to a plain image in `<img>`.
+- `public/noyan-about.jpg` — navy-blue polo shirt + glasses photo (About;
+  also the cutout source)
 - `public/noyan-casual.jpg` — casual photo
-- `public/noyan-about.jpg` — navy-blue polo shirt + glasses photo (About)
 
-These are binary image files, so they are added to the repo via the
-GitHub web UI (Add file → Upload files → `public/`), not via
-automated text commits. **Note:** `public/noyan-portrait.jpg` (his
-earlier formal portrait) and the AI-generated wide hero image are
-still in the repo but are NO longer referenced anywhere. Until a photo is
-uploaded, the `<img>` tags hide themselves gracefully instead of
-showing a broken image.
+`public/noyan-hero.jpeg`, `public/noyan-hero-mobile.webp`, and
+`public/noyan-portrait.jpg` are still in the repo but are NO longer
+referenced anywhere (deleted in the Step 6 cleanup). Until a photo file
+exists, the `<img>` tags hide themselves gracefully instead of showing a
+broken image.
 
 ## Honesty note
 

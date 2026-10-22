@@ -209,9 +209,20 @@ export const photos = {
   // Hero portrait (Step 1 redesign): Noyan's glasses + navy polo photo —
   // the same file About shows for now (About goes text-only in Step 3).
   // Face/identity: the original photo file only — never regenerate or
-  // alter his face.
+  // alter his face. SUPERSEDED in the hero by heroCutout (Issue #43);
+  // kept for reference.
   heroPortrait: {
     src: "/noyan-about.jpg",
+    alt: "Portrait of Noyan in a navy blue polo shirt and glasses, standing outdoors.",
+  },
+  // Hero cutout (correction pass, Issue #43): background-removed cutout of
+  // /noyan-about.jpg made with rembg — face/body pixels untouched,
+  // background removal only. Stored as .svg (text) wrapping the transparent
+  // WebP as a data URI, because only text files can be pushed through the
+  // API; it renders identically to a plain image in <img>. Displayed large
+  // on the cream background — no box, no seam, like the agreed mockup.
+  heroCutout: {
+    src: "/noyan-about-cutout.svg",
     alt: "Portrait of Noyan in a navy blue polo shirt and glasses, standing outdoors.",
   },
   // Noyan’s earlier formal portrait (black shirt + tie, green
