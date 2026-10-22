@@ -56,7 +56,7 @@ export default function Hero() {
           text-shadow, no seam. The giant name marquee slides right-to-left
           behind the portrait in a transform-only loop. About still shows
           the same photo for now; it goes text-only in Step 3. */}
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col px-6 pb-10 pt-24 sm:px-10">
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col px-6 pb-8 pt-20 sm:px-10">
         {/* Top row: eyebrow pill + "Located in Pakistan" pill. */}
         <div className="flex flex-wrap items-center justify-between gap-3">
           <p className="inline-flex w-fit items-center gap-2 rounded-full border border-line bg-surface px-4 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-muted">
@@ -71,7 +71,7 @@ export default function Hero() {
         {/* Portrait zone: centered portrait; role text at the side on
             desktop. The marquee breaks out full-bleed and sits behind the
             portrait's lower half. */}
-        <div className="relative flex flex-1 items-center justify-center py-6">
+        <div className="relative flex flex-1 items-center justify-center py-4">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute left-1/2 top-[58%] z-0 w-screen -translate-x-1/2 -translate-y-1/2 select-none overflow-hidden"
@@ -93,7 +93,7 @@ export default function Hero() {
               loading="eager"
               fetchPriority="high"
               onError={() => setPortraitOk(false)}
-              className="relative z-10 aspect-[2/3] h-[34svh] w-auto object-cover sm:h-[42svh] lg:h-[54svh]"
+              className="relative z-10 aspect-[2/3] h-[34svh] w-auto object-cover sm:h-[42svh] lg:h-[48svh]"
             />
           )}
         </div>
@@ -105,14 +105,14 @@ export default function Hero() {
 
         {/* Real H1 (SEO) + sub + CTAs. Centered, clear of the fixed
             chatbot button (bottom-right). */}
-        <div className="mx-auto mt-5 w-full max-w-3xl text-center">
+        <div className="mx-auto mt-4 w-full max-w-3xl text-center">
           <h1 className="font-display text-[clamp(1.9rem,4.6vw,3.25rem)] font-semibold leading-[1.08] text-ink">
             {renderHeadline(hero.headline)}
           </h1>
-          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-[#3F443B] sm:text-lg">
+          <p className="mx-auto mt-3 max-w-xl text-base leading-relaxed text-[#3F443B] sm:text-lg">
             {hero.sub}
           </p>
-          <div className="mt-7 flex flex-wrap items-center justify-center gap-4">
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
             <a
               href={hero.primaryCta.href}
               {...(hero.primaryCta.external
