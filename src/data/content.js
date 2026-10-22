@@ -110,6 +110,21 @@ export const projects = [
   {
     name: "AutoFlow",
     status: "Live demo",
+    // Short category line shown under the project name in the Step 2
+    // Recent Work list.
+    category: "Automation Monitoring Dashboard",
+    // Real screenshot for the Step 2 hover preview / mobile thumbnail.
+    // public/work screenshots are captured from the actual live pages —
+    // never mocked. (Mockup preview-card stats were placeholders.)
+    // Stored as .svg wrapping the WebP as a data URI, because only text
+    // files can be pushed through the GitHub API; renders identically in
+    // <img>. Same pattern as photos.heroCutout.
+    preview: {
+      src: "/work/autoflow.svg",
+      alt: "Screenshot of the AutoFlow automation dashboard live site",
+      width: 1280,
+      height: 800,
+    },
     description:
       "Automation dashboard that shows every workflow, its status, and its recent runs in one place.",
     problem:
@@ -131,6 +146,13 @@ export const projects = [
   {
     name: "TaskLane",
     status: "Code on GitHub",
+    category: "Task Management App",
+    preview: {
+      src: "/work/tasklane.svg",
+      alt: "Screenshot of the TaskLane project page on GitHub",
+      width: 1280,
+      height: 800,
+    },
     description:
       "A Kanban-style task manager for small teams, with boards, due dates, and task editing.",
     problem:
@@ -150,6 +172,13 @@ export const projects = [
   {
     name: "Cadence",
     status: "Code on GitHub",
+    category: "Landing Page",
+    preview: {
+      src: "/work/cadence.svg",
+      alt: "Screenshot of the Cadence project page on GitHub",
+      width: 1280,
+      height: 800,
+    },
     description:
       "Marketing landing page for a scheduling-automation product — built for a fast first impression.",
     problem:
