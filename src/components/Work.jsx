@@ -1,128 +1,181 @@
+import { useEffect, useState } from "react";
 import { projects } from "../data/content";
 import Reveal from "./Reveal";
 
-function CaseStudy({ project, heroCard = false }) {
-  const isLiveDemo = project.links.some((link) => link.label === "Live demo");
+// Row link label shown on the right side of each row. Source URLs come
+// from content.js only; these display labels match the approved mockups.
+function rowLink(project) {
+  const demo = project.links.find((link) => link.label === "Live demo");
+  if (demo) return { label: "LIVE DEMO", href: demo.href };
+  const code = project.links.find((link) => link.label === "Code");
+  return { label: "GITHUB", href: code.href };
+}
+
+// true only on devices with a fine pointer that supports hover — the
+// floating preview is disabled on touch screens.
+function useFinePointer() {
+  const [fine, setFine] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
+    setFine(mq.matches);
+    const onChange = (e) => setFine(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+  return fine;
+}
+
+function ProjectRow({ project, index, onHover, onLeave }) {
+  const { label, href } = rowLink(project);
+  const number = String(index + 1).padStart(2, "0");
   return (
-    <article
-      className={`rounded-2xl border border-white/10 bg-white/[0.06] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-white/25 sm:p-8 ${
-        heroCard ? "lg:col-span-2" : ""
-      }`}
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={`${project.name} — open ${label.toLowerCase()}`}
+      onMouseEnter={(e) => onHover(index, e.currentTarget)}
+      onFocus={(e) => onHover(index, e.currentTarget)}
+      onMouseLeave={onLeave}
+      onBlur={onLeave}
+      className="focus-ring group relative block border-b border-forest/15 px-2 py-7 transition-colors duration-200 hover:bg-[#F3EDDD] sm:py-8 lg:rounded-md"
     >
-      <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <h3 className="font-display text-xl font-semibold text-white sm:text-2xl">
-          {project.name}
-        </h3>
+      {/* Mobile: static thumbnail card above the name (approved mockup). */}
+      <div className="mb-5 overflow-hidden rounded-2xl border border-forest/10 lg:hidden">
+        <img
+          src={project.preview.src}
+          alt={project.preview.alt}
+          width={project.preview.width}
+          height={project.preview.height}
+          loading="lazy"
+          className="aspect-[16/10] w-full object-cover object-top"
+        />
+      </div>
+
+      <div className="flex items-center gap-6 sm:gap-7">
         <span
-          className={`rounded-full px-3 py-1 text-xs font-medium ${
-            isLiveDemo
-              ? "bg-emerald text-white"
-              : "border border-white/20 bg-white/5 text-zinc-300"
-          }`}
+          aria-hidden="true"
+          className="w-10 shrink-0 font-display text-lg italic text-gold"
         >
-          {project.status}
+          {number}
+        </span>
+        <span className="min-w-0">
+          <span className="block font-display text-[clamp(2rem,6vw,3.375rem)] font-semibold leading-none tracking-tight text-forest transition-colors duration-200 group-hover:text-emerald">
+            {project.name}
+          </span>
+          <span className="mt-1.5 block text-sm text-forest/60">
+            {project.category}
+          </span>
+        </span>
+        <span className="flex-1" aria-hidden="true" />
+        <span className="flex shrink-0 items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.18em] text-emerald">
+          <span aria-hidden="true" className="text-lg text-gold">
+            ↗
+          </span>
+          {label}
         </span>
       </div>
-      <p className="mt-3 max-w-2xl text-sm leading-relaxed text-zinc-400 sm:text-base">
-        {project.description}
-      </p>
+    </a>
+  );
+}
 
-      <dl className="mt-6 grid gap-6 sm:grid-cols-2">
-        <div>
-          <dt className="text-xs font-medium uppercase tracking-[0.14em] text-goldLight">
-            Problem
-          </dt>
-          <dd className="mt-1 text-sm leading-relaxed text-zinc-400">
-            {project.problem}
-          </dd>
-        </div>
-        <div>
-          <dt className="text-xs font-medium uppercase tracking-[0.14em] text-goldLight">
-            Solution
-          </dt>
-          <dd className="mt-1 text-sm leading-relaxed text-zinc-400">
-            {project.solution}
-          </dd>
-        </div>
-      </dl>
-
-      <div className="mt-6">
-        <h4 className="text-xs font-medium uppercase tracking-[0.14em] text-goldLight">
-          What was built
-        </h4>
-        <ul className="mt-2 list-disc space-y-1 pl-5 text-sm leading-relaxed text-zinc-400">
-          {project.built.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="mt-6 flex flex-wrap items-center gap-4">
-        <div className="flex flex-wrap gap-2">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="rounded-full border border-white/15 bg-white/5 px-2.5 py-1 text-xs text-zinc-300"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-        <div className="flex flex-wrap gap-3">
-          {project.links.map((link) =>
-            link.label === "Live demo" ? (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noreferrer"
-                className="bg-emerald rounded-full px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 focus-ring"
-              >
-                {link.label} →
-              </a>
-            ) : (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full border border-white/20 px-4 py-2 text-sm font-medium text-white transition-colors hover:border-white/50 focus-ring"
-              >
-                {link.label} →
-              </a>
-            )
+// Desktop-only floating preview that follows the hovered row. Absolutely
+// positioned over the list with pointer-events none — transform and
+// opacity only, so hovering never shifts page layout.
+function HoverPreview({ project, top, visible }) {
+  return (
+    <div
+      aria-hidden="true"
+      style={{ top }}
+      className={`pointer-events-none absolute left-[52%] z-10 w-[392px] max-w-[42%] -translate-y-1/2 rotate-[1.5deg] transition-opacity duration-200 ${
+        visible ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      <div className="relative">
+        <div className="overflow-hidden rounded-2xl shadow-card">
+          {project && (
+            <img
+              key={project.name}
+              src={project.preview.src}
+              alt=""
+              width={project.preview.width}
+              height={project.preview.height}
+              loading="lazy"
+              className="animate-preview-in aspect-[16/10] w-full object-cover object-top"
+            />
           )}
         </div>
+        <span className="absolute -right-7 -top-7 flex h-[88px] w-[88px] -rotate-[8deg] items-center justify-center rounded-full bg-gold text-xs font-semibold tracking-[0.1em] text-forest shadow-card">
+          VIEW&nbsp;↗
+        </span>
       </div>
-    </article>
+    </div>
   );
 }
 
 export default function Work() {
-  const [heroProject, ...rest] = projects;
+  const finePointer = useFinePointer();
+  const [hover, setHover] = useState({ index: -1, top: 0 });
+
+  const handleHover = (index, el) => {
+    if (!finePointer) return;
+    const list = el.parentElement;
+    const listTop = list ? list.getBoundingClientRect().top : 0;
+    const rect = el.getBoundingClientRect();
+    setHover({ index, top: rect.top - listTop + rect.height / 2 });
+  };
+
+  const hovered = hover.index >= 0 ? projects[hover.index] : null;
+
   return (
     <section id="work" className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
       <Reveal>
-        {/* Black rounded showcase container holding the case studies. */}
-        <div className="rounded-[28px] bg-showcase px-5 py-10 shadow-card sm:rounded-[32px] sm:px-8 sm:py-12">
-          <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-zinc-400">
-            <span className="inline-block h-2 w-2 rounded-full bg-gold" />
-            Selected work
-          </p>
-          <h2 className="mt-4 font-display text-3xl font-semibold text-white sm:text-4xl">
-            Case studies
-          </h2>
-          <p className="mt-3 max-w-2xl text-base leading-relaxed text-zinc-400">
-            Real projects — what problem each one solves, what was built, and
-            where to see it.
-          </p>
-          {/* Bento: AutoFlow spans the full row, the other two share one. */}
-          <div className="mt-8 grid gap-6 lg:grid-cols-2">
-            <CaseStudy project={heroProject} heroCard />
-            {rest.map((project) => (
-              <CaseStudy key={project.name} project={project} />
-            ))}
-          </div>
+        <p className="text-xs font-semibold uppercase tracking-[0.34em] text-gold">
+          02&nbsp;&middot;&nbsp;Selected Projects
+        </p>
+        <h2 className="mt-4 font-display text-[clamp(3rem,7vw,6.5rem)] font-semibold leading-none tracking-tight text-forest">
+          Recent{" "}
+          <em className="font-medium italic text-emerald">Work</em>
+        </h2>
+        <p className="mt-4 max-w-xl text-base leading-relaxed text-forest/60">
+          Real projects — what problem each one solves, what was built, and
+          where to see it.
+        </p>
+      </Reveal>
+
+      <Reveal>
+        <div className="relative mt-10 border-t border-forest/15">
+          {projects.map((project, index) => (
+            <ProjectRow
+              key={project.name}
+              project={project}
+              index={index}
+              onHover={handleHover}
+              onLeave={() => setHover((h) => ({ ...h, index: -1 }))}
+            />
+          ))}
+          {/* Desktop hover preview — only on fine-pointer devices. */}
+          {finePointer && (
+            <HoverPreview
+              project={hovered}
+              top={hover.top}
+              visible={hover.index >= 0}
+            />
+          )}
+        </div>
+
+        <div className="mt-8 flex justify-end">
+          <a
+            href="https://github.com/FindNoyan"
+            target="_blank"
+            rel="noreferrer"
+            className="focus-ring flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.18em] text-emerald"
+          >
+            <span aria-hidden="true" className="text-lg text-gold">
+              ↗
+            </span>
+            Everything on GitHub
+          </a>
         </div>
       </Reveal>
     </section>
