@@ -24,6 +24,10 @@ export default {
         goldDeep: "#8A6D1B",
         // Light gold: text on dark green / black (≈ 7:1+).
         goldLight: "#E3C878",
+        // Warm sand: sampled from the sunlit wall in Noyan's portrait
+        // (Step 1 redesign). The Dennis-style hero sits on this flat
+        // colour so the photo blends in with no seam, mask, or gradient.
+        heroSand: "#E3D2B9",
       },
       boxShadow: {
         card: "0 10px 30px -12px rgba(20, 24, 20, 0.14)",

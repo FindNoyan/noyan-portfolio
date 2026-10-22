@@ -41,6 +41,12 @@ export const hero = {
   // Emerald primary CTA first ("Book a Call"), secondary ("View My Work").
   primaryCta: { label: "Book a Call", href: calendly.href, external: true },
   secondaryCta: { label: "View My Work", href: "#work" },
+  // Step 1 redesign (Dennis-style hero): side role text, the small dark
+  // location pill, and the giant decorative name marquee that slides
+  // behind the portrait (aria-hidden; the H1 above stays the SEO headline).
+  role: "AI Automation & Business Development",
+  locationPill: "Located in Pakistan",
+  marqueeName: "NOYAN TANVEER — ",
 };
 
 export const about = {
@@ -200,29 +206,18 @@ export const photos = {
   // added to the repo via the GitHub web UI (binary upload) — see README
   // "Photos" section. Until they are added, the <img> tags hide
   // themselves gracefully (onError) instead of showing a broken image.
-  // Hero photo: Noyan’s OWN self-made hero image (tight Elora-style
-  // zoom: face large, hair touching the top edge, cream left blending
-  // to green right). Uploaded by Noyan via the GitHub web UI. The
-  // cream-to-green blend is baked into the image itself, so the hero
-  // applies NO gradient overlay / fade / mask to the photo.
-  hero: {
-    src: "/noyan-hero.jpeg",
-    alt: "Portrait of Noyan in a black shirt and tie, smiling, on the right side of a wide hero image blending cream to deep green.",
-  },
-  // Mobile hero photo: tall VERTICAL version of the same self-made
-  // hero image (face large, hair near the top edge, cream-to-green
-  // blend). Served via <picture> on viewports <=767px so phones get
-  // a tall Elora-style card instead of the wide image squeezed into
-  // a short horizontal strip. Uploaded by Noyan via the GitHub web UI.
-  heroMobile: {
-    src: "/noyan-hero-mobile.webp",
-    alt: "Portrait of Noyan in a black shirt and tie, smiling, in a tall vertical hero image blending cream to deep green.",
+  // Hero portrait (Step 1 redesign): Noyan's glasses + navy polo photo —
+  // the same file About shows for now (About goes text-only in Step 3).
+  // Face/identity: the original photo file only — never regenerate or
+  // alter his face.
+  heroPortrait: {
+    src: "/noyan-about.jpg",
+    alt: "Portrait of Noyan in a navy blue polo shirt and glasses, standing outdoors.",
   },
   // Noyan’s earlier formal portrait (black shirt + tie, green
-  // background). No longer used by the Hero — kept in public/ for
-  // reference. The AI-generated wide hero image
-  // (the AI-generated wide hero image) is also still in public/ but
-  // unreferenced.
+  // background). Unused — kept in public/ for reference. The old
+  // self-made hero images are also still in public/ but unreferenced;
+  // they are deleted in the Step 6 cleanup.
   portrait: {
     src: "/noyan-portrait.jpg",
     alt: "Portrait of Noyan in a black shirt and tie, smiling, seated against a dark green background.",
