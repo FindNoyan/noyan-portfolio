@@ -77,6 +77,29 @@ body {
   animation: fade-up 0.7s ease-out both;
 }
 
+/* Step 1 redesign: Dennis-style giant name marquee behind the hero
+   portrait. Pure transform loop (translateX 0 -> -50% over two identical
+   halves) — near-zero cost, no layout work per frame. */
+@keyframes hero-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.hero-marquee-track {
+  animation: hero-marquee 32s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-marquee-track {
+    animation: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
