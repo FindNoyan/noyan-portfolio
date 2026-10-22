@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { hero, photos } from "../data/content";
 
-// Accent words in the headline: emerald + deep gold, drawn from the
-// portrait’s own palette (green backdrop, warm gold tones).
+// Accent words in the headline, tuned for the warm-sand hero background
+// (sampled from the portrait's own sunlit wall so the photo blends in
+// with no seam): emerald + deep gold keep large-text contrast on sand.
 const ACCENT_WORDS = {
   "get clients": "text-emerald",
   "automate work": "text-goldDeep",
@@ -21,43 +22,97 @@ function renderHeadline(headline) {
   );
 }
 
+// One identical half of the name-marquee track. The track renders two of
+// these and the CSS animation slides it exactly -50%, so the loop is
+// seamless. Decorative only — the real H1 below carries the headline.
+const MARQUEE_REPEATS = 4;
+
+function MarqueeHalf() {
+  return (
+    <span className="flex w-max shrink-0 items-center">
+      {Array.from({ length: MARQUEE_REPEATS }).map((_, i) => (
+        <span
+          key={i}
+          className="whitespace-nowrap px-[0.3em] font-body text-[clamp(3.25rem,11vw,9rem)] font-extrabold uppercase leading-none tracking-tight text-forest"
+        >
+          {hero.marqueeName}
+        </span>
+      ))}
+    </span>
+  );
+}
+
 export default function Hero() {
   const [portraitOk, setPortraitOk] = useState(true);
 
   return (
     <section
       id="top"
-      className="animate-fade-up relative min-h-[100svh] overflow-hidden bg-base"
+      className="animate-fade-up relative flex min-h-[100svh] flex-col overflow-hidden bg-heroSand"
     >
-      {/* SPLIT HERO: text LEFT on a SOLID cream column, Noyan’s OWN
-          self-made hero image RIGHT. No full-bleed overlay, no text
-          on top of the image, no halo around the text — the full-bleed
-          version caused halo complaints on iPhone, an on-photo
-          button overlapping "View My Work" on mobile, and the on-photo
-          button colliding with the fixed chatbot button on desktop.
-          NO seam blend effects of any kind on the photo: the
-          cream-to-green blend is baked into Noyan’s own image, and
-          the earlier seam effects caused a grey-beige wash
-          band over the photo. */}
-      <div className="flex min-h-[100svh] flex-col lg:flex-row">
-        {/* Text column: SOLID cream. Buttons live here only — no
-            on-photo button anywhere in the hero. */}
-        <div
-          className={`flex flex-col justify-center bg-base px-6 pb-8 pt-24 sm:px-10 lg:max-w-[55%] lg:px-16 lg:pb-10 lg:pt-24 xl:px-24 ${
-            portraitOk ? "" : "lg:max-w-none"
-          }`}
-        >
+      {/* DENNIS-STYLE HERO (Step 1 redesign): Noyan's own portrait, large
+          and centered, on a flat warm-sand background sampled from the
+          photo's sunlit wall — no masks, no gradient overlays, no
+          text-shadow, no seam. The giant name marquee slides right-to-left
+          behind the portrait in a transform-only loop. About still shows
+          the same photo for now; it goes text-only in Step 3. */}
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col px-6 pb-10 pt-24 sm:px-10">
+        {/* Top row: eyebrow pill + "Located in Pakistan" pill. */}
+        <div className="flex flex-wrap items-center justify-between gap-3">
           <p className="inline-flex w-fit items-center gap-2 rounded-full border border-line bg-surface px-4 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-muted">
             <span className="inline-block h-2 w-2 rounded-full bg-gold" />
             {hero.eyebrow}
           </p>
-          <h1 className="mt-6 max-w-xl font-display text-[clamp(2.25rem,4.2vw,3.9rem)] font-semibold leading-[1.05] text-ink">
+          <p className="inline-flex w-fit items-center rounded-full bg-ink px-4 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-[#FAF7F0]">
+            {hero.locationPill}
+          </p>
+        </div>
+
+        {/* Portrait zone: centered portrait; role text at the side on
+            desktop. The marquee breaks out full-bleed and sits behind the
+            portrait's lower half. */}
+        <div className="relative flex flex-1 items-center justify-center py-6">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute left-1/2 top-[58%] z-0 w-screen -translate-x-1/2 -translate-y-1/2 select-none overflow-hidden"
+          >
+            <div className="hero-marquee-track flex w-max">
+              <MarqueeHalf />
+              <MarqueeHalf />
+            </div>
+          </div>
+          <p className="absolute left-0 top-1/2 hidden w-44 -translate-y-1/2 text-sm font-medium uppercase leading-relaxed tracking-[0.18em] text-ink/70 lg:block">
+            {hero.role}
+          </p>
+          {portraitOk && (
+            <img
+              src={photos.heroPortrait.src}
+              alt={photos.heroPortrait.alt}
+              width={1024}
+              height={1536}
+              loading="eager"
+              fetchPriority="high"
+              onError={() => setPortraitOk(false)}
+              className="relative z-10 aspect-[2/3] h-[34svh] w-auto object-cover sm:h-[42svh] lg:h-[54svh]"
+            />
+          )}
+        </div>
+
+        {/* Role text on mobile: centered under the portrait. */}
+        <p className="text-center text-xs font-medium uppercase tracking-[0.18em] text-ink/70 lg:hidden">
+          {hero.role}
+        </p>
+
+        {/* Real H1 (SEO) + sub + CTAs. Centered, clear of the fixed
+            chatbot button (bottom-right). */}
+        <div className="mx-auto mt-5 w-full max-w-3xl text-center">
+          <h1 className="font-display text-[clamp(1.9rem,4.6vw,3.25rem)] font-semibold leading-[1.08] text-ink">
             {renderHeadline(hero.headline)}
           </h1>
-          <p className="mt-5 max-w-lg text-base leading-relaxed text-muted sm:text-lg">
+          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-[#3F443B] sm:text-lg">
             {hero.sub}
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          <div className="mt-7 flex flex-wrap items-center justify-center gap-4">
             <a
               href={hero.primaryCta.href}
               {...(hero.primaryCta.external
@@ -75,38 +130,6 @@ export default function Hero() {
             </a>
           </div>
         </div>
-
-        {/* Photo column: Noyan’s OWN hero image. Responsive via
-            <picture>: on mobile (<=767px) the TALL vertical image
-            (face large, Elora-style card) — the wide image rendered
-            as a short horizontal strip with a small face on phones.
-            On desktop the wide image is unchanged. No on-photo
-            button, no pill, no overlay of any kind. */}
-        {portraitOk && (
-          <div className="relative min-h-[62svh] flex-1 overflow-hidden lg:min-h-[100svh]">
-            <picture className="absolute inset-0 block h-full w-full">
-              <source
-                media="(max-width: 767px)"
-                srcSet={photos.heroMobile.src}
-                type="image/webp"
-              />
-              <img
-                src={photos.hero.src}
-                alt={photos.hero.alt}
-                width={1200}
-                height={1800}
-                onError={() => setPortraitOk(false)}
-                // object-cover; desktop anchors right (75%) and
-                // slightly above center (25%) so the head stays fully
-                // visible in the wide image; mobile anchors center
-                // (50%) and near the top (12%) so the face in the
-                // vertical image stays large and uncropped, hair
-                // near the top edge.
-                className="absolute inset-0 h-full w-full object-cover object-[50%_12%] md:object-[75%_25%]"
-              />
-            </picture>
-          </div>
-        )}
       </div>
     </section>
   );
