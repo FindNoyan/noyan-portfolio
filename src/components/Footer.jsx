@@ -13,7 +13,15 @@ export default function Footer() {
     .filter(Boolean);
 
   return (
-    <footer className="bg-forest">
+    <>
+      {/* Hairline divider between the contact section and the footer strip,
+          as in the approved mockup. */}
+      <div aria-hidden="true" className="bg-base">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="border-t border-line" />
+        </div>
+      </div>
+      <footer className="bg-forest">
       <Reveal className="mx-auto max-w-6xl px-6 py-10 sm:py-12">
         <p className="font-display text-xl font-semibold text-base sm:text-2xl">
           {footer.line}
@@ -43,6 +51,7 @@ export default function Footer() {
           </a>
         </div>
       </Reveal>
-    </footer>
+      </footer>
+    </>
   );
 }
