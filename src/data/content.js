@@ -236,7 +236,7 @@ export const photos = {
   // "Photos" section. Until they are added, the <img> tags hide
   // themselves gracefully (onError) instead of showing a broken image.
   // Hero portrait (Step 1 redesign): Noyan's glasses + navy polo photo —
-  // the same file About shows for now (About goes text-only in Step 3).
+  // the same file About used to show (About is text-only since Step 3).
   // Face/identity: the original photo file only — never regenerate or
   // alter his face. SUPERSEDED in the hero by heroCutout (Issue #43);
   // kept for reference.
@@ -264,6 +264,9 @@ export const photos = {
   },
   // About photo: navy-blue polo shirt + glasses, beige background.
   // Uploaded separately by Noyan via the GitHub web UI (see README).
+  // Step 3 redesign: About is text-only, so this image is no longer
+  // referenced anywhere on the page. The file stays in public/ because
+  // the hero cutout derives from it; deletion happens in Step 6.
   about: {
     src: "/noyan-about.jpg",
     alt: "Noyan in a navy blue polo shirt and glasses, standing outdoors.",
