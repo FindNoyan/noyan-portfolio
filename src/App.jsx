@@ -8,6 +8,7 @@ import Skills from "./components/Skills";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Chatbot from "./components/Chatbot";
+import Cursor from "./components/Cursor";
 import { useSmoothScroll } from "./lib/smoothScroll";
 
 // Step 3 redesign: section order matches the locked page plan and the
@@ -56,6 +57,9 @@ export default function App() {
       </main>
       <Footer />
       <Chatbot />
+      {/* Step 5: custom cursor — gold dot + trailing ring, fine-pointer
+          only; renders nothing on touch / reduced-motion. */}
+      <Cursor />
     </div>
   );
 }
