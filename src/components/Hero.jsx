@@ -127,7 +127,7 @@ export default function Hero() {
               loading="eager"
               fetchPriority="high"
               onError={() => setCutoutOk(false)}
-              className="h-full w-auto object-contain"
+              className="entrance entrance-portrait h-full w-auto object-contain"
             />
           )}
         </div>
@@ -140,7 +140,7 @@ export default function Hero() {
             lower body (z-20), like the mockup. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-[3%] z-20 select-none overflow-hidden"
+          className="entrance entrance-marquee pointer-events-none absolute inset-x-0 bottom-[3%] z-20 select-none overflow-hidden"
         >
           <div className="hero-marquee-track flex w-max">
             <MarqueeHalf />
@@ -154,13 +154,13 @@ export default function Hero() {
             mid band) both shift up ~3% to keep the layout balance.
             The band's top edge stays well below both at every animation
             frame. */}
-        <p className="absolute left-6 top-[54%] z-10 hidden items-center gap-2.5 rounded-full bg-forest py-1.5 pl-1.5 pr-5 text-sm font-medium text-[#FAF7F0] lg:inline-flex xl:left-10">
+        <p className="entrance entrance-side d1 absolute left-6 top-[54%] z-10 hidden items-center gap-2.5 rounded-full bg-forest py-1.5 pl-1.5 pr-5 text-sm font-medium text-[#FAF7F0] lg:inline-flex xl:left-10">
           <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#9DBEA9] text-forest">
             <GlobeIcon />
           </span>
           {hero.locationPill}
         </p>
-        <div className="absolute right-6 top-[43%] z-10 hidden text-right lg:block xl:right-10">
+        <div className="entrance entrance-side d2 absolute right-6 top-[43%] z-10 hidden text-right lg:block xl:right-10">
           <span className="mb-3 inline-block">
             <DiagonalArrow />
           </span>
@@ -176,7 +176,7 @@ export default function Hero() {
         {/* Mobile: pill + role stacked centered near the top — clear of
             the 70%-height portrait and the bottom marquee band, and never
             overlapping each other. */}
-        <div className="absolute inset-x-0 top-24 z-10 flex flex-col items-center gap-2 px-6 lg:hidden">
+        <div className="entrance entrance-side dm absolute inset-x-0 top-24 z-10 flex flex-col items-center gap-2 px-6 lg:hidden">
           <p className="inline-flex items-center gap-2 rounded-full bg-forest py-1 pl-1 pr-4 text-xs font-medium text-[#FAF7F0]">
             <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[#9DBEA9] text-forest">
               <GlobeIcon />

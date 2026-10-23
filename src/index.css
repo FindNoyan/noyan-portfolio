@@ -111,6 +111,80 @@ body {
   will-change: transform;
 }
 
+/* Step 5 animation layer: one-time hero entrance (< 1s total).
+   Initial states apply ONLY when html.js is present (added by the
+   synchronous script in index.html) — without JS the content is simply
+   visible. body.loaded (added by App on first paint) runs the
+   choreography once per page load, matching the approved preview:
+   portrait settles (0.75s, 0.05s delay), marquee fades/slides in
+   (0.5s, 0.2s delay) and starts looping at the same moment, pill nav
+   drops in (0.5s, 0.15s delay), side texts stagger (0.35s / 0.5s /
+   mobile 0.3s). All with the preview's soft ease-out curve. */
+:root {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html.js .entrance {
+  opacity: 0;
+}
+html.js .entrance-nav {
+  transform: translateY(-12px);
+}
+html.js .entrance-portrait {
+  transform: translateY(26px) scale(1.015);
+}
+html.js .entrance-marquee {
+  transform: translateY(14px);
+}
+html.js .entrance-side {
+  transform: translateY(12px);
+}
+/* Marquee loop stays paused until the entrance has begun — like the
+   preview, it starts sliding ~0.2s after load. */
+html.js .hero-marquee-track {
+  animation-play-state: paused;
+}
+
+body.loaded .entrance {
+  opacity: 1;
+}
+body.loaded .entrance-portrait {
+  transform: none;
+  transition:
+    opacity 0.75s var(--ease-out) 0.05s,
+    transform 0.75s var(--ease-out) 0.05s;
+}
+body.loaded .entrance-marquee {
+  transform: none;
+  transition:
+    opacity 0.5s var(--ease-out) 0.2s,
+    transform 0.5s var(--ease-out) 0.2s;
+}
+body.loaded .entrance-nav {
+  transform: none;
+  transition:
+    opacity 0.5s var(--ease-out) 0.15s,
+    transform 0.5s var(--ease-out) 0.15s;
+}
+body.loaded .entrance-side {
+  transform: none;
+  transition:
+    opacity 0.6s var(--ease-out),
+    transform 0.6s var(--ease-out);
+}
+body.loaded .entrance-side.d1 {
+  transition-delay: 0.35s;
+}
+body.loaded .entrance-side.d2 {
+  transition-delay: 0.5s;
+}
+body.loaded .entrance-side.dm {
+  transition-delay: 0.3s;
+}
+body.loaded .hero-marquee-track {
+  animation-play-state: running;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-marquee-track {
     animation: none;
@@ -127,6 +201,12 @@ body {
   .reveal {
     opacity: 1;
     transform: none;
+  }
+
+  .entrance {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 
   html {
