@@ -135,7 +135,7 @@ export default function Contact() {
               href={contact.calendly.href}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-emerald px-8 py-4 text-base font-semibold text-white shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_44px_-12px_rgba(201,162,39,0.65)] focus-ring"
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-emerald px-8 py-4 text-base font-semibold text-white shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_44px_-12px_rgba(201,162,39,0.65)] focus-ring sm:inline-flex sm:w-auto"
             >
               {contact.calendly.label}
               <span aria-hidden="true">&#8599;</span>
