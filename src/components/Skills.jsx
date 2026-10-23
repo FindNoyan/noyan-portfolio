@@ -21,27 +21,28 @@ export default function Skills() {
           What I work with
         </h2>
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Step 5: each card reveals individually with the approved
+              70ms stagger so the grid cascades lightly. */}
           {skillGroups.map((group, i) => (
-            <div
-              key={group.label}
-              className="rounded-2xl border border-line bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-emerald/50 hover:shadow-card"
-            >
-              <p
-                className={`text-xs font-medium uppercase tracking-[0.14em] ${labelColors[i % labelColors.length]}`}
-              >
-                {group.label}
-              </p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {group.items.map((item) => (
-                  <span
-                    key={item}
-                    className="rounded-full border border-line bg-white px-2.5 py-1 text-xs text-muted"
-                  >
-                    {item}
-                  </span>
-                ))}
+            <Reveal key={group.label} delay={i * 70}>
+              <div className="rounded-2xl border border-line bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-emerald/50 hover:shadow-card">
+                <p
+                  className={`text-xs font-medium uppercase tracking-[0.14em] ${labelColors[i % labelColors.length]}`}
+                >
+                  {group.label}
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {group.items.map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-full border border-line bg-white px-2.5 py-1 text-xs text-muted"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </Reveal>

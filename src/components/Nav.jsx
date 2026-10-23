@@ -5,7 +5,7 @@ export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="fixed inset-x-0 top-4 z-50 flex justify-center px-4">
+    <header className="entrance entrance-nav fixed inset-x-0 top-4 z-50 flex justify-center px-4">
       <div className="relative w-full max-w-2xl">
         <nav
           aria-label="Main"

@@ -1,6 +1,10 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Step 5 animation layer: synchronous js-class so the hero-entrance
+         initial states only apply when JS is running — without JS the
+         content is simply visible. -->
+    <script>document.documentElement.classList.add("js");</script>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -44,6 +48,11 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- Step 5 animation layer: Lenis smooth scroll via CDN (~10KB, same
+         version as the approved preview: lenis@1.1.14). This keeps the
+         site's own JS bundle delta at zero. If it fails to load,
+         smoothScroll.js silently falls back to native smooth scroll. -->
+    <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js" defer></script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
