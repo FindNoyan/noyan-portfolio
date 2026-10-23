@@ -202,6 +202,9 @@ export const contact = {
   calendly: {
     label: "Book a call on Calendly",
     href: "https://calendly.com/noyantanveer35/30min",
+    // Step 4 redesign: support line under the Book-a-call pill (approved
+    // mockup copy). The pill label and href were already here.
+    callNote: "30-minute intro call — pick a time that suits you.",
   },
   projectTypes: [
     "AI Chatbot / Automation",

@@ -14,7 +14,7 @@ import Chatbot from "./components/Chatbot";
 // #services, #work, #contact) still land on their sections.
 export default function App() {
   return (
-    <div className="min-h-screen bg-base font-body text-ink">
+    <div id="top" className="min-h-screen bg-base font-body text-ink">
       <Nav />
       <main>
         <Hero />
