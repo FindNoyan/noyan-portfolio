@@ -4,21 +4,30 @@ import { useEffect, useRef, useState } from "react";
 // enter the viewport. Respects prefers-reduced-motion (renders visible
 // immediately, no animation) and works without JavaScript-driven layout
 // shifts — content is visible by default if the observer never fires.
-export default function Reveal({ children, className = "", as = "div" }) {
+//
+// `delay` adds a small stagger (ms) for grouped reveals (e.g. bento tiles,
+// fact cards). It is only applied while animating — reduced-motion and
+// no-observer environments get visible content with no delay.
+export default function Reveal({
+  children,
+  className = "",
+  as = "div",
+  delay = 0,
+}) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
+  const [animate, setAnimate] = useState(true);
 
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
-    if (
+    const reduce =
       typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      setVisible(true);
-      return undefined;
-    }
-    if (!("IntersectionObserver" in window)) {
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const noObserver =
+      typeof window === "undefined" || !("IntersectionObserver" in window);
+    if (reduce || noObserver) {
+      setAnimate(false);
       setVisible(true);
       return undefined;
     }
@@ -40,6 +49,9 @@ export default function Reveal({ children, className = "", as = "div" }) {
     <Tag
       ref={ref}
       className={`reveal ${visible ? "is-visible" : ""} ${className}`}
+      style={
+        animate && visible && delay ? { transitionDelay: `${delay}ms` } : undefined
+      }
     >
       {children}
     </Tag>
