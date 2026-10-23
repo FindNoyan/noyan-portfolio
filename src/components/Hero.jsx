@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { hero, photos } from "../data/content";
+import Reveal from "./Reveal";
 
 // Accent words in the headline, tuned for the cream background below the
 // hero: emerald + deep gold keep large-text contrast on cream.
@@ -92,8 +93,66 @@ function roleLines() {
 const HERO_BG =
   "radial-gradient(120% 95% at 50% 12%, #F8E9CF 0%, #F0DFBA 58%, #E7D9BE 100%)";
 
+// Step 5 animation layer: subtle hero parallax — the portrait drifts at
+// 6% of scroll speed, the marquee band at 10%. translate3d only, capped
+// to the hero area, exactly the approved preview's behaviour. Skipped on
+// touch devices and with prefers-reduced-motion. The entrance owns the
+// transforms at the very top, so parallax only applies once scrollY > 2px
+// (same guard as the preview) — the two never fight. Cleanup included
+// for React 19 StrictMode safety.
+function useHeroParallax() {
+  const heroRef = useRef(null);
+  const portraitRef = useRef(null);
+  const marqueeRef = useRef(null);
+
+  useEffect(() => {
+    const hero = heroRef.current;
+    const portrait = portraitRef.current;
+    const band = marqueeRef.current;
+    if (!hero || !portrait || !band) return undefined;
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    const isTouch =
+      "ontouchstart" in window ||
+      (navigator.maxTouchPoints > 0 &&
+        window.matchMedia("(pointer: coarse)").matches);
+    if (reduceMotion || isTouch) return undefined;
+
+    let rafId = 0;
+    let heroH = hero.offsetHeight;
+    const measure = () => {
+      heroH = hero.offsetHeight;
+    };
+    window.addEventListener("resize", measure);
+
+    const tick = () => {
+      const y = window.scrollY || window.pageYOffset;
+      if (y <= 2) {
+        portrait.style.transform = "";
+        band.style.transform = "";
+      } else if (y < heroH * 1.2) {
+        portrait.style.transform = `translate3d(0,${(y * 0.06).toFixed(1)}px,0)`;
+        band.style.transform = `translate3d(0,${(y * 0.1).toFixed(1)}px,0)`;
+      }
+      rafId = requestAnimationFrame(tick);
+    };
+    rafId = requestAnimationFrame(tick);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("resize", measure);
+      portrait.style.transform = "";
+      band.style.transform = "";
+    };
+  }, []);
+
+  return { heroRef, portraitRef, marqueeRef };
+}
+
 export default function Hero() {
   const [cutoutOk, setCutoutOk] = useState(true);
+  const { heroRef, portraitRef, marqueeRef } = useHeroParallax();
 
   return (
     <>
@@ -105,6 +164,7 @@ export default function Hero() {
           the portrait be large. */}
       <section
         id="top"
+        ref={heroRef}
         className="relative h-[100svh] min-h-[640px] overflow-hidden"
         style={{ background: HERO_BG }}
       >
@@ -117,7 +177,7 @@ export default function Hero() {
             Cutout is full native resolution (1024x1536 rembg alpha-only);
             explicit width/height + aspect so the browser renders it at
             full quality (iteration 3, fix 4). */}
-        <div className="absolute inset-x-0 bottom-0 flex h-[76%] justify-center lg:h-[93%]">
+        <div ref={portraitRef} className="absolute inset-x-0 bottom-0 flex h-[76%] justify-center lg:h-[93%]">
           {cutoutOk && (
             <img
               src={photos.heroCutout.src}
@@ -140,6 +200,7 @@ export default function Hero() {
             lower body (z-20), like the mockup. */}
         <div
           aria-hidden="true"
+          ref={marqueeRef}
           className="entrance entrance-marquee pointer-events-none absolute inset-x-0 bottom-[3%] z-20 select-none overflow-hidden"
         >
           <div className="hero-marquee-track flex w-max">
@@ -197,13 +258,23 @@ export default function Hero() {
           (fixed bottom-right, 56px circle). Desktop unchanged. */}
       <section className="bg-base">
         <div className="mx-auto w-full max-w-3xl px-6 py-16 pr-20 text-center sm:px-10 sm:py-24">
-          <h1 className="font-display text-[clamp(1.7rem,3.6vw,2.6rem)] font-semibold leading-[1.1] text-ink">
+          <Reveal
+            as="h1"
+            className="font-display text-[clamp(1.7rem,3.6vw,2.6rem)] font-semibold leading-[1.1] text-ink"
+          >
             {renderHeadline(hero.headline)}
-          </h1>
-          <p className="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-[#3F443B] sm:text-base">
+          </Reveal>
+          <Reveal
+            as="p"
+            delay={90}
+            className="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-[#3F443B] sm:text-base"
+          >
             {hero.sub}
-          </p>
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+          </Reveal>
+          <Reveal
+            delay={180}
+            className="mt-5 flex flex-wrap items-center justify-center gap-3 sm:gap-4"
+          >
             <a
               href={hero.primaryCta.href}
               {...(hero.primaryCta.external
@@ -219,7 +290,7 @@ export default function Hero() {
             >
               {hero.secondaryCta.label}
             </a>
-          </div>
+          </Reveal>
         </div>
       </section>
     </>

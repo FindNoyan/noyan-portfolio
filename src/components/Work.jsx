@@ -143,27 +143,32 @@ export default function Work() {
         </p>
       </Reveal>
 
-      <Reveal>
-        <div className="relative mt-10 border-t border-forest/15">
-          {projects.map((project, index) => (
+      <div className="relative mt-10 border-t border-forest/15">
+        {/* Step 5: each work row gets its own Reveal so the list
+            cascades as one unified system (matches the approved
+            preview's reveal demo). The relative wrapper stays for the
+            desktop hover preview, which is positioned against it. */}
+        {projects.map((project, index) => (
+          <Reveal key={project.name}>
             <ProjectRow
-              key={project.name}
               project={project}
               index={index}
               onHover={handleHover}
               onLeave={() => setHover((h) => ({ ...h, index: -1 }))}
             />
-          ))}
-          {/* Desktop hover preview — only on fine-pointer devices. */}
-          {finePointer && (
-            <HoverPreview
-              project={hovered}
-              top={hover.top}
-              visible={hover.index >= 0}
-            />
-          )}
-        </div>
+          </Reveal>
+        ))}
+        {/* Desktop hover preview — only on fine-pointer devices. */}
+        {finePointer && (
+          <HoverPreview
+            project={hovered}
+            top={hover.top}
+            visible={hover.index >= 0}
+          />
+        )}
+      </div>
 
+      <Reveal>
         <div className="mt-8 flex justify-end">
           <a
             href="https://github.com/FindNoyan"
