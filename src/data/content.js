@@ -257,14 +257,6 @@ export const photos = {
     src: "/noyan-about-cutout.svg",
     alt: "Portrait of Noyan in a navy blue polo shirt and glasses, standing outdoors.",
   },
-  // Noyan’s earlier formal portrait (black shirt + tie, green
-  // background). Unused — kept in public/ for reference. The old
-  // self-made hero images are also still in public/ but unreferenced;
-  // they are deleted in the Step 6 cleanup.
-  portrait: {
-    src: "/noyan-portrait.jpg",
-    alt: "Portrait of Noyan in a black shirt and tie, smiling, seated against a dark green background.",
-  },
   // About photo: navy-blue polo shirt + glasses, beige background.
   // Uploaded separately by Noyan via the GitHub web UI (see README).
   // Step 3 redesign: About is text-only, so this image is no longer

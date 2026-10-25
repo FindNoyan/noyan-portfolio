@@ -130,11 +130,11 @@ text-only in Step 3. The site references:
   also the cutout source)
 - `public/noyan-casual.jpg` — casual photo
 
-`public/noyan-hero.jpeg`, `public/noyan-hero-mobile.webp`, and
-`public/noyan-portrait.jpg` are still in the repo but are NO longer
-referenced anywhere (deleted in the Step 6 cleanup). Until a photo file
-exists, the `<img>` tags hide themselves gracefully instead of showing a
-broken image.
+`public/noyan-hero.jpeg`, `public/noyan-hero-mobile.webp`,
+`public/noyan-portrait.jpg`, and `public/noyan-hero-wide.webp.jpeg` were
+deleted in the Step 6 cleanup (2026-10-24) — they were no longer
+referenced anywhere. Until a photo file exists, the `<img>` tags hide
+themselves gracefully instead of showing a broken image.
 
 ## Honesty note
 
