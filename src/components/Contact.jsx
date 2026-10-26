@@ -125,7 +125,7 @@ export default function Contact() {
           <p className="mt-8 sm:mt-9">
             <a
               href={`mailto:${site.email}`}
-              className="email-gold-underline inline-block break-words font-display text-[1.7rem] font-semibold leading-snug text-forest focus-ring sm:text-4xl lg:text-[2.6rem]"
+              className="email-gold-underline inline-block max-w-full break-words font-display text-[1.45rem] font-semibold leading-snug text-forest focus-ring sm:text-4xl lg:text-[2.6rem]"
             >
               {site.email}
             </a>
