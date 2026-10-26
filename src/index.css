@@ -4,6 +4,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 /* Keep anchored sections clear of the floating pill nav. */
@@ -14,6 +15,7 @@ section[id] {
 body {
   background-color: #faf7f0;
   color: #141814;
+  overflow-x: clip;
 }
 
 ::selection {
