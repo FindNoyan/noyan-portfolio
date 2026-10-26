@@ -22,7 +22,7 @@ export default function Footer() {
         </div>
       </div>
       <footer className="bg-forest">
-      <Reveal className="mx-auto max-w-6xl px-6 py-10 sm:py-12">
+      <Reveal className="mx-auto max-w-6xl px-6 py-10 pb-24 sm:py-12 sm:pb-12">
         <p className="font-display text-xl font-semibold text-base sm:text-2xl">
           {footer.line}
         </p>
