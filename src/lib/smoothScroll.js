@@ -1,11 +1,13 @@
 import { useEffect } from "react";
+import Lenis from "lenis";
 
-// Step 5 animation layer: Lenis smooth scroll.
-// - Gentle/native feel (lerp 0.09, smoothWheel) — exactly the approved preview's settings.
+// Step 5 animation layer: Lenis smooth scroll (bundled via npm, no CDN).
+// - Snappier feel (lerp 0.14, smoothWheel); CSS scroll-behavior is NOT
+//   set, so nothing fights Lenis anymore.
 // - Completely skipped on touch devices (iOS Safari keeps native scroll,
 //   nothing fights it) and when prefers-reduced-motion is set.
-// - If window.Lenis is unavailable (CDN failed to load), silently falls
-//   back to the browser's native smooth scroll — navigation never breaks.
+// - If Lenis construction throws, silently falls back to the browser's
+//   native smooth scroll — navigation never breaks.
 // - Intercepts internal anchor clicks and routes them through Lenis so
 //   nav anchors (#top #work #services #about #contact) land exactly on
 //   their sections (same -120px offset the preview uses; the existing
@@ -25,9 +27,9 @@ export function useSmoothScroll() {
     let lenis = null;
     let rafId = 0;
 
-    if (!isTouch && !reduceMotion && typeof window.Lenis !== "undefined") {
+    if (!isTouch && !reduceMotion) {
       try {
-        lenis = new window.Lenis({ lerp: 0.09, smoothWheel: true });
+        lenis = new Lenis({ lerp: 0.14, smoothWheel: true });
         const raf = (time) => {
           lenis.raf(time);
           rafId = requestAnimationFrame(raf);

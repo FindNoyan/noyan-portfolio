@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 html {
-  scroll-behavior: smooth;
+  /* No scroll-behavior here: Lenis (src/lib/smoothScroll.js) owns
+     smoothing. CSS smooth + Lenis fought each other, causing slow
+     crawling and sudden full-page jumps on anchor clicks. */
   overflow-x: clip;
 }
 
