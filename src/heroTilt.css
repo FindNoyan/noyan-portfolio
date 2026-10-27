@@ -1,0 +1,96 @@
+/* 3D Tilt Hero — Variant A (approved preview, 2026-10-27).
+   Plain CSS 3D: the hero visual zone sits in a perspective scene and the
+   whole scene tilts on mouse movement (see useHeroTilt in Hero.jsx).
+   Transform/opacity only; no library. The portrait photo itself is never
+   altered — only transforms are applied around it.
+   Deliberately kept out of index.css so the scroll rules there (owned by
+   the separate scroll/cursor fix) are never touched. */
+
+/* Perspective stage: fills the hero, gives the scene its 3D depth. */
+.hero-tilt-stage {
+  position: absolute;
+  inset: 0;
+  perspective: 1100px;
+}
+
+/* The tilting scene. Its transform is set by JS (rotateX/rotateY, each
+   capped at 7deg, eased); without JS it stays flat. */
+.hero-tilt-scene {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Depth layers, exactly as approved in the preview: portrait 18px, side
+   texts 24px, marquee band 36px, so the layers separate slightly as the
+   scene turns. Shallow on purpose — side texts never drift off screen. */
+.hero-tilt-depth {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-tilt-depth-portrait {
+  transform: translateZ(18px);
+}
+
+.hero-tilt-depth-marquee {
+  transform: translateZ(36px);
+}
+
+.hero-tilt-depth-side {
+  transform: translateZ(24px);
+}
+
+/* Soft blurred shadow under the portrait. Its transform is set by JS so
+   it shifts sideways and narrows a little with the tilt, like the
+   preview; statically it sits centred under the portrait. */
+.hero-tilt-shadow {
+  position: absolute;
+  left: 50%;
+  bottom: 4%;
+  width: 46%;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(20, 56, 42, 0.2);
+  filter: blur(18px);
+  transform: translateX(-50%);
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+/* Touch devices: no mouse tilt at all, only this gentle portrait float
+   (8s loop, 10px travel, same as the preview's touch mode). The desktop
+   scroll parallax never runs on touch, so this animation never fights
+   a JS transform on the portrait wrapper. */
+@keyframes hero-tilt-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+@media (pointer: coarse) and (prefers-reduced-motion: no-preference) {
+  .hero-tilt-float {
+    animation: hero-tilt-float 8s ease-in-out infinite;
+  }
+}
+
+/* Reduced motion: flat hero, no tilt, no float — the existing marquee
+   rule in index.css already stops the marquee loop here. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-tilt-scene {
+    transform: none !important;
+  }
+
+  .hero-tilt-float {
+    animation: none;
+  }
+
+  .hero-tilt-shadow {
+    transform: translateX(-50%);
+  }
+}

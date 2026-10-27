@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { hero, photos } from "../data/content";
 import Reveal from "./Reveal";
+import "../heroTilt.css";
 
 // Accent words in the headline, tuned for the cream background below the
 // hero: emerald + deep gold keep large-text contrast on cream.
@@ -177,7 +178,17 @@ export default function Hero() {
             Cutout is full native resolution (1024x1536 rembg alpha-only);
             explicit width/height + aspect so the browser renders it at
             full quality (iteration 3, fix 4). */}
-        <div ref={portraitRef} className="absolute inset-x-0 bottom-0 flex h-[76%] justify-center lg:h-[93%]">
+        {/* 3D Tilt Hero scene (Variant A): the stage supplies the
+            perspective, the scene is what the mouse tilts, and each
+            depth layer sits at its approved translateZ. Every element
+            below keeps its original classes and coordinates — the
+            depth wrappers fill the hero, so absolute positions land
+            exactly where they did before. */}
+        <div className="hero-tilt-stage">
+          <div className="hero-tilt-scene">
+            <div aria-hidden="true" className="hero-tilt-shadow" />
+            <div className="hero-tilt-depth hero-tilt-depth-portrait">
+              <div ref={portraitRef} className="hero-tilt-float absolute inset-x-0 bottom-0 flex h-[76%] justify-center lg:h-[93%]">
           {cutoutOk && (
             <img
               src={photos.heroCutout.src}
@@ -191,6 +202,8 @@ export default function Hero() {
             />
           )}
         </div>
+            </div>
+            <div className="hero-tilt-depth hero-tilt-depth-marquee">
 
         {/* Name marquee (iteration 3, fix 1): lives in the BOTTOM band of
             the hero, sitting just above the hero's bottom edge with a ~3%
@@ -208,6 +221,8 @@ export default function Hero() {
             <MarqueeHalf />
           </div>
         </div>
+            </div>
+            <div className="hero-tilt-depth hero-tilt-depth-side">
 
         {/* Desktop side elements (mockup layout). Iteration 3, fix 2: the
             name band rose to show the full letters, so the "Located in
@@ -247,6 +262,9 @@ export default function Hero() {
           <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-forest/80">
             {hero.role}
           </p>
+        </div>
+            </div>
+          </div>
         </div>
       </section>
 
