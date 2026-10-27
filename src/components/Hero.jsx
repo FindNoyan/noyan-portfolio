@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { hero, photos } from "../data/content";
 import Reveal from "./Reveal";
+import "../heroTilt.css";
 
 // Accent words in the headline, tuned for the cream background below the
 // hero: emerald + deep gold keep large-text contrast on cream.
@@ -150,9 +151,90 @@ function useHeroParallax() {
   return { heroRef, portraitRef, marqueeRef };
 }
 
+// 3D Tilt Hero (Variant A, approved preview): the whole hero visual zone
+// sits in a CSS perspective scene; mouse movement tilts the scene in 3D
+// (rotateX/rotateY, each capped at 7deg, eased toward the pointer with a
+// 0.08 lerp per frame, exactly like the preview), and the soft shadow
+// under the portrait shifts sideways and narrows with the tilt.
+// Transform/opacity only, no library. Desktop fine-pointer only: the hook
+// never runs for reduced-motion users or coarse pointers (touch keeps
+// only the gentle CSS float on the portrait). It writes only the scene
+// wrapper's transform, so it never fights the scroll parallax (which
+// writes the portrait/marquee wrappers) or the entrance (which writes
+// the elements inside the depth layers). Cleanup included for React 19
+// StrictMode safety.
+function useHeroTilt(heroRef) {
+  const tiltRef = useRef(null);
+  const shadowRef = useRef(null);
+
+  useEffect(() => {
+    const hero = heroRef.current;
+    const scene = tiltRef.current;
+    const shadow = shadowRef.current;
+    if (!hero || !scene) return undefined;
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    const finePointer = window.matchMedia("(pointer: fine)").matches;
+    if (reduceMotion || !finePointer) return undefined;
+
+    let rafId = 0;
+    let targetX = 0;
+    let targetY = 0;
+    let currentX = 0;
+    let currentY = 0;
+
+    const tick = () => {
+      currentX += (targetX - currentX) * 0.08;
+      currentY += (targetY - currentY) * 0.08;
+      scene.style.transform = `rotateX(${(-currentY).toFixed(2)}deg) rotateY(${currentX.toFixed(2)}deg)`;
+      if (shadow) {
+        shadow.style.transform = `translateX(calc(-50% + ${(currentX * 2.5).toFixed(1)}px)) scaleX(${(1 - Math.abs(currentX) * 0.008).toFixed(3)})`;
+      }
+      if (
+        Math.abs(targetX - currentX) > 0.01 ||
+        Math.abs(targetY - currentY) > 0.01
+      ) {
+        rafId = requestAnimationFrame(tick);
+      } else {
+        rafId = 0;
+      }
+    };
+    const kick = () => {
+      if (!rafId) rafId = requestAnimationFrame(tick);
+    };
+    const onMove = (e) => {
+      const r = hero.getBoundingClientRect();
+      const nx = (e.clientX - r.left) / r.width - 0.5;
+      const ny = (e.clientY - r.top) / r.height - 0.5;
+      targetX = Math.max(-7, Math.min(7, nx * 14));
+      targetY = Math.max(-7, Math.min(7, ny * 14));
+      kick();
+    };
+    const onLeave = () => {
+      targetX = 0;
+      targetY = 0;
+      kick();
+    };
+    hero.addEventListener("mousemove", onMove);
+    hero.addEventListener("mouseleave", onLeave);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      hero.removeEventListener("mousemove", onMove);
+      hero.removeEventListener("mouseleave", onLeave);
+      scene.style.transform = "";
+      if (shadow) shadow.style.transform = "";
+    };
+  }, [heroRef]);
+
+  return { tiltRef, shadowRef };
+}
+
 export default function Hero() {
   const [cutoutOk, setCutoutOk] = useState(true);
   const { heroRef, portraitRef, marqueeRef } = useHeroParallax();
+  const { tiltRef, shadowRef } = useHeroTilt(heroRef);
 
   return (
     <>
@@ -177,7 +259,21 @@ export default function Hero() {
             Cutout is full native resolution (1024x1536 rembg alpha-only);
             explicit width/height + aspect so the browser renders it at
             full quality (iteration 3, fix 4). */}
-        <div ref={portraitRef} className="absolute inset-x-0 bottom-0 flex h-[76%] justify-center lg:h-[93%]">
+        {/* 3D Tilt Hero scene (Variant A): the stage supplies the
+            perspective, the scene is what the mouse tilts, and each
+            depth layer sits at its approved translateZ. Every element
+            below keeps its original classes and coordinates — the
+            depth wrappers fill the hero, so absolute positions land
+            exactly where they did before. */}
+        <div className="hero-tilt-stage">
+          <div ref={tiltRef} className="hero-tilt-scene">
+            <div
+              aria-hidden="true"
+              ref={shadowRef}
+              className="hero-tilt-shadow"
+            />
+            <div className="hero-tilt-depth hero-tilt-depth-portrait">
+              <div ref={portraitRef} className="hero-tilt-float absolute inset-x-0 bottom-0 flex h-[76%] justify-center lg:h-[93%]">
           {cutoutOk && (
             <img
               src={photos.heroCutout.src}
@@ -191,6 +287,8 @@ export default function Hero() {
             />
           )}
         </div>
+            </div>
+            <div className="hero-tilt-depth hero-tilt-depth-marquee">
 
         {/* Name marquee (iteration 3, fix 1): lives in the BOTTOM band of
             the hero, sitting just above the hero's bottom edge with a ~3%
@@ -208,6 +306,8 @@ export default function Hero() {
             <MarqueeHalf />
           </div>
         </div>
+            </div>
+            <div className="hero-tilt-depth hero-tilt-depth-side">
 
         {/* Desktop side elements (mockup layout). Iteration 3, fix 2: the
             name band rose to show the full letters, so the "Located in
@@ -247,6 +347,9 @@ export default function Hero() {
           <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-forest/80">
             {hero.role}
           </p>
+        </div>
+            </div>
+          </div>
         </div>
       </section>
 
