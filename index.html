@@ -48,11 +48,8 @@
   </head>
   <body>
     <div id="root"></div>
-    <!-- Step 5 animation layer: Lenis smooth scroll via CDN (~10KB, same
-         version as the approved preview: lenis@1.1.14). This keeps the
-         site's own JS bundle delta at zero. If it fails to load,
-         smoothScroll.js silently falls back to native smooth scroll. -->
-    <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js" defer></script>
+    <!-- Lenis smooth scroll is bundled via npm (src/lib/smoothScroll.js) —
+         no CDN script, so behaviour no longer varies with CDN timing. -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
