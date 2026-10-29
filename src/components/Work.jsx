@@ -97,18 +97,23 @@ const PREVIEW_WIDTH = 392 + BADGE_OVERFLOW;
 const PREVIEW_HEIGHT = 245 + BADGE_OVERFLOW;
 
 // Place the card near (x, y) in viewport coordinates: right/below the
-// cursor by default, then clamped so the whole footprint (badge
-// included) stays at least PREVIEW_MARGIN inside the window. Edge
-// flipping (left/above) follows in the next commit.
+// cursor by default, flipped left/above when it would cross the right
+// or bottom edge, then clamped so the whole footprint (badge included)
+// stays at least PREVIEW_MARGIN inside the window.
 function previewPosition(x, y) {
   const minLeft = PREVIEW_MARGIN;
   const maxLeft = window.innerWidth - PREVIEW_MARGIN - PREVIEW_WIDTH;
+  // Element top = footprint top + badge overflow.
   const minTop = PREVIEW_MARGIN + BADGE_OVERFLOW;
   const maxTop =
     window.innerHeight - PREVIEW_MARGIN - PREVIEW_HEIGHT + BADGE_OVERFLOW;
+  let left = x + PREVIEW_GAP;
+  if (left > maxLeft) left = x - PREVIEW_GAP - PREVIEW_WIDTH;
+  let top = y + PREVIEW_GAP + BADGE_OVERFLOW;
+  if (top > maxTop) top = y - PREVIEW_GAP - PREVIEW_HEIGHT + BADGE_OVERFLOW;
   return {
-    left: Math.max(minLeft, Math.min(x + PREVIEW_GAP, maxLeft)),
-    top: Math.max(minTop, Math.min(y + PREVIEW_GAP + BADGE_OVERFLOW, maxTop)),
+    left: Math.max(minLeft, Math.min(left, maxLeft)),
+    top: Math.max(minTop, Math.min(top, maxTop)),
   };
 }
 
