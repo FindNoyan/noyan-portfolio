@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Single-page site: only the homepage is a real page. Section anchors
+       (#about, #services, #work, #contact) are not separate URLs. -->
+  <url>
+    <loc>https://findnoyan.me/</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
