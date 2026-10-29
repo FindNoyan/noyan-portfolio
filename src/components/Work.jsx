@@ -25,7 +25,7 @@ function useFinePointer() {
   return fine;
 }
 
-function ProjectRow({ project, index, onHover, onLeave }) {
+function ProjectRow({ project, index, onHover, onFocus, onLeave }) {
   const { label, href } = rowLink(project);
   const number = String(index + 1).padStart(2, "0");
   return (
@@ -34,8 +34,8 @@ function ProjectRow({ project, index, onHover, onLeave }) {
       target="_blank"
       rel="noreferrer"
       aria-label={`${project.name} — open ${label.toLowerCase()}`}
-      onMouseEnter={(e) => onHover(index, e.currentTarget)}
-      onFocus={(e) => onHover(index, e.currentTarget)}
+      onMouseEnter={(e) => onHover(index, e)}
+      onFocus={(e) => onFocus(index, e.currentTarget)}
       onMouseLeave={onLeave}
       onBlur={onLeave}
       className="focus-ring group relative block border-b border-forest/15 px-2 py-7 transition-colors duration-200 hover:bg-[#F3EDDD] sm:py-8 lg:rounded-md"
@@ -79,15 +79,46 @@ function ProjectRow({ project, index, onHover, onLeave }) {
   );
 }
 
-// Desktop-only floating preview that follows the hovered row. Absolutely
-// positioned over the list with pointer-events none — transform and
-// opacity only, so hovering never shifts page layout.
-function HoverPreview({ project, top, visible }) {
+// Cursor-following preview (Option 1, approved 2026-10-29). Fixed to the
+// viewport and placed near the cursor, so it appears wherever the user
+// hovers — including Cadence at the bottom of a scrolled page. This
+// replaces the old row-relative absolute positioning, which measured
+// against each row's own Reveal wrapper and always landed near the top
+// of the list. Pointer-events none, transform and opacity only, so
+// hovering never shifts page layout.
+const PREVIEW_GAP = 24;
+const PREVIEW_MARGIN = 16;
+// Image is 392 x 245 (16/10); the gold VIEW badge overflows 28px to the
+// right and 28px above it, so the full footprint is 420 wide and
+// 273 tall, starting 28px above the element's top edge. Clamp that
+// footprint, not just the image box, so the badge never clips either.
+const BADGE_OVERFLOW = 28;
+const PREVIEW_WIDTH = 392 + BADGE_OVERFLOW;
+const PREVIEW_HEIGHT = 245 + BADGE_OVERFLOW;
+
+// Place the card near (x, y) in viewport coordinates: right/below the
+// cursor by default, then clamped so the whole footprint (badge
+// included) stays at least PREVIEW_MARGIN inside the window. Edge
+// flipping (left/above) follows in the next commit.
+function previewPosition(x, y) {
+  const minLeft = PREVIEW_MARGIN;
+  const maxLeft = window.innerWidth - PREVIEW_MARGIN - PREVIEW_WIDTH;
+  const minTop = PREVIEW_MARGIN + BADGE_OVERFLOW;
+  const maxTop =
+    window.innerHeight - PREVIEW_MARGIN - PREVIEW_HEIGHT + BADGE_OVERFLOW;
+  return {
+    left: Math.max(minLeft, Math.min(x + PREVIEW_GAP, maxLeft)),
+    top: Math.max(minTop, Math.min(y + PREVIEW_GAP + BADGE_OVERFLOW, maxTop)),
+  };
+}
+
+function HoverPreview({ project, x, y, visible }) {
+  const { left, top } = previewPosition(x, y);
   return (
     <div
       aria-hidden="true"
-      style={{ top }}
-      className={`pointer-events-none absolute left-[52%] z-10 w-[392px] max-w-[42%] -translate-y-1/2 rotate-[1.5deg] transition-opacity duration-200 ${
+      style={{ left, top }}
+      className={`pointer-events-none fixed z-50 w-[392px] rotate-[1.5deg] transition-opacity duration-200 ${
         visible ? "opacity-100" : "opacity-0"
       }`}
     >
@@ -115,15 +146,35 @@ function HoverPreview({ project, top, visible }) {
 
 export default function Work() {
   const finePointer = useFinePointer();
-  const [hover, setHover] = useState({ index: -1, top: 0 });
+  // x/y are viewport (client) coordinates: the cursor while hovering,
+  // or the row centre for keyboard focus (which has no cursor).
+  const [hover, setHover] = useState({ index: -1, x: 0, y: 0 });
 
-  const handleHover = (index, el) => {
+  const handleHover = (index, e) => {
     if (!finePointer) return;
-    const list = el.parentElement;
-    const listTop = list ? list.getBoundingClientRect().top : 0;
-    const rect = el.getBoundingClientRect();
-    setHover({ index, top: rect.top - listTop + rect.height / 2 });
+    setHover({ index, x: e.clientX, y: e.clientY });
   };
+
+  // Keyboard focus has no cursor, so anchor the preview at the row
+  // centre; previewPosition still flips/clamps it inside the viewport.
+  const handleFocus = (index, el) => {
+    if (!finePointer) return;
+    const rect = el.getBoundingClientRect();
+    setHover({
+      index,
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2,
+    });
+  };
+
+  const handleMove = (e) => {
+    if (!finePointer) return;
+    setHover((h) =>
+      h.index >= 0 ? { ...h, x: e.clientX, y: e.clientY } : h,
+    );
+  };
+
+  const handleLeave = () => setHover((h) => ({ ...h, index: -1 }));
 
   const hovered = hover.index >= 0 ? projects[hover.index] : null;
 
@@ -143,18 +194,24 @@ export default function Work() {
         </p>
       </Reveal>
 
-      <div className="relative mt-10 border-t border-forest/15">
+      <div
+        className="relative mt-10 border-t border-forest/15"
+        onMouseMove={handleMove}
+        onMouseLeave={handleLeave}
+      >
         {/* Step 5: each work row gets its own Reveal so the list
             cascades as one unified system (matches the approved
-            preview's reveal demo). The relative wrapper stays for the
-            desktop hover preview, which is positioned against it. */}
+            preview's reveal demo). The preview itself is fixed to the
+            viewport and follows the cursor, so it is no longer
+            positioned against this list container. */}
         {projects.map((project, index) => (
           <Reveal key={project.name}>
             <ProjectRow
               project={project}
               index={index}
               onHover={handleHover}
-              onLeave={() => setHover((h) => ({ ...h, index: -1 }))}
+              onFocus={handleFocus}
+              onLeave={handleLeave}
             />
           </Reveal>
         ))}
@@ -162,7 +219,8 @@ export default function Work() {
         {finePointer && (
           <HoverPreview
             project={hovered}
-            top={hover.top}
+            x={hover.x}
+            y={hover.y}
             visible={hover.index >= 0}
           />
         )}
