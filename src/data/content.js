@@ -171,8 +171,11 @@ export const projects = [
   },
   {
     name: "Cadence",
-    status: "Code on GitHub",
+    status: "Live demo",
     category: "Landing Page",
+    // TODO (Issue #73): swap this GitHub-page screenshot for a live-site
+    // screenshot captured from https://cadence.findnoyan.me once a
+    // screenshot file export is available; the link above is already live.
     preview: {
       src: "/work/cadence.svg",
       alt: "Screenshot of the Cadence project page on GitHub",
@@ -191,6 +194,7 @@ export const projects = [
     ],
     tags: ["HTML", "Tailwind", "JS"],
     links: [
+      { label: "Live demo", href: "https://cadence.findnoyan.me" },
       { label: "Code", href: "https://github.com/FindNoyan/cadence-landing" },
     ],
   },
