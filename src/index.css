@@ -9,9 +9,12 @@ html {
   overflow-x: clip;
 }
 
-/* Keep anchored sections clear of the floating pill nav. */
+/* Keep anchored sections clear of the floating pill nav (Issue #73).
+   The pill sits 16px from the top and is about 56px tall, so its bottom
+   is near 72px; 140px leaves real clearance and matches the Lenis offset
+   in src/lib/smoothScroll.js. */
 section[id] {
-  scroll-margin-top: 120px;
+  scroll-margin-top: 140px;
 }
 
 body {
