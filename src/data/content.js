@@ -135,11 +135,11 @@ export const projects = [
       "Sign-up / log-in / log-out with Supabase Auth",
       "Per-user workflows, runs, and chat history tables with row-level security",
       "Dashboard reads real data from the database; demo data loads only on an explicit click",
-      "AI chatbot in progress — not yet shipped",
+      "AI chatbot shipped — answers questions from the user's own workflows and runs",
     ],
     tags: ["Next.js", "Supabase", "Tailwind"],
     links: [
-      { label: "Live demo", href: "https://autoflow-dashboard-eight.vercel.app/" },
+      { label: "Live demo", href: "https://autoflow.findnoyan.me" },
       { label: "Code", href: "https://github.com/FindNoyan/autoflow-dashboard" },
     ],
   },
@@ -171,11 +171,13 @@ export const projects = [
   },
   {
     name: "Cadence",
-    status: "Code on GitHub",
+    status: "Live demo",
     category: "Landing Page",
+    // Real screenshot captured from the live site at
+    // https://cadence.findnoyan.me (top of page, logged out).
     preview: {
       src: "/work/cadence.svg",
-      alt: "Screenshot of the Cadence project page on GitHub",
+      alt: "Screenshot of the live Cadence site",
       width: 1280,
       height: 800,
     },
@@ -191,7 +193,39 @@ export const projects = [
     ],
     tags: ["HTML", "Tailwind", "JS"],
     links: [
+      { label: "Live demo", href: "https://cadence.findnoyan.me" },
       { label: "Code", href: "https://github.com/FindNoyan/cadence-landing" },
+    ],
+  },
+  {
+    name: "LeadFlow",
+    status: "Live demo",
+    category: "Lead CRM",
+    // Real screenshot captured from the live site at
+    // https://leadflow.findnoyan.me (demo dashboard, logged out).
+    preview: {
+      src: "/work/leadflow.svg",
+      alt: "Screenshot of the live LeadFlow CRM demo dashboard",
+      width: 1280,
+      height: 800,
+    },
+    description:
+      "Lead CRM that keeps every lead, from first contact to won, in one pipeline, with an AI assistant that answers from the user's own leads and notes.",
+    problem:
+      "Leads live in scattered sheets and chats, so follow-ups slip and nobody can see which leads are actually worth chasing.",
+    solution:
+      "One pipeline for every lead, with Hot/Warm/Cold scoring, outreach drafts, and an AI assistant that answers only from the user's own leads and notes.",
+    built: [
+      "Sign-up / log-in with Supabase Auth; signed-in users manage their own leads",
+      "Lead pipeline with status stages and Hot/Warm/Cold scoring",
+      "AI assistant (RAG chatbot) that answers from the user's own leads and notes",
+      "Outreach draft generation for leads",
+      "Demo dashboard for logged-out visitors",
+    ],
+    tags: ["Next.js", "Supabase", "Gemini AI"],
+    links: [
+      { label: "Live demo", href: "https://leadflow.findnoyan.me" },
+      { label: "Code", href: "https://github.com/FindNoyan/leadflow-crm" },
     ],
   },
 ];
