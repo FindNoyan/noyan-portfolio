@@ -135,11 +135,11 @@ export const projects = [
       "Sign-up / log-in / log-out with Supabase Auth",
       "Per-user workflows, runs, and chat history tables with row-level security",
       "Dashboard reads real data from the database; demo data loads only on an explicit click",
-      "AI chatbot in progress — not yet shipped",
+      "AI chatbot shipped — answers questions from the user's own workflows and runs",
     ],
     tags: ["Next.js", "Supabase", "Tailwind"],
     links: [
-      { label: "Live demo", href: "https://autoflow-dashboard-eight.vercel.app/" },
+      { label: "Live demo", href: "https://autoflow.findnoyan.me" },
       { label: "Code", href: "https://github.com/FindNoyan/autoflow-dashboard" },
     ],
   },
