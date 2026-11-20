@@ -2,6 +2,7 @@ import { useState } from "react";
 import { contact, site } from "../data/content";
 import { validateContactForm } from "../lib/validateContact";
 import Reveal from "./Reveal";
+import Quiz from "./Quiz";
 
 // Step 4 redesign: Dennis-style contact layout matching the approved
 // mockups — eyebrow, serif heading block (email + Calendly) on the left,
@@ -28,6 +29,21 @@ export default function Contact() {
   const [sent, setSent] = useState(false);
   const [usedFallback, setUsedFallback] = useState(false);
   const [sending, setSending] = useState(false);
+  // Quiz-first flow (approved mockup, 2026-11-20): the visitor answers
+  // the 3-question quiz first; completing it (or skipping it) reveals
+  // the form below. The form itself is untouched — same validation,
+  // Web3Forms submit, mailto fallback, and fields.
+  const [quizDone, setQuizDone] = useState(false);
+
+  // Quiz completion prefills the form: project type from Q1, message
+  // from the three answers. The visitor can still edit both.
+  function handleQuizComplete({ projectType, message }) {
+    setValues({ name: "", email: "", projectType, message });
+    setErrors({});
+    setSent(false);
+    setUsedFallback(false);
+    setQuizDone(true);
+  }
 
   function update(field, value) {
     setValues((prev) => ({ ...prev, [field]: value }));
@@ -144,17 +160,19 @@ export default function Contact() {
           <p className="mt-3 text-sm text-muted">{contact.calendly.callNote}</p>
         </Reveal>
 
-        {/* Right: form card. Submission flow is untouched — same Web3Forms
-            submit, same env key, same mailto fallback, same "Sending..."
-            state, same fields/options/placeholder/note. Only the
-            card/container/label/input styling changed to match the mockup. */}
+        {/* Right: quiz first, then the form card. The FORM ITSELF IS
+            UNCHANGED: same state, validation, Web3Forms submit flow,
+            mailto fallback, "Sending..." disabled state, field names,
+            options, placeholder and note. The quiz only prefills the
+            project type + message (or is skipped). */}
         <Reveal delay={140}>
           <div
             aria-hidden="true"
             className="mb-10 border-t border-line lg:hidden"
           />
-          <div className="rounded-[20px] border border-line bg-white p-6 shadow-card sm:p-8">
-            <form
+          {quizDone ? (
+            <div className="rounded-[20px] border border-line bg-white p-6 shadow-card sm:p-8">
+              <form
               onSubmit={handleSubmit}
               noValidate
               className="space-y-5 text-left"
@@ -267,8 +285,23 @@ export default function Contact() {
                   instead. Press send there to deliver your message.
                 </p>
               )}
-            </form>
-          </div>
+              </form>
+              <p className="mt-4 text-center">
+                <button
+                  type="button"
+                  onClick={() => setQuizDone(false)}
+                  className="text-sm font-semibold text-emerald underline-offset-4 hover:underline focus-ring"
+                >
+                  Retake the quiz
+                </button>
+              </p>
+            </div>
+          ) : (
+            <Quiz
+              onComplete={handleQuizComplete}
+              onSkip={() => setQuizDone(true)}
+            />
+          )}
         </Reveal>
       </div>
     </section>

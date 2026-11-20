@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { projects } from "../data/content";
 import Reveal from "./Reveal";
+import CaseStudies from "./CaseStudies";
 
 // Row link label shown on the right side of each row. Source URLs come
 // from content.js only; these display labels match the approved mockups.
@@ -246,6 +247,10 @@ export default function Work() {
           </a>
         </div>
       </Reveal>
+
+      {/* Interactive case studies (approved mockup): tabbed panels using
+          the real project data from content.js. */}
+      <CaseStudies />
     </section>
   );
 }
