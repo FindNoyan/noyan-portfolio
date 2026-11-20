@@ -137,6 +137,10 @@ export const projects = [
       "Dashboard reads real data from the database; demo data loads only on an explicit click",
       "AI chatbot shipped — answers questions from the user's own workflows and runs",
     ],
+    // Honest outcome line for the case-study panel: current live status,
+    // no metrics, no clients named.
+    outcome:
+      "Live now — sign up and watch your own workflows and runs, with the chatbot answering from your own data.",
     tags: ["Next.js", "Supabase", "Tailwind"],
     links: [
       { label: "Live demo", href: "https://autoflow.findnoyan.me" },
@@ -164,6 +168,8 @@ export const projects = [
       "Task descriptions and validation errors shown on the board",
       "Due-date handling on tasks",
     ],
+    outcome:
+      "Code on GitHub — boards, tasks, due dates and drag-and-drop, covered by feature tests.",
     tags: ["Laravel", "Blade", "SQLite"],
     links: [
       { label: "Code", href: "https://github.com/FindNoyan/tasklane-app" },
@@ -191,6 +197,8 @@ export const projects = [
       "Signup form with inline validation, error states, and success state",
       "Accessible form styles with visible focus states",
     ],
+    outcome:
+      "Live now — a fast landing page with a signup form, FAQ and pricing.",
     tags: ["HTML", "Tailwind", "JS"],
     links: [
       { label: "Live demo", href: "https://cadence.findnoyan.me" },
@@ -222,6 +230,8 @@ export const projects = [
       "Outreach draft generation for leads",
       "Demo dashboard for logged-out visitors",
     ],
+    outcome:
+      "Live now — sign up and manage your own leads, with Hot/Warm/Cold scoring and the AI assistant.",
     tags: ["Next.js", "Supabase", "Gemini AI"],
     links: [
       { label: "Live demo", href: "https://leadflow.findnoyan.me" },
@@ -229,6 +239,128 @@ export const projects = [
     ],
   },
 ];
+
+// Project-fit quiz (replaces the plain contact form as the first step of
+// the contact section, per the approved mockup). Q1 maps to one of the
+// three real services; Q2/Q3 only shape the summary. The result hands
+// the visitor to the existing contact form with the answers prefilled.
+export const quiz = {
+  heading: "Find the right solution in 30 seconds.",
+  sub: "Three quick questions — then tell me about your project and I'll get back to you within a day.",
+  skipLabel: "Skip the quiz — go straight to the form",
+  backLabel: "Back",
+  resultHeading: "Your match",
+  resultIntro:
+    "Based on your answers, this is the best fit. Your answers are copied into the contact form on the next step — you can edit them there.",
+  copyLabel: "Copy my answers",
+  copiedLabel: "Copied",
+  continueLabel: "Continue to the contact form",
+  restartLabel: "Start over",
+  bookLabel: "Or book a call instead",
+  questions: [
+    {
+      id: "need",
+      question: "What do you need most?",
+      options: [
+        {
+          label: "Automate repetitive work",
+          service: "AI Chatbots & Automation",
+          projectType: "AI Chatbot / Automation",
+        },
+        {
+          label: "A chatbot for customers",
+          service: "AI Chatbots & Automation",
+          projectType: "AI Chatbot / Automation",
+        },
+        {
+          label: "A new website or web app",
+          service: "Web Solutions",
+          projectType: "Web App / Website",
+        },
+        {
+          label: "More leads and clients",
+          service: "Lead Generation",
+          projectType: "Lead Generation",
+        },
+      ],
+    },
+    {
+      id: "starting",
+      question: "Where are you starting from?",
+      options: [
+        { label: "From scratch" },
+        { label: "Improve what I have" },
+        { label: "Just exploring" },
+      ],
+    },
+    {
+      id: "timeline",
+      question: "How soon do you want to start?",
+      options: [
+        { label: "This week" },
+        { label: "This month" },
+        { label: "Just exploring" },
+      ],
+    },
+  ],
+};
+
+// Runnable product demos (replaces static screenshots, per the approved
+// mockup). Both are simulations over demo data — labelled as such on the
+// page — with a link to the real live product. No invented metrics,
+// prices, or timelines anywhere in the demo copy.
+export const demos = {
+  heading: "Try it before you commit.",
+  sub: "Two small runnable demos — simulated with demo data, so you can see how the products feel. The real apps are one click away.",
+  autoflow: {
+    name: "AutoFlow",
+    blurb:
+      "Run a demo workflow and watch each step land in the log.",
+    note: "Simulated run — demo data, not your real workflows.",
+    runLabel: "Run demo workflow",
+    runAgainLabel: "Run it again",
+    runningLabel: "Running…",
+    doneLabel: "Run completed — 6/6 steps succeeded",
+    steps: [
+      "Load demo workspace",
+      "Run: New lead → CRM sync",
+      "Check run status",
+      "Run: Order fulfillment webhook",
+      "Collect results",
+      "Update dashboard",
+    ],
+    liveLabel: "Try the live demo",
+    liveHref: "https://autoflow.findnoyan.me",
+  },
+  leadflow: {
+    name: "LeadFlow",
+    blurb:
+      "Ask the demo assistant about services, timelines, pricing, or how to start.",
+    note: "Demo answers — from demo data, not from Gemini.",
+    placeholder: "Ask about services, timelines, pricing…",
+    sendLabel: "Send",
+    suggestions: [
+      "What services do you offer?",
+      "How long does a dashboard take?",
+      "How much does it cost?",
+      "How do I start?",
+    ],
+    answers: {
+      services:
+        "Three services: AI Chatbots & Automation, Web Solutions, and Lead Generation. Take the quiz above and I'll point you to the right one.",
+      timeline:
+        "Timelines depend on scope. A first version is usually scoped on a short intro call — book a call and we'll map out yours.",
+      pricing:
+        "Pricing depends on scope — there is no fixed price list. Book a call and you'll get a quote for your project.",
+      start:
+        "Take the quiz on this page, or book a call. Either way we start with your goal, not a sales pitch.",
+    },
+    fallback:
+      "I can answer questions about services, timelines, pricing, or how to start — try one of the suggestions above.",
+    liveLabel: "Try the live demo",
+    liveHref: "https://leadflow.findnoyan.me",
+  },
+};
 
 export const contact = {
   heading: "Let’s build something.",
